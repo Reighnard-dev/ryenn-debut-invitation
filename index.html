@@ -9,7 +9,7 @@
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Cinzel:wght@400;600;700;900&family=Great+Vibes&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Cinzel:ital,wght@0,400;0,600;0,700;0,800;1,400&family=Great+Vibes&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Canvas Confetti -->
@@ -20,22 +20,26 @@
             theme: {
                 extend: {
                     colors: {
-                        rosered: {
+                        burgundy: {
                             50: '#fdf2f4',
                             100: '#fbe5e8',
                             200: '#f8cbd2',
                             500: '#be123c',
-                            700: '#800a10', // Deep Crimson Rose
-                            800: '#5c0017',
-                            900: '#38000d',
+                            700: '#720917', 
+                            800: '#52040e',
+                            900: '#380008',
+                        },
+                        cream: {
+                            DEFAULT: '#FFFDF8',
+                            soft: '#FFF7EC',
+                            card: '#FCF8F2'
                         },
                         gold: {
-                            light: '#F4EA05',
+                            light: '#FFF0AC',
                             DEFAULT: '#D4AF37',
-                            dark: '#AA7C11',
-                            shimmer: '#FFF2C6'
-                        },
-                        velvet: '#1a0208'
+                            dark: '#A37E1C',
+                            shimmer: '#FFE58F'
+                        }
                     },
                     fontFamily: {
                         serif: ['Cinzel', 'serif'],
@@ -49,57 +53,84 @@
     </script>
 
     <style>
-        /* Custom Styling & Scroll-Opening Animations */
         body {
-            background-color: #120105;
-            color: #fdf2f4;
+            background-color: #380008;
+            color: #52040e;
             font-family: 'Montserrat', sans-serif;
             overflow-x: hidden;
         }
 
-        .gold-gradient-text {
-            background: linear-gradient(135deg, #FFE8A3 0%, #D4AF37 50%, #AA7C11 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .gold-border {
-            border-image: linear-gradient(to bottom right, #FFE8A3, #D4AF37, #AA7C11) 1;
-        }
-
-        /* Glassmorphism Card */
-        .glass-card {
-            background: rgba(45, 4, 14, 0.85);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(212, 175, 55, 0.3);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
+        /* Gold Foil Double Border Styling */
+        .gold-framed-box {
+            background-color: #FFFDF8;
+            border: 2px solid #D4AF37;
+            outline: 1px solid #A37E1C;
+            outline-offset: -6px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
         }
 
         /* Royal Floral Corner Accents */
-        .floral-corner-tl {
+        .floral-bg-tl {
             position: absolute;
-            top: -10px;
-            left: -10px;
-            width: 100px;
-            height: 100px;
-            background: radial-gradient(circle at top left, rgba(190, 18, 60, 0.4), transparent 70%);
+            top: 0;
+            left: 0;
+            width: 140px;
+            height: 140px;
+            background-image: radial-gradient(circle at top left, rgba(114, 9, 23, 0.15), transparent 70%);
             pointer-events: none;
         }
 
-        /* Unrolling Scroll Overlay Animation */
-        #scroll-overlay {
-            transition: opacity 1.2s ease-in-out, visibility 1.2s;
+        .floral-bg-br {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 140px;
+            height: 140px;
+            background-image: radial-gradient(circle at bottom right, rgba(114, 9, 23, 0.15), transparent 70%);
+            pointer-events: none;
         }
 
-        .scroll-tube {
-            box-shadow: inset 0 0 20px rgba(0,0,0,0.8), 0 10px 25px rgba(0,0,0,0.9);
+        /* GLOWING UNROLL BUTTON ANIMATION */
+        @keyframes pulse-glow {
+            0%, 100% {
+                box-shadow: 0 0 15px #D4AF37, 0 0 30px rgba(212, 175, 55, 0.6), inset 0 0 10px #FFE58F;
+                transform: scale(1);
+            }
+            50% {
+                box-shadow: 0 0 25px #FFE58F, 0 0 50px rgba(255, 229, 143, 0.9), inset 0 0 15px #FFF;
+                transform: scale(1.05);
+            }
+        }
+
+        .btn-glowing {
+            animation: pulse-glow 2s infinite ease-in-out;
+        }
+
+        /* REALISTIC SCROLL UNROLL ANIMATION */
+        #scroll-overlay {
+            transition: opacity 1s ease-in-out, visibility 1s;
+        }
+
+        .scroll-rod {
+            background: linear-gradient(90deg, #52040e 0%, #A37E1C 20%, #D4AF37 50%, #A37E1C 80%, #52040e 100%);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.7);
+        }
+
+        .scroll-unroll-container {
+            max-height: 80px;
+            transition: max-height 1.4s cubic-bezier(0.25, 1, 0.5, 1);
+            overflow: hidden;
+        }
+
+        .scroll-unroll-container.unrolled {
+            max-height: 650px;
         }
 
         /* Smooth Tab Transitions */
         .tab-content {
             display: none;
             opacity: 0;
-            transform: translateY(12px);
+            transform: translateY(10px);
             transition: opacity 0.4s ease, transform 0.4s ease;
         }
 
@@ -111,9 +142,10 @@
 
         /* Navigation Tab Active Indicator */
         .nav-btn.active-tab {
-            color: #D4AF37;
-            border-bottom: 2px solid #D4AF37;
-            background: rgba(212, 175, 55, 0.1);
+            color: #720917;
+            border-bottom: 3px solid #720917;
+            background: #FFF7EC;
+            font-weight: 700;
         }
 
         /* Custom Scrollbar */
@@ -121,212 +153,214 @@
             width: 6px;
         }
         ::-webkit-scrollbar-track {
-            background: #120105;
+            background: #FFFDF8;
         }
         ::-webkit-scrollbar-thumb {
-            background: #be123c;
+            background: #720917;
             border-radius: 3px;
         }
     </style>
 </head>
-<body class="min-h-screen flex flex-col justify-between relative bg-cover bg-center bg-fixed" style="background-image: radial-gradient(circle at center, rgba(30, 2, 9, 0.85) 0%, rgba(10, 0, 3, 0.98) 100%);">
+<body class="min-h-screen flex flex-col justify-between relative bg-cover bg-center bg-fixed" style="background-image: radial-gradient(circle at center, rgba(82, 4, 14, 0.9) 0%, rgba(30, 0, 5, 0.98) 100%);">
 
-    <!-- Background Audio (Renamed to bg-music.mp3) -->
-    <audio id="bg-music" loop preload="auto" src="bg-music.mp3"></audio>
+    <!-- Background Audio -->
+    <audio id="bg-music" loop preload="auto">
+        <source src="bg-music.mp3" type="audio/mpeg">
+        <source src="https://raw.githubusercontent.com/Reighnard-dev/ryenn-debut-invitation/main/bg-music.mp3" type="audio/mpeg">
+    </audio>
 
-    <!-- UNROLLING SCROLL INVITATION OVERLAY -->
+    <!-- REALISTIC SCROLL INVITATION OVERLAY -->
     <div id="scroll-overlay" class="fixed inset-0 z-50 flex items-center justify-center bg-black/95 p-4">
-        <div class="text-center max-w-md w-full relative flex flex-col items-center">
+        <div class="text-center max-w-lg w-full relative flex flex-col items-center">
             
-            <!-- Top Wooden/Gold Scroll Handle -->
-            <div class="scroll-tube w-full h-8 bg-gradient-to-r from-amber-800 via-amber-600 to-amber-900 rounded-full border border-gold/50 flex items-center justify-between px-3">
-                <div class="w-4 h-4 rounded-full bg-gold shadow-md"></div>
-                <span class="text-[10px] font-serif uppercase tracking-widest text-gold-shimmer">Royal Invitation</span>
-                <div class="w-4 h-4 rounded-full bg-gold shadow-md"></div>
+            <!-- Top Wooden/Gold Scroll Handle Rod -->
+            <div id="top-rod" class="scroll-rod w-full h-7 rounded-full border border-gold flex items-center justify-between px-3 z-20">
+                <div class="w-4 h-4 rounded-full bg-gold-shimmer border border-burgundy-900 shadow"></div>
+                <span class="text-[10px] font-serif uppercase tracking-[0.3em] text-burgundy-900 font-bold">Royal Invitation</span>
+                <div class="w-4 h-4 rounded-full bg-gold-shimmer border border-burgundy-900 shadow"></div>
             </div>
 
-            <!-- Parchment / Scroll Body -->
-            <div id="scroll-body" class="w-[92%] bg-gradient-to-b from-[#2d040e] via-[#420615] to-[#2d040e] border-x-2 border-gold/40 p-6 my-[-4px] shadow-2xl rounded-sm text-center relative overflow-hidden">
-                <div class="floral-corner-tl"></div>
+            <!-- Scroll Paper Body -->
+            <div id="scroll-body" class="scroll-unroll-container w-[92%] bg-cream border-x-2 border-gold p-6 text-center relative shadow-2xl my-[-2px]">
+                <div class="floral-bg-tl"></div>
+                <div class="floral-bg-br"></div>
                 
-                <p class="font-serif text-xs uppercase tracking-[0.3em] text-gold/80 mb-2">You Are Cordially Invited To</p>
-                <h1 class="font-script text-5xl md:text-6xl text-gold-shimmer my-2 drop-shadow-md">Ryenn's</h1>
-                <p class="font-serif text-sm tracking-widest text-rosered-200 mb-4">18TH BIRTHDAY CELEBRATION</p>
-                
-                <div class="w-16 h-0.5 bg-gold/50 mx-auto my-3"></div>
+                <!-- Floral Header Graphic -->
+                <div class="text-burgundy-700 text-3xl mb-1">
+                    <i class="fa-solid fa-fan"></i>
+                </div>
 
-                <p class="font-serif text-xs italic text-gray-300 mb-6">
+                <p class="font-serif text-xs uppercase tracking-[0.3em] text-burgundy-700 font-semibold mb-1">You Are Cordially Invited To</p>
+                <h1 class="font-script text-6xl text-burgundy-700 my-1">Ryenn's</h1>
+                <p class="font-serif text-xs tracking-widest text-burgundy-800 font-bold uppercase mb-4">18th Birthday Debut</p>
+                
+                <div class="w-20 h-0.5 bg-gold mx-auto my-2"></div>
+
+                <p class="font-serif text-xs italic text-burgundy-900 my-4 px-4 leading-relaxed">
                     "As we celebrate a new chapter of grace and womanhood"
                 </p>
 
-                <!-- Seal / Unroll Trigger Button -->
-                <button onclick="openScrollInvitation()" class="group relative inline-flex items-center gap-3 px-8 py-3 bg-gradient-to-r from-rosered-800 via-rosered-700 to-rosered-900 text-gold font-serif text-sm font-semibold tracking-wider uppercase rounded-full border border-gold/60 shadow-lg hover:scale-105 transition-all duration-300">
-                    <i class="fa-solid fa-envelope-open-text text-gold text-lg group-hover:rotate-12 transition-transform"></i>
-                    <span>Unroll Invitation</span>
-                </button>
+                <!-- Eye-Catching Glowing Unroll Seal Button -->
+                <div class="my-6">
+                    <button onclick="openScrollInvitation()" class="btn-glowing px-8 py-3 bg-gradient-to-r from-burgundy-800 via-burgundy-700 to-burgundy-900 text-gold-light font-serif text-xs font-bold tracking-widest uppercase rounded-full border-2 border-gold shadow-2xl hover:scale-110 transition-transform duration-300">
+                        <i class="fa-solid fa-envelope-open-text text-gold mr-2 text-sm"></i>
+                        <span>Unroll Invitation</span>
+                    </button>
+                </div>
             </div>
 
-            <!-- Bottom Wooden/Gold Scroll Handle -->
-            <div class="scroll-tube w-full h-8 bg-gradient-to-r from-amber-800 via-amber-600 to-amber-900 rounded-full border border-gold/50 flex items-center justify-between px-3">
-                <div class="w-4 h-4 rounded-full bg-gold shadow-md"></div>
-                <div class="w-4 h-4 rounded-full bg-gold shadow-md"></div>
+            <!-- Bottom Wooden/Gold Scroll Handle Rod -->
+            <div id="bottom-rod" class="scroll-rod w-full h-7 rounded-full border border-gold flex items-center justify-between px-3 z-20">
+                <div class="w-4 h-4 rounded-full bg-gold-shimmer border border-burgundy-900 shadow"></div>
+                <div class="w-4 h-4 rounded-full bg-gold-shimmer border border-burgundy-900 shadow"></div>
             </div>
 
         </div>
     </div>
 
     <!-- MAIN APP HEADER -->
-    <header class="w-full py-4 px-6 glass-card border-b border-gold/30 sticky top-0 z-40 flex items-center justify-between">
-        <div class="flex items-center gap-3">
-            <span class="font-script text-3xl text-gold-shimmer">Ryenn @ 18</span>
+    <header class="w-full py-3 px-6 bg-cream border-b-2 border-gold sticky top-0 z-40 flex items-center justify-between shadow-md">
+        <div class="flex items-center gap-2">
+            <span class="font-script text-3xl text-burgundy-700 font-bold">Ryenn @ 18</span>
         </div>
 
         <!-- Audio Toggle Control -->
-        <button id="music-toggle" onclick="toggleAudio()" class="flex items-center gap-2 px-3 py-1.5 rounded-full bg-rosered-900/80 border border-gold/40 text-gold text-xs font-serif hover:bg-rosered-800 transition">
+        <button id="music-toggle" onclick="toggleAudio()" class="flex items-center gap-2 px-4 py-1.5 rounded-full bg-burgundy-700 border border-gold text-gold-light text-xs font-serif font-bold hover:bg-burgundy-800 transition">
             <i id="music-icon" class="fa-solid fa-music text-gold"></i>
             <span id="music-text">Play Music</span>
         </button>
     </header>
 
-    <!-- TOP INTERACTIVE NAVIGATION MENU (NO SCROLLING) -->
-    <nav class="w-full glass-card border-b border-gold/20 sticky top-[65px] z-30">
-        <div class="max-w-4xl mx-auto flex items-center justify-around overflow-x-auto py-2 px-2 text-xs font-serif uppercase tracking-wider text-gray-300">
-            <button onclick="switchTab('tab-invitation', this)" class="nav-btn active-tab px-3 py-2 rounded-md transition flex items-center gap-2 whitespace-nowrap">
-                <i class="fa-solid fa-crown text-gold"></i>
+    <!-- TOP TABBED NAVIGATION MENU (NO SCROLLING) -->
+    <nav class="w-full bg-cream border-b border-gold/40 sticky top-[57px] z-30 shadow-sm">
+        <div class="max-w-4xl mx-auto flex items-center justify-around overflow-x-auto py-1.5 px-2 text-xs font-serif uppercase tracking-wider text-burgundy-800">
+            <button onclick="switchTab('tab-invitation', this)" class="nav-btn active-tab px-4 py-2 rounded-md transition flex items-center gap-2 whitespace-nowrap">
+                <i class="fa-solid fa-crown text-burgundy-700"></i>
                 <span>Invitation</span>
             </button>
-            <button onclick="switchTab('tab-details', this)" class="nav-btn px-3 py-2 rounded-md transition flex items-center gap-2 whitespace-nowrap">
-                <i class="fa-solid fa-calendar-day text-gold"></i>
+            <button onclick="switchTab('tab-details', this)" class="nav-btn px-4 py-2 rounded-md transition flex items-center gap-2 whitespace-nowrap">
+                <i class="fa-solid fa-calendar-day text-burgundy-700"></i>
                 <span>Details & Map</span>
             </button>
-            <button onclick="switchTab('tab-program', this)" class="nav-btn px-3 py-2 rounded-md transition flex items-center gap-2 whitespace-nowrap">
-                <i class="fa-solid fa-list-ol text-gold"></i>
+            <button onclick="switchTab('tab-program', this)" class="nav-btn px-4 py-2 rounded-md transition flex items-center gap-2 whitespace-nowrap">
+                <i class="fa-solid fa-list-ol text-burgundy-700"></i>
                 <span>The 18s</span>
             </button>
-            <button onclick="switchTab('tab-gallery', this)" class="nav-btn px-3 py-2 rounded-md transition flex items-center gap-2 whitespace-nowrap">
-                <i class="fa-solid fa-images text-gold"></i>
+            <button onclick="switchTab('tab-gallery', this)" class="nav-btn px-4 py-2 rounded-md transition flex items-center gap-2 whitespace-nowrap">
+                <i class="fa-solid fa-images text-burgundy-700"></i>
                 <span>Gallery</span>
             </button>
-            <button onclick="switchTab('tab-guestbook', this)" class="nav-btn px-3 py-2 rounded-md transition flex items-center gap-2 whitespace-nowrap">
-                <i class="fa-solid fa-heart text-gold"></i>
+            <button onclick="switchTab('tab-guestbook', this)" class="nav-btn px-4 py-2 rounded-md transition flex items-center gap-2 whitespace-nowrap">
+                <i class="fa-solid fa-heart text-burgundy-700"></i>
                 <span>Guestbook</span>
             </button>
         </div>
     </nav>
 
-    <!-- MAIN INTERACTIVE CONTENT AREA CONTAINER -->
-    <main class="max-w-4xl mx-auto w-full px-4 py-8 flex-grow">
+    <!-- MAIN CARD CONTAINER (MATCHING SAMPLE INVITATION DESIGN) -->
+    <main class="max-w-3xl mx-auto w-full px-4 py-8 flex-grow">
 
-        <!-- 1. INVITATION TAB CONTENT -->
+        <!-- 1. INVITATION CARD TAB -->
         <section id="tab-invitation" class="tab-content active">
-            <div class="glass-card rounded-2xl p-6 md:p-10 border border-gold/40 text-center relative overflow-hidden">
-                <div class="floral-corner-tl"></div>
+            <div class="gold-framed-box rounded-xl p-6 md:p-10 text-center relative overflow-hidden">
+                <div class="floral-bg-tl"></div>
+                <div class="floral-bg-br"></div>
 
-                <span class="font-serif text-xs uppercase tracking-[0.3em] text-gold/80">Join Us For</span>
-                
-                <!-- Main Portrait -->
-                <div class="my-6 relative inline-block">
-                    <div class="w-48 h-64 md:w-56 md:h-72 mx-auto rounded-2xl overflow-hidden border-2 border-gold/60 p-1 bg-rosered-900 shadow-2xl">
-                        <img src="Nikki1.png" alt="Ryenn" class="w-full h-full object-cover rounded-xl hover:scale-105 transition-transform duration-500">
-                    </div>
-                    <div class="absolute -bottom-3 left-1/2 -translate-x-1/2 bg-rosered-900 border border-gold px-4 py-1 rounded-full shadow-lg">
-                        <span class="font-serif text-xs text-gold uppercase tracking-widest">Grand Debutante</span>
+                <!-- Floral Top Graphic -->
+                <div class="text-burgundy-700 text-3xl mb-1">
+                    <i class="fa-solid fa-rose"></i>
+                </div>
+
+                <p class="font-script text-3xl md:text-4xl text-burgundy-700 my-1">Join Us!</p>
+
+                <!-- Big 18 Graphic -->
+                <div class="my-2 relative flex items-center justify-center">
+                    <span class="font-serif text-8xl md:text-9xl font-extrabold text-transparent bg-clip-text bg-gradient-to-b from-burgundy-700 to-burgundy-900 opacity-20">18</span>
+                    <span class="absolute font-script text-5xl md:text-6xl text-burgundy-700 font-bold tracking-widest">eighteen</span>
+                </div>
+
+                <p class="font-serif text-xs md:text-sm tracking-widest text-burgundy-900 uppercase font-semibold max-w-md mx-auto my-3">
+                    As we celebrate a new chapter of grace and womanhood with
+                </p>
+
+                <!-- Celebrant Name -->
+                <h1 class="font-script text-6xl md:text-7xl text-burgundy-700 font-bold my-1">Ryenn</h1>
+
+                <!-- Portrait Frame -->
+                <div class="my-6 inline-block relative">
+                    <div class="w-44 h-60 md:w-52 md:h-68 rounded-xl overflow-hidden border-2 border-gold p-1 bg-cream shadow-xl">
+                        <img src="Nikki1.png" alt="Ryenn" class="w-full h-full object-cover rounded-lg">
                     </div>
                 </div>
 
-                <h1 class="font-script text-6xl md:text-7xl text-gold-shimmer my-2">Ryenn</h1>
-                
-                <p class="font-serif text-sm tracking-widest text-rosered-100 max-w-md mx-auto my-4">
-                    "AS WE CELEBRATE A NEW CHAPTER OF GRACE AND WOMANHOOD"
-                </p>
-
-                <!-- Date Showcase -->
-                <div class="my-8 flex items-center justify-center gap-4 border-y border-gold/30 py-4 max-w-md mx-auto">
-                    <div>
-                        <p class="font-serif text-xs text-gold uppercase tracking-wider">Saturday</p>
+                <!-- Date Breakdown Block (Matching Sample) -->
+                <div class="my-6 border-y-2 border-gold py-4 max-w-md mx-auto flex items-center justify-center gap-6">
+                    <p class="font-serif text-xs md:text-sm uppercase tracking-widest text-burgundy-800 font-bold">NOVEMBER</p>
+                    <div class="px-4 border-x-2 border-burgundy-700">
+                        <p class="font-serif text-xs uppercase tracking-wider text-burgundy-700">SATURDAY</p>
+                        <p class="font-serif text-4xl font-extrabold text-burgundy-700">21</p>
+                        <p class="font-serif text-xs uppercase tracking-wider text-burgundy-700">2026</p>
                     </div>
-                    <div class="text-3xl font-serif font-bold text-gold-shimmer px-4 border-x border-gold/40">
-                        NOV 21
-                    </div>
-                    <div>
-                        <p class="font-serif text-xs text-gold uppercase tracking-wider">2026 @ 6:00 PM</p>
-                    </div>
+                    <p class="font-serif text-xs md:text-sm uppercase tracking-widest text-burgundy-800 font-bold">AT 06:00 PM</p>
                 </div>
 
-                <p class="font-serif text-sm text-gray-200">
-                    <i class="fa-solid fa-location-dot text-gold mr-2"></i>
-                    <strong>Angela's Resort and Leisure Farm</strong><br>
-                    <span class="text-xs text-gray-400">Putol, Brgy. San Lucas 2, San Pablo City, Philippines</span>
-                </p>
-
-                <div class="mt-8">
-                    <button onclick="switchTab('tab-details', document.querySelectorAll('.nav-btn')[1])" class="px-6 py-2.5 bg-gradient-to-r from-rosered-700 to-rosered-900 border border-gold text-gold font-serif text-xs uppercase tracking-widest rounded-full hover:brightness-125 transition">
-                        View Venue Details & Dress Code &rarr;
-                    </button>
+                <!-- Venue Info -->
+                <div class="mt-4 text-burgundy-900">
+                    <p class="font-serif font-bold text-base md:text-lg uppercase tracking-wider text-burgundy-700">ANGELA'S RESORT AND LEISURE FARM</p>
+                    <p class="font-sans text-xs text-gray-700 mt-1">Putol, Brgy. San Lucas 2, San Pablo City, Philippines, 4000</p>
                 </div>
             </div>
         </section>
 
-        <!-- 2. DETAILS & MAP TAB CONTENT -->
+        <!-- 2. DETAILS & MAP TAB -->
         <section id="tab-details" class="tab-content">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <!-- Venue & Time -->
-                <div class="glass-card rounded-2xl p-6 border border-gold/30">
-                    <div class="flex items-center gap-3 mb-4">
-                        <i class="fa-solid fa-champagne-glasses text-gold text-2xl"></i>
-                        <h2 class="font-serif text-lg text-gold font-bold uppercase tracking-wider">Event Schedule</h2>
-                    </div>
-                    <ul class="space-y-3 text-sm text-gray-200 border-l border-gold/30 pl-4">
-                        <li>
-                            <strong class="text-gold">5:30 PM:</strong> Guest Arrival & Registration
-                        </li>
-                        <li>
-                            <strong class="text-gold">6:00 PM:</strong> Grand Entrance & Debut Program
-                        </li>
-                        <li>
-                            <strong class="text-gold">7:30 PM:</strong> Dinner & 18 Ceremonies
-                        </li>
-                        <li>
-                            <strong class="text-gold">9:00 PM:</strong> Party & Socials
-                        </li>
+                <!-- Schedule -->
+                <div class="gold-framed-box rounded-xl p-6">
+                    <h2 class="font-serif text-base text-burgundy-700 font-bold uppercase tracking-wider border-b border-gold pb-2 mb-4">
+                        <i class="fa-solid fa-clock text-gold mr-2"></i> Event Schedule
+                    </h2>
+                    <ul class="space-y-3 text-xs text-burgundy-900">
+                        <li><strong class="text-burgundy-700">5:30 PM:</strong> Guest Arrival & Registration</li>
+                        <li><strong class="text-burgundy-700">6:00 PM:</strong> Grand Entrance & Program</li>
+                        <li><strong class="text-burgundy-700">7:30 PM:</strong> Dinner & 18 Ceremonies</li>
+                        <li><strong class="text-burgundy-700">9:00 PM:</strong> Party & Celebration</li>
                     </ul>
                 </div>
 
                 <!-- Dress Code -->
-                <div class="glass-card rounded-2xl p-6 border border-gold/30">
-                    <div class="flex items-center gap-3 mb-4">
-                        <i class="fa-solid fa-user-tie text-gold text-2xl"></i>
-                        <h2 class="font-serif text-lg text-gold font-bold uppercase tracking-wider">Dress Code</h2>
-                    </div>
-                    <p class="text-sm text-gray-300 mb-3"><strong>Formal / Modern Elegance:</strong></p>
-                    <div class="flex items-center gap-3 text-xs text-gray-200 bg-rosered-900/60 p-3 rounded-lg border border-gold/20 mb-3">
-                        <div class="w-5 h-5 rounded-full bg-rosered-700 border border-gold"></div>
+                <div class="gold-framed-box rounded-xl p-6">
+                    <h2 class="font-serif text-base text-burgundy-700 font-bold uppercase tracking-wider border-b border-gold pb-2 mb-4">
+                        <i class="fa-solid fa-user-tie text-gold mr-2"></i> Dress Code
+                    </h2>
+                    <p class="text-xs text-burgundy-900 mb-3"><strong>Formal / Modern Elegance:</strong></p>
+                    <div class="flex items-center gap-3 text-xs bg-burgundy-50 p-2.5 rounded-lg border border-burgundy-200 mb-2">
+                        <div class="w-4 h-4 rounded-full bg-burgundy-700"></div>
                         <span><strong>Ladies:</strong> Long Gowns / Elegant Dresses (Rose Red / Burgundy accent)</span>
                     </div>
-                    <div class="flex items-center gap-3 text-xs text-gray-200 bg-rosered-900/60 p-3 rounded-lg border border-gold/20">
-                        <div class="w-5 h-5 rounded-full bg-black border border-gold"></div>
-                        <span><strong>Gentlemen:</strong> Suits or Black / Dark Formal Attire</span>
+                    <div class="flex items-center gap-3 text-xs bg-burgundy-50 p-2.5 rounded-lg border border-burgundy-200">
+                        <div class="w-4 h-4 rounded-full bg-black"></div>
+                        <span><strong>Gentlemen:</strong> Suits or Dark Formal Attire</span>
                     </div>
                 </div>
 
-                <!-- Google Map Placeholder Card -->
-                <div class="glass-card rounded-2xl p-6 border border-gold/30 md:col-span-2">
-                    <div class="flex items-center justify-between mb-4">
-                        <div class="flex items-center gap-3">
-                            <i class="fa-solid fa-map-location-dot text-gold text-2xl"></i>
-                            <h2 class="font-serif text-lg text-gold font-bold uppercase tracking-wider">Venue Location</h2>
-                        </div>
-                        <a href="https://maps.google.com/?q=Angela's+Resort+and+Leisure+Farm+San+Pablo+City" target="_blank" class="text-xs text-gold hover:underline flex items-center gap-1">
-                            Open in Google Maps <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                <!-- Google Map Card -->
+                <div class="gold-framed-box rounded-xl p-6 md:col-span-2">
+                    <div class="flex items-center justify-between mb-3">
+                        <h2 class="font-serif text-base text-burgundy-700 font-bold uppercase tracking-wider">
+                            <i class="fa-solid fa-map-location-dot text-gold mr-2"></i> Venue Map
+                        </h2>
+                        <a href="https://maps.google.com/?q=Angela's+Resort+and+Leisure+Farm+San+Pablo+City" target="_blank" class="text-xs text-burgundy-700 font-bold hover:underline">
+                            Open in Google Maps &rarr;
                         </a>
                     </div>
-                    <p class="text-sm text-gray-300 mb-3">
+                    <p class="text-xs text-gray-700 mb-3">
                         <strong>Angela's Resort and Leisure Farm</strong> — Putol, Brgy. San Lucas 2, San Pablo City, 4000 Laguna
                     </p>
-                    <div class="w-full h-48 rounded-xl overflow-hidden border border-gold/30 bg-rosered-950 flex flex-col items-center justify-center text-center p-4">
-                        <i class="fa-solid fa-compass text-4xl text-gold/60 mb-2"></i>
-                        <p class="font-serif text-xs text-gray-300">San Pablo City, Laguna</p>
-                        <a href="https://maps.google.com/?q=Angela's+Resort+and+Leisure+Farm+San+Pablo+City" target="_blank" class="mt-3 px-4 py-1.5 bg-gold text-rosered-950 text-xs font-serif font-bold rounded-full hover:bg-gold-shimmer transition">
+                    <div class="w-full h-44 rounded-lg overflow-hidden border border-gold bg-burgundy-900 flex flex-col items-center justify-center text-center p-4">
+                        <i class="fa-solid fa-compass text-4xl text-gold mb-2"></i>
+                        <p class="font-serif text-xs text-cream">San Pablo City, Laguna</p>
+                        <a href="https://maps.google.com/?q=Angela's+Resort+and+Leisure+Farm+San+Pablo+City" target="_blank" class="mt-3 px-5 py-1.5 bg-gold text-burgundy-900 text-xs font-serif font-bold rounded-full hover:bg-gold-light transition">
                             Get Directions
                         </a>
                     </div>
@@ -334,41 +368,29 @@
             </div>
         </section>
 
-        <!-- 3. PROGRAM & 18s TAB CONTENT -->
+        <!-- 3. PROGRAM & 18s TAB -->
         <section id="tab-program" class="tab-content">
-            <div class="glass-card rounded-2xl p-6 border border-gold/40">
-                <div class="text-center mb-8">
-                    <h2 class="font-script text-5xl text-gold-shimmer">The 18 Treasures & Roses</h2>
-                    <p class="font-serif text-xs text-gray-300 uppercase tracking-widest mt-1">Special Guests & Program Participants</p>
-                </div>
+            <div class="gold-framed-box rounded-xl p-6 text-center">
+                <h2 class="font-script text-5xl text-burgundy-700 font-bold mb-1">The 18s Ceremony</h2>
+                <p class="font-serif text-xs uppercase tracking-widest text-burgundy-900 font-semibold mb-6">Honored Guests & Participants</p>
 
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <!-- 18 Roses -->
-                    <div class="bg-rosered-950/80 p-5 rounded-xl border border-gold/20">
-                        <h3 class="font-serif text-md text-gold font-bold uppercase tracking-wider border-b border-gold/30 pb-2 mb-4 flex items-center justify-between">
-                            <span>18 Roses</span>
-                            <i class="fa-solid fa-rose text-rosered-500"></i>
-                        </h3>
-                        <ol class="space-y-2 text-xs text-gray-300 list-decimal list-inside">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-left">
+                    <div class="bg-burgundy-50 p-4 rounded-lg border border-gold">
+                        <h3 class="font-serif text-sm text-burgundy-700 font-bold uppercase border-b border-burgundy-200 pb-2 mb-3">18 Roses</h3>
+                        <ol class="space-y-1.5 text-xs text-burgundy-900 list-decimal list-inside">
                             <li>Participant Name 1</li>
                             <li>Participant Name 2</li>
                             <li>Participant Name 3</li>
-                            <li>Participant Name 4</li>
                             <li class="italic text-gray-500">More names to be updated...</li>
                         </ol>
                     </div>
 
-                    <!-- 18 Candles / Treasures -->
-                    <div class="bg-rosered-950/80 p-5 rounded-xl border border-gold/20">
-                        <h3 class="font-serif text-md text-gold font-bold uppercase tracking-wider border-b border-gold/30 pb-2 mb-4 flex items-center justify-between">
-                            <span>18 Treasures</span>
-                            <i class="fa-solid fa-gem text-gold"></i>
-                        </h3>
-                        <ol class="space-y-2 text-xs text-gray-300 list-decimal list-inside">
+                    <div class="bg-burgundy-50 p-4 rounded-lg border border-gold">
+                        <h3 class="font-serif text-sm text-burgundy-700 font-bold uppercase border-b border-burgundy-200 pb-2 mb-3">18 Treasures</h3>
+                        <ol class="space-y-1.5 text-xs text-burgundy-900 list-decimal list-inside">
                             <li>Participant Name 1</li>
                             <li>Participant Name 2</li>
                             <li>Participant Name 3</li>
-                            <li>Participant Name 4</li>
                             <li class="italic text-gray-500">More names to be updated...</li>
                         </ol>
                     </div>
@@ -376,66 +398,59 @@
             </div>
         </section>
 
-        <!-- 4. GALLERY TAB CONTENT -->
+        <!-- 4. GALLERY TAB -->
         <section id="tab-gallery" class="tab-content">
-            <div class="glass-card rounded-2xl p-6 border border-gold/40">
-                <div class="text-center mb-6">
-                    <h2 class="font-script text-5xl text-gold-shimmer">Debut Gallery</h2>
-                    <p class="font-serif text-xs text-gray-300 uppercase tracking-widest">Portraits of Ryenn</p>
-                </div>
+            <div class="gold-framed-box rounded-xl p-6 text-center">
+                <h2 class="font-script text-5xl text-burgundy-700 font-bold mb-1">Debut Gallery</h2>
+                <p class="font-serif text-xs uppercase tracking-widest text-burgundy-900 font-semibold mb-6">Portraits of Ryenn</p>
 
-                <!-- Gallery Grid using uploaded images Nikki1.png - Nikki4.png -->
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div class="rounded-xl overflow-hidden border border-gold/40 shadow-lg group relative aspect-[3/4]">
-                        <img src="Nikki1.png" alt="Ryenn Portrait 1" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                    <div class="rounded-lg overflow-hidden border-2 border-gold p-1 bg-white shadow">
+                        <img src="Nikki1.png" alt="Ryenn 1" class="w-full h-full object-cover rounded">
                     </div>
-                    <div class="rounded-xl overflow-hidden border border-gold/40 shadow-lg group relative aspect-[3/4]">
-                        <img src="Nikki2.png" alt="Ryenn Portrait 2" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                    <div class="rounded-lg overflow-hidden border-2 border-gold p-1 bg-white shadow">
+                        <img src="Nikki2.png" alt="Ryenn 2" class="w-full h-full object-cover rounded">
                     </div>
-                    <div class="rounded-xl overflow-hidden border border-gold/40 shadow-lg group relative aspect-[3/4]">
-                        <img src="Nikki3.png" alt="Ryenn Portrait 3" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                    <div class="rounded-lg overflow-hidden border-2 border-gold p-1 bg-white shadow">
+                        <img src="Nikki3.png" alt="Ryenn 3" class="w-full h-full object-cover rounded">
                     </div>
-                    <div class="rounded-xl overflow-hidden border border-gold/40 shadow-lg group relative aspect-[3/4]">
-                        <img src="Nikki4.png" alt="Ryenn Portrait 4" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                    <div class="rounded-lg overflow-hidden border-2 border-gold p-1 bg-white shadow">
+                        <img src="Nikki4.png" alt="Ryenn 4" class="w-full h-full object-cover rounded">
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- 5. GUESTBOOK & RSVP TAB CONTENT -->
+        <!-- 5. GUESTBOOK TAB -->
         <section id="tab-guestbook" class="tab-content">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <!-- Message Submission Form -->
-                <div class="glass-card rounded-2xl p-6 border border-gold/40">
-                    <h2 class="font-serif text-lg text-gold font-bold uppercase tracking-wider mb-2">Leave a Message for Ryenn</h2>
-                    <p class="text-xs text-gray-300 mb-4">Share your birthday wishes, memories, or words of love for the debutante!</p>
+                <!-- Wish Form -->
+                <div class="gold-framed-box rounded-xl p-6">
+                    <h2 class="font-serif text-base text-burgundy-700 font-bold uppercase tracking-wider mb-2">Leave a Wish</h2>
+                    <p class="text-xs text-burgundy-900 mb-4">Share your birthday message for Ryenn!</p>
 
-                    <form id="guestbook-form" onsubmit="submitMessage(event)" class="space-y-4">
+                    <form id="guestbook-form" onsubmit="submitMessage(event)" class="space-y-3">
                         <div>
-                            <label class="block font-serif text-xs text-gold uppercase mb-1">Your Name</label>
-                            <input type="text" id="guest-name" required placeholder="e.g. Aunt Maria" class="w-full px-3 py-2 bg-rosered-950 border border-gold/30 rounded-lg text-sm text-white focus:outline-none focus:border-gold">
+                            <label class="block font-serif text-xs text-burgundy-700 uppercase font-bold mb-1">Your Name</label>
+                            <input type="text" id="guest-name" required placeholder="e.g. Aunt Maria" class="w-full px-3 py-2 bg-white border border-burgundy-300 rounded text-xs text-burgundy-900 focus:outline-none focus:border-burgundy-700">
                         </div>
-
                         <div>
-                            <label class="block font-serif text-xs text-gold uppercase mb-1">Your Message / Birthday Wishes</label>
-                            <textarea id="guest-message" rows="4" required placeholder="Write something sweet for Ryenn..." class="w-full px-3 py-2 bg-rosered-950 border border-gold/30 rounded-lg text-sm text-white focus:outline-none focus:border-gold"></textarea>
+                            <label class="block font-serif text-xs text-burgundy-700 uppercase font-bold mb-1">Message</label>
+                            <textarea id="guest-message" rows="3" required placeholder="Write something sweet for Ryenn..." class="w-full px-3 py-2 bg-white border border-burgundy-300 rounded text-xs text-burgundy-900 focus:outline-none focus:border-burgundy-700"></textarea>
                         </div>
-
-                        <button type="submit" class="w-full py-2.5 bg-gradient-to-r from-rosered-700 to-rosered-900 border border-gold text-gold font-serif text-xs uppercase tracking-widest rounded-lg hover:brightness-125 transition">
+                        <button type="submit" class="w-full py-2 bg-burgundy-700 text-gold-light font-serif text-xs uppercase font-bold rounded hover:bg-burgundy-800 transition">
                             Post Birthday Wish
                         </button>
                     </form>
                 </div>
 
-                <!-- Live Guestbook Wall -->
-                <div class="glass-card rounded-2xl p-6 border border-gold/40 flex flex-col">
-                    <h2 class="font-serif text-lg text-gold font-bold uppercase tracking-wider mb-2">Guest Wishes Wall</h2>
-                    
-                    <div id="wishes-list" class="space-y-3 overflow-y-auto max-h-[320px] pr-2 flex-grow">
-                        <!-- Default Initial Wishes -->
-                        <div class="bg-rosered-950/60 p-3 rounded-lg border border-gold/20">
-                            <p class="text-xs font-serif text-gold font-bold">Glorioso Family</p>
-                            <p class="text-xs text-gray-200 mt-1">"Happy 18th Birthday Ryenn! Wishing you endless happiness, wisdom, and love as you step into womanhood."</p>
+                <!-- Wish Wall -->
+                <div class="gold-framed-box rounded-xl p-6 flex flex-col">
+                    <h2 class="font-serif text-base text-burgundy-700 font-bold uppercase tracking-wider mb-2">Wishes Wall</h2>
+                    <div id="wishes-list" class="space-y-2 overflow-y-auto max-h-[260px] pr-1 flex-grow">
+                        <div class="bg-burgundy-50 p-2.5 rounded border border-burgundy-200">
+                            <p class="text-xs font-serif text-burgundy-700 font-bold">Glorioso Family</p>
+                            <p class="text-xs text-burgundy-900 mt-0.5">"Happy 18th Birthday Ryenn! Wishing you endless happiness, wisdom, and love as you step into womanhood."</p>
                         </div>
                     </div>
                 </div>
@@ -445,17 +460,21 @@
     </main>
 
     <!-- FOOTER -->
-    <footer class="w-full text-center py-4 border-t border-gold/20 text-xs text-gray-400 font-serif">
+    <footer class="w-full text-center py-4 bg-cream border-t border-gold/40 text-xs text-burgundy-800 font-serif">
         <p>Ryenn's 18th Birthday Debut &copy; 2026 | Designed with Love</p>
     </footer>
 
     <!-- INTERACTIVE JAVASCRIPT LOGIC -->
     <script>
-        // 1. OPEN SCROLL ANIMATION & MUSIC TRIGGER
+        // 1. SCROLL UNROLL ANIMATION & AUDIO TRIGGER
         function openScrollInvitation() {
             const overlay = document.getElementById('scroll-overlay');
+            const scrollBody = document.getElementById('scroll-body');
             const music = document.getElementById('bg-music');
             
+            // Unroll Scroll animation
+            scrollBody.classList.add('unrolled');
+
             // Trigger Confetti
             confetti({
                 particleCount: 80,
@@ -464,14 +483,19 @@
             });
 
             // Play Music
-            music.play().then(() => {
-                document.getElementById('music-text').innerText = "Pause Music";
-            }).catch(e => console.log("Audio autoplay prevented", e));
+            if (music) {
+                music.volume = 0.8;
+                music.play().then(() => {
+                    document.getElementById('music-text').innerText = "Pause Music";
+                }).catch(e => console.log("Autoplay check:", e));
+            }
 
-            // Fade out overlay
-            overlay.style.opacity = '0';
+            // Smooth fade out after scroll unrolls
             setTimeout(() => {
-                overlay.style.visibility = 'hidden';
+                overlay.style.opacity = '0';
+                setTimeout(() => {
+                    overlay.style.visibility = 'hidden';
+                }, 1000);
             }, 1200);
         }
 
@@ -480,33 +504,29 @@
             const music = document.getElementById('bg-music');
             const musicText = document.getElementById('music-text');
             if (music.paused) {
-                music.play();
-                musicText.innerText = "Pause Music";
+                music.play().then(() => {
+                    musicText.innerText = "Pause Music";
+                }).catch(err => console.log(err));
             } else {
                 music.pause();
                 musicText.innerText = "Play Music";
             }
         }
 
-        // 3. TAB NAVIGATION SWITCHER (NO SCROLLING)
+        // 3. TAB NAVIGATION SWITCHER
         function switchTab(tabId, btnElement) {
-            // Hide all tabs
             document.querySelectorAll('.tab-content').forEach(tab => {
                 tab.classList.remove('active');
             });
-
-            // Remove active style from all nav buttons
             document.querySelectorAll('.nav-btn').forEach(btn => {
                 btn.classList.remove('active-tab');
             });
 
-            // Show target tab
             const targetTab = document.getElementById(tabId);
             if (targetTab) {
                 targetTab.classList.add('active');
             }
 
-            // Highlight clicked button
             if (btnElement) {
                 btnElement.classList.add('active-tab');
             }
@@ -520,18 +540,15 @@
             const list = document.getElementById('wishes-list');
 
             const wishCard = document.createElement('div');
-            wishCard.className = 'bg-rosered-950/60 p-3 rounded-lg border border-gold/20 animate-fade-in';
+            wishCard.className = 'bg-burgundy-50 p-2.5 rounded border border-burgundy-200';
             wishCard.innerHTML = `
-                <p class="text-xs font-serif text-gold font-bold">${escapeHtml(name)}</p>
-                <p class="text-xs text-gray-200 mt-1">"${escapeHtml(message)}"</p>
+                <p class="text-xs font-serif text-burgundy-700 font-bold">${escapeHtml(name)}</p>
+                <p class="text-xs text-burgundy-900 mt-0.5">"${escapeHtml(message)}"</p>
             `;
 
             list.prepend(wishCard);
-
-            // Reset form
             document.getElementById('guestbook-form').reset();
 
-            // Trigger minor confetti celebration
             confetti({
                 particleCount: 30,
                 spread: 50,
