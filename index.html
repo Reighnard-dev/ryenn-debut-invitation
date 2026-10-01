@@ -1,566 +1,207 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ryenn's 18th Birthday Debut - Grand Interactive Invitation</title>
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Cinzel:wght@400;600;700;900&family=Great+Vibes&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <!-- FontAwesome Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Canvas Confetti -->
-    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
-
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        rosered: {
-                            50: '#fdf2f4',
-                            100: '#fbe5e8',
-                            200: '#f8cbd2',
-                            500: '#be123c',
-                            700: '#800a10', // Deep Crimson Rose
-                            800: '#5c0017',
-                            900: '#38000d',
-                        },
-                        gold: {
-                            light: '#F4EA05',
-                            DEFAULT: '#D4AF37',
-                            dark: '#AA7C11',
-                            shimmer: '#FFF2C6'
-                        },
-                        velvet: '#1a0208'
-                    },
-                    fontFamily: {
-                        serif: ['Cinzel', 'serif'],
-                        script: ['Great Vibes', 'cursive'],
-                        signature: ['Alex Brush', 'cursive'],
-                        sans: ['Montserrat', 'sans-serif'],
-                    }
-                }
-            }
-        }
-    </script>
-
-    <style>
-        /* Custom Styling & Scroll-Opening Animations */
-        body {
-            background-color: #120105;
-            color: #fdf2f4;
-            font-family: 'Montserrat', sans-serif;
-            overflow-x: hidden;
-        }
-
-        .gold-gradient-text {
-            background: linear-gradient(135deg, #FFE8A3 0%, #D4AF37 50%, #AA7C11 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .gold-border {
-            border-image: linear-gradient(to bottom right, #FFE8A3, #D4AF37, #AA7C11) 1;
-        }
-
-        /* Glassmorphism Card */
-        .glass-card {
-            background: rgba(45, 4, 14, 0.85);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(212, 175, 55, 0.3);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
-        }
-
-        /* Royal Floral Corner Accents */
-        .floral-corner-tl {
-            position: absolute;
-            top: -10px;
-            left: -10px;
-            width: 100px;
-            height: 100px;
-            background: radial-gradient(circle at top left, rgba(190, 18, 60, 0.4), transparent 70%);
-            pointer-events: none;
-        }
-
-        /* Unrolling Scroll Overlay Animation */
-        #scroll-overlay {
-            transition: opacity 1.2s ease-in-out, visibility 1.2s;
-        }
-
-        .scroll-tube {
-            box-shadow: inset 0 0 20px rgba(0,0,0,0.8), 0 10px 25px rgba(0,0,0,0.9);
-        }
-
-        .scroll-content-unroll {
-            animation: unroll 1.5s cubic-bezier(0.25, 1, 0.5, 1) forwards;
-        }
-
-        @keyframes unroll {
-            0% {
-                max-height: 0px;
-                opacity: 0;
-                transform: scaleY(0.1);
-            }
-            100% {
-                max-height: 1000px;
-                opacity: 1;
-                transform: scaleY(1);
-            }
-        }
-
-        /* Smooth Tab Transitions */
-        .tab-content {
-            display: none;
-            opacity: 0;
-            transform: translateY(12px);
-            transition: opacity 0.4s ease, transform 0.4s ease;
-        }
-
-        .tab-content.active {
-            display: block;
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* Navigation Tab Active Indicator */
-        .nav-btn.active-tab {
-            color: #D4AF37;
-            border-bottom: 2px solid #D4AF37;
-            background: rgba(212, 175, 55, 0.1);
-        }
-
-        /* Custom Scrollbar */
-        ::-webkit-scrollbar {
-            width: 6px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #120105;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #be123c;
-            border-radius: 3px;
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Ryenn's 18th Birthday Debut</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Great+Vibes&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{--wine:#5a0f1e;--burg:#7a1328;--rose:#f8e3e1;--blush:#fdf3f1;--gold:#c9a24b;--gold2:#f1d98a}
+html,body{height:100%;margin:0}
+body{background:radial-gradient(ellipse at top,#8a1a30 0%,#4a0b18 70%);color:var(--burg);font-family:'Montserrat',sans-serif;overflow-x:hidden}
+.script{font-family:'Great Vibes',cursive}.cinzel{font-family:'Cinzel',serif}
+.gold-text{background:linear-gradient(90deg,#b8902f,#f1d98a,#b8902f,#f1d98a);background-size:200% auto;-webkit-background-clip:text;background-clip:text;color:transparent;animation:shine 5s linear infinite}
+@keyframes shine{to{background-position:200% center}}
+.card{position:relative;background:linear-gradient(160deg,var(--blush),var(--rose));border:2px solid var(--gold);outline:1px solid var(--gold);outline-offset:-9px;border-radius:4px;box-shadow:0 20px 60px rgba(0,0,0,.45);padding:2.2rem 1.4rem;overflow:hidden}
+.card>*{position:relative;z-index:1}
+.rose{position:absolute;z-index:0;width:120px;height:120px;pointer-events:none;opacity:.9}
+.tabs{display:flex;gap:.25rem;overflow-x:auto;scrollbar-width:none;justify-content:flex-start}
+@media(min-width:760px){.tabs{justify-content:center}}
+.tabs::-webkit-scrollbar{display:none}
+.tab{flex:none;font-family:'Cinzel',serif;font-size:.78rem;letter-spacing:.08em;color:var(--gold2);padding:.6rem .9rem;border-bottom:2px solid transparent;cursor:pointer;background:none;border-top:0;border-left:0;border-right:0}
+.tab[aria-selected=true]{border-bottom-color:var(--gold);color:#fff}
+.tab:focus-visible,.btn:focus-visible,#audio:focus-visible{outline:2px solid var(--gold2);outline-offset:2px}
+.panel{display:none}.panel.on{display:block;animation:fade .45s ease}
+@keyframes fade{from{opacity:0;transform:scale(.985)}to{opacity:1;transform:none}}
+.btn{display:inline-block;background:linear-gradient(135deg,#9a1b35,#6a0f22);color:var(--gold2);border:1px solid var(--gold);padding:.75rem 1.6rem;font-family:'Cinzel',serif;letter-spacing:.1em;border-radius:2px;cursor:pointer;text-decoration:none}
+.btn:hover{filter:brightness(1.15)}
+.rule{height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);margin:1.4rem auto;max-width:260px}
+h2.cinzel{font-size:1.3rem;letter-spacing:.12em;text-align:center;margin-bottom:.4rem}
+.portrait{width:190px;height:240px;object-fit:cover;border-radius:999px 999px 6px 6px;border:3px solid var(--gold);box-shadow:0 8px 24px rgba(90,15,30,.35);background:#e9c9c9}
+.gal img{width:100%;aspect-ratio:3/4;object-fit:cover;border:2px solid var(--gold);background:#e9c9c9;cursor:zoom-in}
+input,textarea{width:100%;background:#fff;border:1px solid var(--gold);padding:.7rem;border-radius:2px;font:inherit;color:var(--wine)}
+.wish{background:#fff;border-left:3px solid var(--gold);padding:.8rem 1rem;margin-top:.7rem;animation:fade .5s}
+/* scroll overlay */
+#scroll{position:fixed;inset:0;z-index:50;display:flex;flex-direction:column;align-items:center;justify-content:center;background:radial-gradient(ellipse at center,#7a1328,#2e0610);padding:1rem}
+.rod{width:min(340px,86vw);height:26px;border-radius:13px;background:linear-gradient(#8c6a1e,#f1d98a 45%,#8c6a1e);box-shadow:0 4px 10px rgba(0,0,0,.5);position:relative;z-index:2}
+.paper{width:min(300px,76vw);height:46px;overflow:hidden;background:linear-gradient(90deg,#e9d3a4,#fbf0d0,#e9d3a4);transition:height 1.6s cubic-bezier(.6,.05,.3,1);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;color:var(--burg);box-shadow:inset 0 0 20px rgba(120,80,20,.3)}
+.paper .in{opacity:0;transition:opacity .8s .9s;padding:1rem}
+#scroll.open .paper{height:min(340px,48vh)}#scroll.open .paper .in{opacity:1}
+#scroll.gone{opacity:0;pointer-events:none;transition:opacity 1s .6s}
+#scroll.open #unroll{display:none}
+.confetti{position:fixed;top:-12px;width:9px;height:14px;z-index:60;pointer-events:none;animation:fall linear forwards}
+@keyframes fall{to{transform:translateY(105vh) rotate(720deg);opacity:.2}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
 </head>
-<body class="min-h-screen flex flex-col justify-between relative bg-cover bg-center bg-fixed" style="background-image: radial-gradient(circle at center, rgba(30, 2, 9, 0.85) 0%, rgba(10, 0, 3, 0.98) 100%);">
+<body>
 
-    <!-- Background Audio (Taylor Swift Instrumental) -->
-    <audio id="bg-music" loop preload="auto">
-        <audio id="bg-music" loop src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3?filename=romantic-piano-wedding-116035.mp3"></audio>
-    </audio>
+<!-- Scroll opening -->
+<div id="scroll">
+  <div class="rod"></div>
+  <div class="paper"><div class="in">
+    <p class="cinzel text-xs tracking-widest">You are invited to</p>
+    <p class="script" style="font-size:3rem;line-height:1.1">Ryenn's</p>
+    <p class="cinzel" style="font-size:1.4rem">18th Birthday</p>
+    <p class="text-xs mt-2">Saturday · November 21, 2026</p>
+  </div></div>
+  <div class="rod"></div>
+  <button id="unroll" class="btn mt-8">Unroll Invitation</button>
+</div>
 
-    <!-- UNROLLING SCROLL INVITATION OVERLAY -->
-    <div id="scroll-overlay" class="fixed inset-0 z-50 flex items-center justify-center bg-black/95 p-4">
-        <div class="text-center max-w-md w-full relative flex flex-col items-center">
-            
-            <!-- Top Wooden/Gold Scroll Handle -->
-            <div class="scroll-tube w-full h-8 bg-gradient-to-r from-amber-800 via-amber-600 to-amber-900 rounded-full border border-gold/50 flex items-center justify-between px-3">
-                <div class="w-4 h-4 rounded-full bg-gold shadow-md"></div>
-                <span class="text-[10px] font-serif uppercase tracking-widest text-gold-shimmer">Royal Invitation</span>
-                <div class="w-4 h-4 rounded-full bg-gold shadow-md"></div>
-            </div>
-
-            <!-- Parchment / Scroll Body -->
-            <div id="scroll-body" class="w-[92%] bg-gradient-to-b from-[#2d040e] via-[#420615] to-[#2d040e] border-x-2 border-gold/40 p-6 my-[-4px] shadow-2xl rounded-sm text-center relative overflow-hidden">
-                <div class="floral-corner-tl"></div>
-                
-                <p class="font-serif text-xs uppercase tracking-[0.3em] text-gold/80 mb-2">You Are Cordially Invited To</p>
-                <h1 class="font-script text-5xl md:text-6xl text-gold-shimmer my-2 drop-shadow-md">Ryenn's</h1>
-                <p class="font-serif text-sm tracking-widest text-rosered-200 mb-4">18TH BIRTHDAY CELEBRATION</p>
-                
-                <div class="w-16 h-0.5 bg-gold/50 mx-auto my-3"></div>
-
-                <p class="font-serif text-xs italic text-gray-300 mb-6">
-                    "As we celebrate a new chapter of grace and womanhood"
-                </p>
-
-                <!-- Seal / Unroll Trigger Button -->
-                <button onclick="openScrollInvitation()" class="group relative inline-flex items-center gap-3 px-8 py-3 bg-gradient-to-r from-rosered-800 via-rosered-700 to-rosered-900 text-gold font-serif text-sm font-semibold tracking-wider uppercase rounded-full border border-gold/60 shadow-lg hover:scale-105 transition-all duration-300">
-                    <i class="fa-solid fa-envelope-open-text text-gold text-lg group-hover:rotate-12 transition-transform"></i>
-                    <span>Unroll Invitation</span>
-                </button>
-            </div>
-
-            <!-- Bottom Wooden/Gold Scroll Handle -->
-            <div class="scroll-tube w-full h-8 bg-gradient-to-r from-amber-800 via-amber-600 to-amber-900 rounded-full border border-gold/50 flex items-center justify-between px-3">
-                <div class="w-4 h-4 rounded-full bg-gold shadow-md"></div>
-                <div class="w-4 h-4 rounded-full bg-gold shadow-md"></div>
-            </div>
-
-        </div>
+<div id="app" class="max-w-2xl mx-auto px-3 pb-10" style="padding-top:env(safe-area-inset-top,0)">
+  <header class="sticky top-0 z-20 pt-3" style="background:linear-gradient(#4a0b18 80%,transparent)">
+    <div class="flex items-center justify-between px-1 pb-1">
+      <span class="script gold-text text-3xl">Ryenn · 18</span>
+      <button id="audio" class="btn" style="padding:.4rem .9rem;font-size:.75rem" aria-label="Play or pause music">♪ Play</button>
     </div>
-
-    <!-- MAIN APP HEADER -->
-    <header class="w-full py-4 px-6 glass-card border-b border-gold/30 sticky top-0 z-40 flex items-center justify-between">
-        <div class="flex items-center gap-3">
-            <span class="font-script text-3xl text-gold-shimmer">Ryenn @ 18</span>
-        </div>
-
-        <!-- Audio Toggle Control -->
-        <button id="music-toggle" onclick="toggleAudio()" class="flex items-center gap-2 px-3 py-1.5 rounded-full bg-rosered-900/80 border border-gold/40 text-gold text-xs font-serif hover:bg-rosered-800 transition">
-            <i id="music-icon" class="fa-solid fa-music text-gold"></i>
-            <span id="music-text">Play Music</span>
-        </button>
-    </header>
-
-    <!-- TOP INTERACTIVE NAVIGATION MENU (NO SCROLLING) -->
-    <nav class="w-full glass-card border-b border-gold/20 sticky top-[65px] z-30">
-        <div class="max-w-4xl mx-auto flex items-center justify-around overflow-x-auto py-2 px-2 text-xs font-serif uppercase tracking-wider text-gray-300">
-            <button onclick="switchTab('tab-invitation', this)" class="nav-btn active-tab px-3 py-2 rounded-md transition flex items-center gap-2 whitespace-nowrap">
-                <i class="fa-solid fa-crown text-gold"></i>
-                <span>Invitation</span>
-            </button>
-            <button onclick="switchTab('tab-details', this)" class="nav-btn px-3 py-2 rounded-md transition flex items-center gap-2 whitespace-nowrap">
-                <i class="fa-solid fa-calendar-day text-gold"></i>
-                <span>Details & Map</span>
-            </button>
-            <button onclick="switchTab('tab-program', this)" class="nav-btn px-3 py-2 rounded-md transition flex items-center gap-2 whitespace-nowrap">
-                <i class="fa-solid fa-list-ol text-gold"></i>
-                <span>The 18s</span>
-            </button>
-            <button onclick="switchTab('tab-gallery', this)" class="nav-btn px-3 py-2 rounded-md transition flex items-center gap-2 whitespace-nowrap">
-                <i class="fa-solid fa-images text-gold"></i>
-                <span>Gallery</span>
-            </button>
-            <button onclick="switchTab('tab-guestbook', this)" class="nav-btn px-3 py-2 rounded-md transition flex items-center gap-2 whitespace-nowrap">
-                <i class="fa-solid fa-heart text-gold"></i>
-                <span>Guestbook</span>
-            </button>
-        </div>
+    <nav class="tabs" role="tablist">
+      <button class="tab" role="tab" aria-selected="true" data-t="p1">Invitation</button>
+      <button class="tab" role="tab" aria-selected="false" data-t="p2">Details &amp; Map</button>
+      <button class="tab" role="tab" aria-selected="false" data-t="p3">The 18s Program</button>
+      <button class="tab" role="tab" aria-selected="false" data-t="p4">Debut Gallery</button>
+      <button class="tab" role="tab" aria-selected="false" data-t="p5">Guestbook</button>
     </nav>
+  </header>
 
-    <!-- MAIN INTERACTIVE CONTENT AREA CONTAINER -->
-    <main class="max-w-4xl mx-auto w-full px-4 py-8 flex-grow">
+  <main class="mt-4">
+    <!-- 1 Invitation -->
+    <section id="p1" class="panel on card text-center">
+      <svg class="rose" style="top:-30px;left:-30px" viewBox="0 0 100 100"><circle cx="50" cy="50" r="46" fill="#7a1328"/><circle cx="50" cy="50" r="32" fill="#9a1b35"/><circle cx="50" cy="50" r="18" fill="#7a1328"/><circle cx="50" cy="50" r="7" fill="#5a0f1e"/></svg>
+      <svg class="rose" style="bottom:-30px;right:-30px" viewBox="0 0 100 100"><circle cx="50" cy="50" r="46" fill="#e9a3a8"/><circle cx="50" cy="50" r="32" fill="#f3bfc0"/><circle cx="50" cy="50" r="18" fill="#e9a3a8"/><circle cx="50" cy="50" r="7" fill="#c9737c"/></svg>
+      <p class="script text-3xl text-black">Join Us!</p>
+      <div class="relative my-2">
+        <div class="cinzel" style="font-size:6.5rem;line-height:1;color:transparent;-webkit-text-stroke:1.5px rgba(122,19,40,.45)">18</div>
+        <div class="script" style="font-size:3.2rem;margin-top:-3.4rem">eighteen</div>
+      </div>
+      <img class="portrait mx-auto my-4" src="Nikki1.png" alt="Ryenn portrait">
+      <p class="cinzel text-xs tracking-widest max-w-xs mx-auto leading-relaxed">As we celebrate a new chapter of grace and womanhood with</p>
+      <p class="script" style="font-size:4.6rem;line-height:1.1">Ryenn</p>
+      <p class="cinzel text-sm tracking-widest">NOVEMBER</p>
+      <div class="flex items-center justify-center gap-4 my-2 cinzel">
+        <span>SATURDAY</span><span class="text-4xl px-4" style="border-left:1px solid var(--burg);border-right:1px solid var(--burg)">21</span><span>AT 06:00 PM</span>
+      </div>
+      <p class="cinzel">2026</p>
+      <div class="rule"></div>
+      <p class="cinzel font-semibold">ANGELA'S RESORT AND LEISURE FARM</p>
+      <p class="text-sm mt-1">Putol, Brgy. San Lucas 2, San Pablo City, Philippines, 4000</p>
+      <button class="btn mt-6" data-go="p5">Leave a Wish</button>
+    </section>
 
-        <!-- 1. INVITATION TAB CONTENT -->
-        <section id="tab-invitation" class="tab-content active">
-            <div class="glass-card rounded-2xl p-6 md:p-10 border border-gold/40 text-center relative overflow-hidden">
-                <div class="floral-corner-tl"></div>
+    <!-- 2 Details -->
+    <section id="p2" class="panel card">
+      <h2 class="cinzel">Event Details</h2><div class="rule"></div>
+      <div class="text-center space-y-1">
+        <p class="cinzel text-lg">Saturday, November 21, 2026</p>
+        <p>Guests arrive at 5:30 PM · Program begins at 6:00 PM</p>
+      </div>
+      <h2 class="cinzel mt-8">Dress Code</h2><div class="rule"></div>
+      <div class="grid grid-cols-2 gap-3 text-center text-sm">
+        <div class="p-3" style="border:1px solid var(--gold)"><p class="cinzel mb-1">Ladies</p>Formal gowns or dresses in Rose Red or Burgundy</div>
+        <div class="p-3" style="border:1px solid var(--gold)"><p class="cinzel mb-1">Gentlemen</p>Dark suits with tie</div>
+      </div>
+      <h2 class="cinzel mt-8">Venue</h2><div class="rule"></div>
+      <p class="text-center cinzel font-semibold">Angela's Resort and Leisure Farm</p>
+      <p class="text-center text-sm mt-1">Putol, Brgy. San Lucas 2, San Pablo City, Philippines, 4000</p>
+      <div class="text-center mt-5"><a class="btn" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=Angela%27s+Resort+and+Leisure+Farm+San+Pablo+City">Open in Google Maps</a></div>
+    </section>
 
-                <span class="font-serif text-xs uppercase tracking-[0.3em] text-gold/80">Join Us For</span>
-                
-                <!-- Main Portrait -->
-                <div class="my-6 relative inline-block">
-                    <div class="w-48 h-64 md:w-56 md:h-72 mx-auto rounded-2xl overflow-hidden border-2 border-gold/60 p-1 bg-rosered-900 shadow-2xl">
-                        <img src="Nikki1.png" alt="Ryenn" class="w-full h-full object-cover rounded-xl hover:scale-105 transition-transform duration-500">
-                    </div>
-                    <div class="absolute -bottom-3 left-1/2 -translate-x-1/2 bg-rosered-900 border border-gold px-4 py-1 rounded-full shadow-lg">
-                        <span class="font-serif text-xs text-gold uppercase tracking-widest">Grand Debutante</span>
-                    </div>
-                </div>
+    <!-- 3 Program -->
+    <section id="p3" class="panel card">
+      <h2 class="cinzel">18 Roses</h2>
+      <p class="text-center text-sm mb-3">Eighteen special people each present a rose to Ryenn.</p>
+      <ol id="roses" class="grid grid-cols-2 gap-x-4 gap-y-1 text-sm list-decimal pl-6"></ol>
+      <div class="rule"></div>
+      <h2 class="cinzel mt-6">18 Treasures</h2>
+      <p class="text-center text-sm mb-3">Eighteen gifts of love, each with a message for Ryenn.</p>
+      <ol id="treasures" class="grid grid-cols-2 gap-x-4 gap-y-1 text-sm list-decimal pl-6"></ol>
+    </section>
 
-                <h1 class="font-script text-6xl md:text-7xl text-gold-shimmer my-2">Ryenn</h1>
-                
-                <p class="font-serif text-sm tracking-widest text-rosered-100 max-w-md mx-auto my-4">
-                    "AS WE CELEBRATE A NEW CHAPTER OF GRACE AND WOMANHOOD"
-                </p>
+    <!-- 4 Gallery -->
+    <section id="p4" class="panel card">
+      <h2 class="cinzel">Debut Gallery</h2><div class="rule" style="margin-top:.6rem"></div>
+      <div class="gal grid grid-cols-2 gap-3">
+        <img src="Nikki1.png" alt="Ryenn photo 1"><img src="Nikki2.png" alt="Ryenn photo 2">
+        <img src="Nikki3.png" alt="Ryenn photo 3"><img src="Nikki4.png" alt="Ryenn photo 4">
+      </div>
+    </section>
 
-                <!-- Date Showcase -->
-                <div class="my-8 flex items-center justify-center gap-4 border-y border-gold/30 py-4 max-w-md mx-auto">
-                    <div>
-                        <p class="font-serif text-xs text-gold uppercase tracking-wider">Saturday</p>
-                    </div>
-                    <div class="text-3xl font-serif font-bold text-gold-shimmer px-4 border-x border-gold/40">
-                        NOV 21
-                    </div>
-                    <div>
-                        <p class="font-serif text-xs text-gold uppercase tracking-wider">2026 @ 6:00 PM</p>
-                    </div>
-                </div>
+    <!-- 5 Guestbook -->
+    <section id="p5" class="panel card">
+      <h2 class="cinzel">Guestbook &amp; Wishes</h2>
+      <p class="text-center text-sm mb-4">Write a message for Ryenn.</p>
+      <div class="space-y-3">
+        <input id="gname" placeholder="Your name" maxlength="40" aria-label="Your name">
+        <textarea id="gmsg" rows="3" placeholder="Your wish for Ryenn" maxlength="280" aria-label="Your wish"></textarea>
+        <div class="text-center"><button id="post" class="btn">Post Wish</button></div>
+      </div>
+      <h2 class="cinzel mt-8">Guest Wishes Wall</h2><div class="rule" style="margin-top:.6rem"></div>
+      <p id="empty" class="text-center text-sm">No wishes yet. Be the first to write one.</p>
+      <div id="wall"></div>
+    </section>
+  </main>
+</div>
 
-                <p class="font-serif text-sm text-gray-200">
-                    <i class="fa-solid fa-location-dot text-gold mr-2"></i>
-                    <strong>Angela's Resort and Leisure Farm</strong><br>
-                    <span class="text-xs text-gray-400">Putol, Brgy. San Lucas 2, San Pablo City, Philippines</span>
-                </p>
+<!-- Add your own file named music.mp3 next to index.html -->
+<audio id="bgm" src="music.mp3" loop preload="auto"></audio>
 
-                <div class="mt-8">
-                    <button onclick="switchTab('tab-details', document.querySelectorAll('.nav-btn')[1])" class="px-6 py-2.5 bg-gradient-to-r from-rosered-700 to-rosered-900 border border-gold text-gold font-serif text-xs uppercase tracking-widest rounded-full hover:brightness-125 transition">
-                        View Venue Details & Dress Code &rarr;
-                    </button>
-                </div>
-            </div>
-        </section>
-
-        <!-- 2. DETAILS & MAP TAB CONTENT -->
-        <section id="tab-details" class="tab-content">
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <!-- Venue & Time -->
-                <div class="glass-card rounded-2xl p-6 border border-gold/30">
-                    <div class="flex items-center gap-3 mb-4">
-                        <i class="fa-solid fa-champagne-glasses text-gold text-2xl"></i>
-                        <h2 class="font-serif text-lg text-gold font-bold uppercase tracking-wider">Event Schedule</h2>
-                    </div>
-                    <ul class="space-y-3 text-sm text-gray-200 border-l border-gold/30 pl-4">
-                        <li>
-                            <strong class="text-gold">5:30 PM:</strong> Guest Arrival & Registration
-                        </li>
-                        <li>
-                            <strong class="text-gold">6:00 PM:</strong> Grand Entrance & Debut Program
-                        </li>
-                        <li>
-                            <strong class="text-gold">7:30 PM:</strong> Dinner & 18 Ceremonies
-                        </li>
-                        <li>
-                            <strong class="text-gold">9:00 PM:</strong> Party & Socials
-                        </li>
-                    </ul>
-                </div>
-
-                <!-- Dress Code -->
-                <div class="glass-card rounded-2xl p-6 border border-gold/30">
-                    <div class="flex items-center gap-3 mb-4">
-                        <i class="fa-solid fa-user-tie text-gold text-2xl"></i>
-                        <h2 class="font-serif text-lg text-gold font-bold uppercase tracking-wider">Dress Code</h2>
-                    </div>
-                    <p class="text-sm text-gray-300 mb-3"><strong>Formal / Modern Elegance:</strong></p>
-                    <div class="flex items-center gap-3 text-xs text-gray-200 bg-rosered-900/60 p-3 rounded-lg border border-gold/20 mb-3">
-                        <div class="w-5 h-5 rounded-full bg-rosered-700 border border-gold"></div>
-                        <span><strong>Ladies:</strong> Long Gowns / Elegant Dresses (Rose Red / Burgundy accent)</span>
-                    </div>
-                    <div class="flex items-center gap-3 text-xs text-gray-200 bg-rosered-900/60 p-3 rounded-lg border border-gold/20">
-                        <div class="w-5 h-5 rounded-full bg-black border border-gold"></div>
-                        <span><strong>Gentlemen:</strong> Suits or Black / Dark Formal Attire</span>
-                    </div>
-                </div>
-
-                <!-- Google Map Placeholder Card -->
-                <div class="glass-card rounded-2xl p-6 border border-gold/30 md:col-span-2">
-                    <div class="flex items-center justify-between mb-4">
-                        <div class="flex items-center gap-3">
-                            <i class="fa-solid fa-map-location-dot text-gold text-2xl"></i>
-                            <h2 class="font-serif text-lg text-gold font-bold uppercase tracking-wider">Venue Location</h2>
-                        </div>
-                        <a href="https://maps.google.com/?q=Angela's+Resort+and+Leisure+Farm+San+Pablo+City" target="_blank" class="text-xs text-gold hover:underline flex items-center gap-1">
-                            Open in Google Maps <i class="fa-solid fa-arrow-up-right-from-square"></i>
-                        </a>
-                    </div>
-                    <p class="text-sm text-gray-300 mb-3">
-                        <strong>Angela's Resort and Leisure Farm</strong> — Putol, Brgy. San Lucas 2, San Pablo City, 4000 Laguna
-                    </p>
-                    <div class="w-full h-48 rounded-xl overflow-hidden border border-gold/30 bg-rosered-950 flex flex-col items-center justify-center text-center p-4">
-                        <i class="fa-solid fa-compass text-4xl text-gold/60 mb-2"></i>
-                        <p class="font-serif text-xs text-gray-300">San Pablo City, Laguna</p>
-                        <a href="https://maps.google.com/?q=Angela's+Resort+and+Leisure+Farm+San+Pablo+City" target="_blank" class="mt-3 px-4 py-1.5 bg-gold text-rosered-950 text-xs font-serif font-bold rounded-full hover:bg-gold-shimmer transition">
-                            Get Directions
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- 3. PROGRAM & 18s TAB CONTENT -->
-        <section id="tab-program" class="tab-content">
-            <div class="glass-card rounded-2xl p-6 border border-gold/40">
-                <div class="text-center mb-8">
-                    <h2 class="font-script text-5xl text-gold-shimmer">The 18 Treasures & Roses</h2>
-                    <p class="font-serif text-xs text-gray-300 uppercase tracking-widest mt-1">Special Guests & Program Participants</p>
-                </div>
-
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <!-- 18 Roses -->
-                    <div class="bg-rosered-950/80 p-5 rounded-xl border border-gold/20">
-                        <h3 class="font-serif text-md text-gold font-bold uppercase tracking-wider border-b border-gold/30 pb-2 mb-4 flex items-center justify-between">
-                            <span>18 Roses</span>
-                            <i class="fa-solid fa-rose text-rosered-500"></i>
-                        </h3>
-                        <ol class="space-y-2 text-xs text-gray-300 list-decimal list-inside">
-                            <li>Participant Name 1</li>
-                            <li>Participant Name 2</li>
-                            <li>Participant Name 3</li>
-                            <li>Participant Name 4</li>
-                            <li class="italic text-gray-500">More names to be updated...</li>
-                        </ol>
-                    </div>
-
-                    <!-- 18 Candles / Treasures -->
-                    <div class="bg-rosered-950/80 p-5 rounded-xl border border-gold/20">
-                        <h3 class="font-serif text-md text-gold font-bold uppercase tracking-wider border-b border-gold/30 pb-2 mb-4 flex items-center justify-between">
-                            <span>18 Treasures</span>
-                            <i class="fa-solid fa-gem text-gold"></i>
-                        </h3>
-                        <ol class="space-y-2 text-xs text-gray-300 list-decimal list-inside">
-                            <li>Participant Name 1</li>
-                            <li>Participant Name 2</li>
-                            <li>Participant Name 3</li>
-                            <li>Participant Name 4</li>
-                            <li class="italic text-gray-500">More names to be updated...</li>
-                        </ol>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- 4. GALLERY TAB CONTENT -->
-        <section id="tab-gallery" class="tab-content">
-            <div class="glass-card rounded-2xl p-6 border border-gold/40">
-                <div class="text-center mb-6">
-                    <h2 class="font-script text-5xl text-gold-shimmer">Debut Gallery</h2>
-                    <p class="font-serif text-xs text-gray-300 uppercase tracking-widest">Portraits of Ryenn</p>
-                </div>
-
-                <!-- Gallery Grid using uploaded images Nikki1.png - Nikki4.png -->
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div class="rounded-xl overflow-hidden border border-gold/40 shadow-lg group relative aspect-[3/4]">
-                        <img src="Nikki1.png" alt="Ryenn Portrait 1" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
-                    </div>
-                    <div class="rounded-xl overflow-hidden border border-gold/40 shadow-lg group relative aspect-[3/4]">
-                        <img src="Nikki2.png" alt="Ryenn Portrait 2" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
-                    </div>
-                    <div class="rounded-xl overflow-hidden border border-gold/40 shadow-lg group relative aspect-[3/4]">
-                        <img src="Nikki3.png" alt="Ryenn Portrait 3" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
-                    </div>
-                    <div class="rounded-xl overflow-hidden border border-gold/40 shadow-lg group relative aspect-[3/4]">
-                        <img src="Nikki4.png" alt="Ryenn Portrait 4" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- 5. GUESTBOOK & RSVP TAB CONTENT -->
-        <section id="tab-guestbook" class="tab-content">
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <!-- Message Submission Form -->
-                <div class="glass-card rounded-2xl p-6 border border-gold/40">
-                    <h2 class="font-serif text-lg text-gold font-bold uppercase tracking-wider mb-2">Leave a Message for Ryenn</h2>
-                    <p class="text-xs text-gray-300 mb-4">Share your birthday wishes, memories, or words of love for the debutante!</p>
-
-                    <form id="guestbook-form" onsubmit="submitMessage(event)" class="space-y-4">
-                        <div>
-                            <label class="block font-serif text-xs text-gold uppercase mb-1">Your Name</label>
-                            <input type="text" id="guest-name" required placeholder="e.g. Aunt Maria" class="w-full px-3 py-2 bg-rosered-950 border border-gold/30 rounded-lg text-sm text-white focus:outline-none focus:border-gold">
-                        </div>
-
-                        <div>
-                            <label class="block font-serif text-xs text-gold uppercase mb-1">Your Message / Birthday Wishes</label>
-                            <textarea id="guest-message" rows="4" required placeholder="Write something sweet for Ryenn..." class="w-full px-3 py-2 bg-rosered-950 border border-gold/30 rounded-lg text-sm text-white focus:outline-none focus:border-gold"></textarea>
-                        </div>
-
-                        <button type="submit" class="w-full py-2.5 bg-gradient-to-r from-rosered-700 to-rosered-900 border border-gold text-gold font-serif text-xs uppercase tracking-widest rounded-lg hover:brightness-125 transition">
-                            Post Birthday Wish
-                        </button>
-                    </form>
-                </div>
-
-                <!-- Live Guestbook Wall -->
-                <div class="glass-card rounded-2xl p-6 border border-gold/40 flex flex-col">
-                    <h2 class="font-serif text-lg text-gold font-bold uppercase tracking-wider mb-2">Guest Wishes Wall</h2>
-                    
-                    <div id="wishes-list" class="space-y-3 overflow-y-auto max-h-[320px] pr-2 flex-grow">
-                        <!-- Default Initial Wishes -->
-                        <div class="bg-rosered-950/60 p-3 rounded-lg border border-gold/20">
-                            <p class="text-xs font-serif text-gold font-bold">Glorioso Family</p>
-                            <p class="text-xs text-gray-200 mt-1">"Happy 18th Birthday Ryenn! Wishing you endless happiness, wisdom, and love as you step into womanhood."</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-    </main>
-
-    <!-- FOOTER -->
-    <footer class="w-full text-center py-4 border-t border-gold/20 text-xs text-gray-400 font-serif">
-        <p>Ryenn's 18th Birthday Debut &copy; 2026 | Designed with Love</p>
-    </footer>
-
-    <!-- INTERACTIVE JAVASCRIPT LOGIC -->
-    <script>
-        // 1. OPEN SCROLL ANIMATION & MUSIC TRIGGER
-        function openScrollInvitation() {
-            const overlay = document.getElementById('scroll-overlay');
-            const music = document.getElementById('bg-music');
-            
-            // Trigger Confetti
-            confetti({
-                particleCount: 80,
-                spread: 70,
-                origin: { y: 0.6 }
-            });
-
-            // Play Music
-            music.play().then(() => {
-                document.getElementById('music-text').innerText = "Pause Music";
-            }).catch(e => console.log("Audio autoplay prevented"));
-
-            // Fade out overlay
-            overlay.style.opacity = '0';
-            setTimeout(() => {
-                overlay.style.visibility = 'hidden';
-            }, 1200);
-        }
-
-        // 2. AUDIO PLAY/PAUSE TOGGLE
-        function toggleAudio() {
-            const music = document.getElementById('bg-music');
-            const musicText = document.getElementById('music-text');
-            if (music.paused) {
-                music.play();
-                musicText.innerText = "Pause Music";
-            } else {
-                music.pause();
-                musicText.innerText = "Play Music";
-            }
-        }
-
-        // 3. TAB NAVIGATION SWITCHER (NO SCROLLING)
-        function switchTab(tabId, btnElement) {
-            // Hide all tabs
-            document.querySelectorAll('.tab-content').forEach(tab => {
-                tab.classList.remove('active');
-            });
-
-            // Remove active style from all nav buttons
-            document.querySelectorAll('.nav-btn').forEach(btn => {
-                btn.classList.remove('active-tab');
-            });
-
-            // Show target tab
-            const targetTab = document.getElementById(tabId);
-            if (targetTab) {
-                targetTab.classList.add('active');
-            }
-
-            // Highlight clicked button
-            if (btnElement) {
-                btnElement.classList.add('active-tab');
-            }
-        }
-
-        // 4. GUESTBOOK MESSAGE SUBMISSION
-        function submitMessage(event) {
-            event.preventDefault();
-            const name = document.getElementById('guest-name').value;
-            const message = document.getElementById('guest-message').value;
-            const list = document.getElementById('wishes-list');
-
-            const wishCard = document.createElement('div');
-            wishCard.className = 'bg-rosered-950/60 p-3 rounded-lg border border-gold/20 animate-fade-in';
-            wishCard.innerHTML = `
-                <p class="text-xs font-serif text-gold font-bold">${escapeHtml(name)}</p>
-                <p class="text-xs text-gray-200 mt-1">"${escapeHtml(message)}"</p>
-            `;
-
-            list.prepend(wishCard);
-
-            // Reset form
-            document.getElementById('guestbook-form').reset();
-
-            // Trigger minor confetti celebration
-            confetti({
-                particleCount: 30,
-                spread: 50,
-                origin: { y: 0.8 }
-            });
-        }
-
-        function escapeHtml(str) {
-            return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
-        }
-    </script>
+<script>
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+// placeholder lists
+for(let i=1;i<=18;i++){
+  $('#roses').insertAdjacentHTML('beforeend',`<li>Rose Name ${i}</li>`);
+  $('#treasures').insertAdjacentHTML('beforeend',`<li>Treasure Name ${i}</li>`);
+}
+// tabs
+function show(id){
+  $$('.panel').forEach(p=>p.classList.toggle('on',p.id===id));
+  $$('.tab').forEach(t=>t.setAttribute('aria-selected',t.dataset.t===id));
+  window.scrollTo({top:0});
+}
+$$('.tab').forEach(t=>t.onclick=()=>{show(t.dataset.t);t.scrollIntoView({inline:'center',block:'nearest'})});
+$$('[data-go]').forEach(b=>b.onclick=()=>show(b.dataset.go));
+// audio
+const bgm=$('#bgm'),ab=$('#audio');
+bgm.volume=.5;
+function sync(){ab.textContent=bgm.paused?'♪ Play':'❚❚ Pause'}
+ab.onclick=()=>{bgm.paused?bgm.play().catch(()=>{}):bgm.pause();sync()};
+bgm.onplay=bgm.onpause=sync;
+// scroll open
+$('#unroll').onclick=()=>{
+  const s=$('#scroll');s.classList.add('open');
+  bgm.play().catch(()=>{});
+  setTimeout(()=>{s.classList.add('gone');setTimeout(()=>s.remove(),1700)},3200);
+};
+// confetti
+function confetti(){
+  const c=['#c9a24b','#f1d98a','#9a1b35','#f3bfc0','#fff'];
+  for(let i=0;i<60;i++){
+    const e=document.createElement('i');e.className='confetti';
+    e.style.left=Math.random()*100+'vw';e.style.background=c[i%5];
+    e.style.animationDuration=(2+Math.random()*2)+'s';e.style.animationDelay=Math.random()*.5+'s';
+    document.body.appendChild(e);setTimeout(()=>e.remove(),4800);
+  }
+}
+// guestbook (shown on this device only)
+const esc=s=>s.replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+$('#post').onclick=()=>{
+  const n=$('#gname').value.trim(),m=$('#gmsg').value.trim();
+  if(!n||!m){alert('Please enter your name and a message.');return}
+  $('#empty').style.display='none';
+  $('#wall').insertAdjacentHTML('afterbegin',`<div class="wish"><p class="text-sm">${esc(m)}</p><p class="cinzel text-xs mt-1" style="color:#9a7a2a">— ${esc(n)}</p></div>`);
+  $('#gname').value=$('#gmsg').value='';confetti();
+};
+</script>
 </body>
 </html>
