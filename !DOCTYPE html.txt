@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ryenn's 18th Birthday Debut - Grand Invitation</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Great+Vibes&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        rosered: {
+                            50: '#fdf2f4',
+                            100: '#fbe5e8',
+                            200: '#f8cbd2',
+                            500: '#be123c',
+                            700: '#800020', // Main deep rose red
+                            800: '#5c0017',
+                            900: '#38000d',
+                        },
+                        gold: {
+                            light: '#F4E0A5',
+                            DEFAULT: '#D4AF37',
+                            dark: '#AA7C11',
+                            shimmer: '#FFF2C6'
+                        },
+                        velvet: '#1a0309'
+                    },
+                    fontFamily: {
+                        cinzel: ['Cinzel', 'serif'],
+                        script: ['Great Vibes', 'cursive'],
+                        sans: ['Montserrat', 'sans-serif'],
+                    },
+                    backgroundImage: {
+                        'gold-gradient': 'linear-gradient(135deg, #BF953F 0%, #FCF6BA 25%, #B38728 50%, #FBF5B7 75%, #AA771C 100%)',
+                        'rose-gradient': 'radial-gradient(circle, #800020 0%, #2e000b 100%)',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        .font-gold {
+            background: linear-gradient(135deg, #BF953F 0%, #FCF6BA 30%, #B38728 60%, #FBF5B7 80%, #AA771C 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .gold-border {
+            border-image: linear-gradient(to bottom right, #BF953F, #FCF6BA, #B38728, #AA771C) 1;
+        }
+
+        .gold-box-shadow {
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.25);
+        }
+
+        .glass-panel {
+            background: rgba(46, 0, 11, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+        }
+
+        /* Floral floating animations */
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-12px) rotate(3deg); }
+        }
+
+        .animate-float {
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .petal {
+            position: absolute;
+            background: radial-gradient(circle, #be123c, #5c0017);
+            border-radius: 150% 0 150% 0;
+            opacity: 0.3;
+            pointer-events: none;
+            animation: fall 12s linear infinite;
+        }
+
+        @keyframes fall {
+            0% { transform: translateY(-10vh) rotate(0deg) scale(0.8); opacity: 0; }
+            10% { opacity: 0.5; }
+            90% { opacity: 0.5; }
+            100% { transform: translateY(105vh) rotate(360deg) scale(1.2); opacity: 0; }
+        }
+    </style>
+</head>
+<body class="bg-velvet text-gray-100 font-sans relative overflow-x-hidden selection:bg-gold selection:text-black">
+
+    <div id="petals-container" class="fixed inset-0 pointer-events-none z-0 overflow-hidden"></div>
+
+    <div class="fixed top-5 right-5 z-50">
+        <button id="musicToggle" onclick="toggleAudio()" class="w-12 h-12 rounded-full glass-panel border border-gold/50 flex items-center justify-center text-gold hover:scale-110 transition duration-300 shadow-lg group">
+            <i id="musicIcon" class="fas fa-music text-lg group-hover:rotate-12 transition"></i>
+        </button>
+        <audio id="bgAudio" loop preload="auto">
+            <source src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3?filename=romantic-waltz-112316.mp3" type="audio/mpeg">
+        </audio>
+    </div>
+
+    <nav class="fixed top-0 left-0 w-full z-40 bg-velvet/80 backdrop-blur-md border-b border-gold/20 py-3 px-6 transition">
+        <div class="max-w-6xl mx-mx-auto flex justify-between items-center">
+            <a href="#home" class="font-cinzel text-xl tracking-widest font-bold font-gold">RYENN @ 18</a>
+            <div class="hidden md:flex space-x-6 font-cinzel text-xs tracking-wider uppercase text-gray-300">
+                <a href="#home" class="hover:text-gold transition">Home</a>
+                <a href="#details" class="hover:text-gold transition">Details</a>
+                <a href="#program" class="hover:text-gold transition">18's Program</a>
+                <a href="#attire" class="hover:text-gold transition">Dress Code</a>
+                <a href="#rsvp" class="hover:text-gold transition">RSVP</a>
+                <a href="#wishes" class="hover:text-gold transition">Guestbook</a>
+            </div>
+            <a href="#rsvp" class="bg-gold-gradient text-velvet px-4 py-1.5 rounded-full font-bold font-cinzel text-xs uppercase tracking-wider hover:brightness-110 shadow-md transition">RSVP Now</a>
+        </div>
+    </nav>
+
+    <section id="home" class="min-h-screen pt-24 pb-16 flex items-center justify-center px-4 relative z-10">
+        <div class="max-w-3xl w-full glass-panel rounded-2xl p-6 sm:p-12 text-center relative border-2 border-gold/40 shadow-2xl overflow-hidden">
+            
+            <!-- Floral Corner Accents -->
+            <div class="absolute -top-10 -left-10 w-32 h-32 opacity-30 pointer-events-none">
+                <svg viewBox="0 0 100 100" fill="#800020"><path d="M0 0 Q 50 0, 50 50 Q 0 50, 0 0 Z"/></svg>
+            </div>
+            <div class="absolute -bottom-10 -right-10 w-32 h-32 opacity-30 pointer-events-none rotate-180">
+                <svg viewBox="0 0 100 100" fill="#800020"><path d="M0 0 Q 50 0, 50 50 Q 0 50, 0 0 Z"/></svg>
+            </div>
+
+            <!-- Inner Gold Border Frame -->
+            <div class="border border-gold/40 p-6 sm:p-10 rounded-xl relative">
+                <p class="font-script text-3xl sm:text-5xl font-gold mb-2">Join Us!</p>
+                
+                <div class="my-4 relative">
+                    <h2 class="font-cinzel text-5xl sm:text-8xl font-black tracking-widest text-rosered-500 opacity-20 absolute inset-0 flex items-center justify-center">18</h2>
+                    <p class="font-script text-4xl sm:text-6xl text-rosered-200 relative z-10 -rotate-2">eighteen</p>
+                </div>
+
+                <p class="font-cinzel text-xs sm:text-sm tracking-widest uppercase text-gray-300 max-w-lg mx-auto leading-relaxed my-4">
+                    As we celebrate a new chapter of grace and womanhood with
+                </p>
+
+                <h1 class="font-script text-6xl sm:text-8xl font-gold my-2 tracking-wide font-bold drop-shadow-lg">
+                    Ryenn
+                </h1>
+
+                <p class="font-cinzel text-gold tracking-widest uppercase text-sm mt-6 mb-2">November</p>
+                
+                <div class="flex items-center justify-center space-x-6 my-3">
+                    <span class="font-cinzel text-sm sm:text-base tracking-widest text-gray-300 border-t border-b border-gold/40 py-1">SATURDAY</span>
+                    <span class="font-cinzel text-4xl sm:text-5xl font-bold font-gold px-4 border-x-2 border-gold">21</span>
+                    <span class="font-cinzel text-sm sm:text-base tracking-widest text-gray-300 border-t border-b border-gold/40 py-1">AT 06:00 PM</span>
+                </div>
+
+                <p class="font-cinzel text-lg text-gold/90 font-semibold mt-2">2026</p>
+
+                <div class="mt-8 pt-6 border-t border-gold/30">
+                    <p class="font-cinzel text-base sm:text-lg font-bold text-rosered-100 tracking-wide">
+                        ANGELA'S RESORT AND LEISURE FARM
+                    </p>
+                    <p class="text-xs sm:text-sm text-gray-300 mt-1 font-light">
+                        Putol, Brgy. San Lucas 2, San Pablo City, Philippines, 4000
+                    </p>
+                </div>
+
+                <div class="mt-8 flex flex-wrap gap-4 justify-center">
+                    <a href="#rsvp" class="bg-gold-gradient text-velvet px-8 py-3 rounded-full font-cinzel font-bold text-sm uppercase tracking-wider hover:shadow-lg hover:scale-105 transition duration-300">
+                        <i class="fas fa-envelope-open-text mr-2"></i> Confirm RSVP
+                    </a>
+                    <a href="#pass" class="border border-gold/60 text-gold px-6 py-3 rounded-full font-cinzel text-sm uppercase tracking-wider hover:bg-gold/10 transition duration-300">
+                        <i class="fas fa-qrcode mr-2"></i> Entry QR Pass
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-12 bg-rosered-900/40 border-y border-gold/20 relative z-10">
+        <div class="max-w-4xl mx-auto px-4 text-center">
+            <h3 class="font-cinzel text-gold text-sm tracking-widest uppercase mb-6">Counting Down To The Celebration</h3>
+            <div id="countdown" class="grid grid-cols-2 sm:grid-cols-4 gap-4 max-w-2xl mx-auto">
+                <div class="glass-panel p-4 rounded-xl border border-gold/30">
+                    <span id="days" class="font-cinzel text-3xl sm:text-5xl font-bold font-gold block">00</span>
+                    <span class="text-xs tracking-widest uppercase text-gray-400">Days</span>
+                </div>
+                <div class="glass-panel p-4 rounded-xl border border-gold/30">
+                    <span id="hours" class="font-cinzel text-3xl sm:text-5xl font-bold font-gold block">00</span>
+                    <span class="text-xs tracking-widest uppercase text-gray-400">Hours</span>
+                </div>
+                <div class="glass-panel p-4 rounded-xl border border-gold/30">
+                    <span id="minutes" class="font-cinzel text-3xl sm:text-5xl font-bold font-gold block">00</span>
+                    <span class="text-xs tracking-widest uppercase text-gray-400">Minutes</span>
+                </div>
+                <div class="glass-panel p-4 rounded-xl border border-gold/30">
+                    <span id="seconds" class="font-cinzel text-3xl sm:text-5xl font-bold font-gold block">00</span>
+                    <span class="text-xs tracking-widest uppercase text-gray-400">Seconds</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="details" class="py-20 px-4 relative z-10">
+        <div class="max-w-5xl mx-auto">
+            <div class="text-center mb-12">
+                <p class="font-script text-4xl text-gold">Where & When</p>
+                <h2 class="font-cinzel text-3xl font-bold text-white tracking-widest">EVENT LOCATION</h2>
+                <div class="w-24 h-0.5 bg-gold-gradient mx-auto mt-3"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                <div class="glass-panel p-8 rounded-2xl border border-gold/30 space-y-6">
+                    <div class="flex items-start space-x-4">
+                        <div class="w-12 h-12 rounded-full bg-gold/10 border border-gold/40 flex items-center justify-center text-gold shrink-0">
+                            <i class="fas fa-map-marker-alt text-xl"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-cinzel font-bold text-lg text-gold">Angela's Resort and Leisure Farm</h4>
+                            <p class="text-gray-300 text-sm mt-1">Putol, Brgy. San Lucas 2, San Pablo City, Philippines, 4000</p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start space-x-4">
+                        <div class="w-12 h-12 rounded-full bg-gold/10 border border-gold/40 flex items-center justify-center text-gold shrink-0">
+                            <i class="fas fa-clock text-xl"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-cinzel font-bold text-lg text-gold">Date & Schedule</h4>
+                            <p class="text-gray-300 text-sm mt-1">Saturday, November 21, 2026</p>
+                            <p class="text-xs text-rosered-200 mt-0.5">Doors open & Cocktail Reception: 5:30 PM | Program Starts: 6:00 PM</p>
+                        </div>
+                    </div>
+
+                    <div class="pt-4">
+                        <a href="https://maps.google.com/?q=Angela's+Resort+and+Leisure+Farm+San+Pablo+City" target="_blank" class="w-full inline-flex items-center justify-center space-x-2 bg-rosered-700 hover:bg-rosered-800 border border-gold/40 text-gold py-3 px-6 rounded-xl font-cinzel text-xs tracking-wider uppercase transition duration-300">
+                            <i class="fas fa-directions"></i>
+                            <span>Get Directions on Google Maps</span>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="rounded-2xl overflow-hidden glass-panel border border-gold/30 h-80 relative shadow-xl">
+                    <iframe 
+                        title="Venue Location Map"
+                        class="w-full h-full border-0 filter contrast-125 opacity-90 hover:opacity-100 transition" 
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3868.528482937397!2d121.3200!3d14.0700!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x33bd5cb353282b0d%3A0x8e833e2182069b17!2sSan%20Pablo%20City%2C%20Laguna!5e0!3m2!1sen!2sph!4v1700000000000!5m2!1sen!2sph" 
+                        allowfullscreen="" 
+                        loading="lazy">
+                    </iframe>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="attire" class="py-16 bg-velvet/90 border-t border-gold/20 relative z-10">
+        <div class="max-w-4xl mx-auto px-4 text-center">
+            <p class="font-script text-4xl text-gold">Style & Palette</p>
+            <h2 class="font-cinzel text-3xl font-bold text-white tracking-widest mb-4">DRESS CODE</h2>
+            <p class="text-gray-300 text-sm max-w-xl mx-auto mb-10">We invite all guests to dress in formal or semi-formal evening attire following our palette.</p>
+
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+                <div class="glass-panel p-5 rounded-xl border border-gold/30 text-center">
+                    <div class="w-16 h-16 rounded-full mx-auto mb-3 border-2 border-gold shadow-md bg-[#800020]"></div>
+                    <p class="font-cinzel text-xs font-bold text-gold">ROSE RED</p>
+                    <p class="text-[10px] text-gray-400 mt-1">Deep Velvet Red</p>
+                </div>
+                <div class="glass-panel p-5 rounded-xl border border-gold/30 text-center">
+                    <div class="w-16 h-16 rounded-full mx-auto mb-3 border-2 border-gold shadow-md bg-[#4A0010]"></div>
+                    <p class="font-cinzel text-xs font-bold text-gold">BURGUNDY</p>
+                    <p class="text-[10px] text-gray-400 mt-1">Wine & Maroon</p>
+                </div>
+                <div class="glass-panel p-5 rounded-xl border border-gold/30 text-center">
+                    <div class="w-16 h-16 rounded-full mx-auto mb-3 border-2 border-gold shadow-md bg-[#D4AF37]"></div>
+                    <p class="font-cinzel text-xs font-bold text-gold">GOLD ACCENTS</p>
+                    <p class="text-[10px] text-gray-400 mt-1">Warm Metallic</p>
+                </div>
+                <div class="glass-panel p-5 rounded-xl border border-gold/30 text-center">
+                    <div class="w-16 h-16 rounded-full mx-auto mb-3 border-2 border-gold shadow-md bg-[#111111]"></div>
+                    <p class="font-cinzel text-xs font-bold text-gold">CLASSIC BLACK</p>
+                    <p class="text-[10px] text-gray-400 mt-1">Formal Dark Suits</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="program" class="py-20 px-4 relative z-10">
+        <div class="max-w-5xl mx-auto">
+            <div class="text-center mb-10">
+                <p class="font-script text-4xl text-gold">Celebrating Special People</p>
+                <h2 class="font-cinzel text-3xl font-bold text-white tracking-widest">THE 18'S PROGRAM</h2>
+                <div class="w-24 h-0.5 bg-gold-gradient mx-auto mt-3"></div>
+            </div>
+
+            <!-- Program Tabs -->
+            <div class="flex flex-wrap justify-center gap-2 mb-8 border-b border-gold/20 pb-4">
+                <button onclick="switchTab('roses')" id="tab-roses" class="tab-btn px-5 py-2.5 rounded-full font-cinzel text-xs font-bold uppercase tracking-wider transition duration-300 bg-gold-gradient text-velvet shadow-md">
+                    <i class="fas fa-rose mr-1"></i> 18 Roses
+                </button>
+                <button onclick="switchTab('candles')" id="tab-candles" class="tab-btn px-5 py-2.5 rounded-full font-cinzel text-xs font-bold uppercase tracking-wider text-gray-400 hover:text-gold transition duration-300">
+                    <i class="fas fa-fire mr-1"></i> 18 Candles
+                </button>
+                <button onclick="switchTab('treasures')" id="tab-treasures" class="tab-btn px-5 py-2.5 rounded-full font-cinzel text-xs font-bold uppercase tracking-wider text-gray-400 hover:text-gold transition duration-300">
+                    <i class="fas fa-gem mr-1"></i> 18 Treasures
+                </button>
+                <button onclick="switchTab('shots')" id="tab-shots" class="tab-btn px-5 py-2.5 rounded-full font-cinzel text-xs font-bold uppercase tracking-wider text-gray-400 hover:text-gold transition duration-300">
+                    <i class="fas fa-glass-cheers mr-1"></i> 18 Blue Bills / Shots
+                </button>
+            </div>
+
+            <!-- Tab Contents -->
+            <div id="tab-content" class="glass-panel p-8 rounded-2xl border border-gold/30">
+                <!-- Dynamic Content Rendered via JS -->
+            </div>
+        </div>
+    </section>
+
+    <section id="pass" class="py-20 px-4 bg-rosered-900/30 border-t border-gold/20 relative z-10">
+        <div class="max-w-3xl mx-auto text-center">
+            <p class="font-script text-4xl text-gold">Digital VIP Access</p>
+            <h2 class="font-cinzel text-3xl font-bold text-white tracking-widest mb-4">GUEST ENTRY PASS</h2>
+            <p class="text-gray-300 text-sm max-w-lg mx-auto mb-8">Every invited guest receives a personalized digital pass for quick check-in upon arrival at the venue.</p>
+
+            <div class="glass-panel max-w-md mx-auto p-6 sm:p-8 rounded-2xl border-2 border-gold/50 shadow-2xl relative">
+                <div class="border border-gold/30 p-6 rounded-xl text-center">
+                    <div class="flex justify-between items-center border-b border-gold/30 pb-3 mb-4">
+                        <span class="font-cinzel text-xs font-bold font-gold tracking-widest">DEBUT VIP PASS</span>
+                        <span class="text-[10px] text-rosered-200">2026.11.21</span>
+                    </div>
+
+                    <h3 class="font-script text-3xl font-gold my-1">Ryenn's 18th</h3>
+                    <p id="passGuestName" class="font-cinzel text-base font-bold text-white uppercase tracking-wider mb-4">HONORED GUEST</p>
+
+                    <!-- QR Code Container -->
+                    <div class="bg-white p-4 rounded-xl inline-block mx-auto border-2 border-gold/60 shadow-inner">
+                        <div id="qrcode"></div>
+                    </div>
+
+                    <p class="text-[11px] text-gray-300 mt-4 tracking-wide font-light">Present this code at Angela's Resort Reception</p>
+                    <div class="mt-4 pt-3 border-t border-gold/20 flex justify-around text-[10px] text-gray-400 uppercase font-cinzel">
+                        <span>Table: Reserved</span>
+                        <span>Access: All-Access</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="rsvp" class="py-20 px-4 relative z-10">
+        <div class="max-w-2xl mx-auto">
+            <div class="text-center mb-10">
+                <p class="font-script text-4xl text-gold">Kindly Respond</p>
+                <h2 class="font-cinzel text-3xl font-bold text-white tracking-widest">RSVP CONFIRMATION</h2>
+                <p class="text-xs text-gray-300 uppercase tracking-widest mt-2">Please confirm your attendance before November 1, 2026</p>
+            </div>
+
+            <div class="glass-panel p-8 sm:p-10 rounded-2xl border border-gold/40 shadow-2xl">
+                <form id="rsvpForm" onsubmit="handleRSVP(event)" class="space-y-6">
+                    <div>
+                        <label class="block font-cinzel text-xs font-bold uppercase tracking-wider text-gold mb-2">Full Name *</label>
+                        <input type="text" id="guestName" required placeholder="Enter your full name" 
+                            class="w-full bg-velvet/80 border border-gold/30 rounded-xl px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-gold transition">
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block font-cinzel text-xs font-bold uppercase tracking-wider text-gold mb-2">Contact / Phone *</label>
+                            <input type="tel" id="guestPhone" required placeholder="0912 345 6789" 
+                                class="w-full bg-velvet/80 border border-gold/30 rounded-xl px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-gold transition">
+                        </div>
+                        <div>
+                            <label class="block font-cinzel text-xs font-bold uppercase tracking-wider text-gold mb-2">Attending *</label>
+                            <select id="attendance" required class="w-full bg-velvet/80 border border-gold/30 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-gold transition">
+                                <option value="Yes, Joyfully Attending">Yes, Joyfully Attending</option>
+                                <option value="Regretfully Decline">Regretfully Decline</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block font-cinzel text-xs font-bold uppercase tracking-wider text-gold mb-2">Message or Birthday Wishes for Ryenn</label>
+                        <textarea id="guestMessage" rows="3" placeholder="Write a sweet message for Ryenn..." 
+                            class="w-full bg-velvet/80 border border-gold/30 rounded-xl px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-gold transition"></textarea>
+                    </div>
+
+                    <button type="submit" class="w-full bg-gold-gradient text-velvet py-4 rounded-xl font-cinzel font-bold text-sm uppercase tracking-widest hover:brightness-110 shadow-lg transition duration-300">
+                        Submit Confirmation
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <section id="wishes" class="py-20 px-4 bg-velvet/90 border-t border-gold/20 relative z-10">
+        <div class="max-w-4xl mx-auto">
+            <div class="text-center mb-10">
+                <p class="font-script text-4xl text-gold">Warm Words</p>
+                <h2 class="font-cinzel text-3xl font-bold text-white tracking-widest">GUESTBOOK & WISHES</h2>
+                <div class="w-24 h-0.5 bg-gold-gradient mx-auto mt-3"></div>
+            </div>
+
+            <div id="wishesContainer" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Initial Mock Wishes -->
+                <div class="glass-panel p-6 rounded-xl border border-gold/30">
+                    <p class="text-gray-300 text-sm italic">"Happy 18th Birthday Ryenn! May your journey into adulthood be filled with endless grace, joy, and wonderful adventures!"</p>
+                    <p class="font-cinzel text-xs font-bold text-gold mt-4 text-right">— Tita Maria & Family</p>
+                </div>
+                <div class="glass-panel p-6 rounded-xl border border-gold/30">
+                    <p class="text-gray-300 text-sm italic">"So proud of the beautiful and talented young lady you have become. Excited to celebrate your special night!"</p>
+                    <p class="font-cinzel text-xs font-bold text-gold mt-4 text-right">— Coach Alex</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="py-8 text-center text-xs font-cinzel text-gray-500 border-t border-gold/20 relative z-10">
+        <p class="tracking-widest">RYENN'S 18TH DEBUT CELEBRATION • NOVEMBER 21, 2026</p>
+        <p class="text-[10px] text-gold/60 mt-1">Angela's Resort and Leisure Farm, San Pablo City</p>
+    </footer>
+
+    <script>
+        const programData = {
+            roses: {
+                title: "18 ROSES",
+                description: "Gentlemen sharing a memorable waltz with the debutante.",
+                items: ["Details to follow (1)", "Details to follow (2)", "Details to follow (3)", "Details to follow (4)", "Details to follow (5)", "Details to follow (6)", "Details to follow (7)", "Details to follow (8)", "Details to follow (9)", "Details to follow (10)", "Details to follow (11)", "Details to follow (12)", "Details to follow (13)", "Details to follow (14)", "Details to follow (15)", "Details to follow (16)", "Details to follow (17)", "Escort / Father (18)"]
+            },
+            candles: {
+                title: "18 CANDLES",
+                description: "Ladies offering bright wishes, guidance, and love.",
+                items: ["Details to follow (1)", "Details to follow (2)", "Details to follow (3)", "Details to follow (4)", "Details to follow (5)", "Details to follow (6)", "Details to follow (7)", "Details to follow (8)", "Details to follow (9)", "Details to follow (10)", "Details to follow (11)", "Details to follow (12)", "Details to follow (13)", "Details to follow (14)", "Details to follow (15)", "Details to follow (16)", "Details to follow (17)", "Details to follow (18)"]
+            },
+            treasures: {
+                title: "18 TREASURES",
+                description: "Special guests offering meaningful gifts and advice.",
+                items: ["Details to follow (1)", "Details to follow (2)", "Details to follow (3)", "Details to follow (4)", "Details to follow (5)", "Details to follow (6)", "Details to follow (7)", "Details to follow (8)", "Details to follow (9)", "Details to follow (10)", "Details to follow (11)", "Details to follow (12)", "Details to follow (13)", "Details to follow (14)", "Details to follow (15)", "Details to follow (16)", "Details to follow (17)", "Details to follow (18)"]
+            },
+            shots: {
+                title: "18 BLUE BILLS / SHOTS",
+                description: "Prosperity wishes and energetic toasts for the future.",
+                items: ["Details to follow (1)", "Details to follow (2)", "Details to follow (3)", "Details to follow (4)", "Details to follow (5)", "Details to follow (6)", "Details to follow (7)", "Details to follow (8)", "Details to follow (9)", "Details to follow (10)", "Details to follow (11)", "Details to follow (12)", "Details to follow (13)", "Details to follow (14)", "Details to follow (15)", "Details to follow (16)", "Details to follow (17)", "Details to follow (18)"]
+            }
+        };
+
+        let qrcodeObj = null;
+
+        function createPetals() {
+            const container = document.getElementById('petals-container');
+            for (let i = 0; i < 20; i++) {
+                const petal = document.createElement('div');
+                petal.className = 'petal';
+                petal.style.left = Math.random() * 100 + 'vw';
+                petal.style.width = (Math.random() * 12 + 8) + 'px';
+                petal.style.height = (Math.random() * 16 + 10) + 'px';
+                petal.style.animationDelay = (Math.random() * 10) + 's';
+                petal.style.animationDuration = (Math.random() * 8 + 8) + 's';
+                container.appendChild(petal);
+            }
+        }
+
+        function updateCountdown() {
+            const eventDate = new Date('November 21, 2026 18:00:00').getTime();
+            const now = new Date().getTime();
+            const diff = eventDate - now;
+
+            if (diff > 0) {
+                const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+                document.getElementById('days').innerText = String(days).padStart(2, '0');
+                document.getElementById('hours').innerText = String(hours).padStart(2, '0');
+                document.getElementById('minutes').innerText = String(minutes).padStart(2, '0');
+                document.getElementById('seconds').innerText = String(seconds).padStart(2, '0');
+            }
+        }
+
+        function switchTab(key) {
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.className = 'tab-btn px-5 py-2.5 rounded-full font-cinzel text-xs font-bold uppercase tracking-wider text-gray-400 hover:text-gold transition duration-300';
+            });
+            const activeBtn = document.getElementById(`tab-${key}`);
+            if (activeBtn) {
+                activeBtn.className = 'tab-btn px-5 py-2.5 rounded-full font-cinzel text-xs font-bold uppercase tracking-wider transition duration-300 bg-gold-gradient text-velvet shadow-md';
+            }
+
+            const data = programData[key];
+            const container = document.getElementById('tab-content');
+            
+            let gridHtml = data.items.map((item, idx) => `
+                <div class="border border-gold/20 p-3 rounded-lg bg-velvet/40 flex items-center space-x-3">
+                    <span class="w-6 h-6 rounded-full bg-gold/10 text-gold font-cinzel text-xs flex items-center justify-center font-bold">${idx + 1}</span>
+                    <span class="text-xs text-gray-300 tracking-wide">${item}</span>
+                </div>
+            `).join('');
+
+            container.innerHTML = `
+                <div class="mb-6 text-center">
+                    <h3 class="font-cinzel text-xl font-bold text-gold">${data.title}</h3>
+                    <p class="text-xs text-gray-400 mt-1">${data.description}</p>
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
+                    ${gridHtml}
+                </div>
+            `;
+        }
+
+        function generateQRCode(text) {
+            const container = document.getElementById("qrcode");
+            container.innerHTML = "";
+            qrcodeObj = new QRCode(container, {
+                text: text,
+                width: 130,
+                height: 130,
+                colorDark : "#800020",
+                colorLight : "#ffffff",
+                correctLevel : QRCode.CorrectLevel.H
+            });
+        }
+
+        function handleRSVP(event) {
+            event.preventDefault();
+            const name = document.getElementById('guestName').value;
+            const message = document.getElementById('guestMessage').value;
+
+            // Update Pass Name
+            document.getElementById('passGuestName').innerText = name;
+            generateQRCode(`RYENN18-GUEST-${name.replace(/\s+/g, '').toUpperCase()}`);
+
+            // Add wish to Guestbook if provided
+            if (message.trim()) {
+                const wishesContainer = document.getElementById('wishesContainer');
+                const wishCard = document.createElement('div');
+                wishCard.className = 'glass-panel p-6 rounded-xl border border-gold/30 animate-fade-in';
+                wishCard.innerHTML = `
+                    <p class="text-gray-300 text-sm italic">"${message}"</p>
+                    <p class="font-cinzel text-xs font-bold text-gold mt-4 text-right">— ${name}</p>
+                `;
+                wishesContainer.prepend(wishCard);
+            }
+
+            // Trigger Confetti Celebration
+            confetti({
+                particleCount: 100,
+                spread: 70,
+                origin: { y: 0.6 },
+                colors: ['#D4AF37', '#800020', '#FFFFFF']
+            });
+
+            // Smooth scroll to QR pass
+            document.getElementById('pass').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        let isPlaying = false;
+        function toggleAudio() {
+            const audio = document.getElementById('bgAudio');
+            const icon = document.getElementById('musicIcon');
+            if (isPlaying) {
+                audio.pause();
+                icon.className = 'fas fa-music text-lg group-hover:rotate-12 transition';
+            } else {
+                audio.play().catch(e => console.log('Audio playback initialized'));
+                icon.className = 'fas fa-pause text-lg text-gold animate-pulse';
+            }
+            isPlaying = !isPlaying;
+        }
+
+        window.onload = function() {
+            createPetals();
+            updateCountdown();
+            setInterval(updateCountdown, 1000);
+            switchTab('roses');
+            generateQRCode("RYENN18-VIP-INVITATION");
+        };
+    </script>
+</body>
+</html>
