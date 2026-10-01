@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ryenn's 18th Birthday Debut - Grand Invitation</title>
+    <title>Ryenn's 18th Debut - Grand Interactive Invitation</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Cinzel:wght@400;600;700;800;900&family=Great+Vibes&family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Cinzel:wght@400;600;700;800;900&family=Great+Vibes&family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&display=swap" rel="stylesheet">
     <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Canvas Confetti -->
@@ -21,25 +21,25 @@
                 extend: {
                     colors: {
                         rosered: {
-                            50: '#fff0f3',
-                            100: '#ffe1e6',
-                            200: '#fcc7d1',
-                            500: '#be123c',
-                            700: '#800020', // Deep Velvet Rose Red
-                            800: '#5c0017', // Dark Burgundy
-                            900: '#38000d',
+                            50: '#fff0f2',
+                            100: '#ffe1e5',
+                            200: '#fcc7ce',
+                            500: '#d91d3e',
+                            700: '#800A1D', // Primary Burgundy Rose Red
+                            800: '#5A0614',
+                            900: '#3D030C',
                         },
                         gold: {
-                            light: '#FDF0CD',
-                            DEFAULT: '#D4AF37', // Regal Gold
+                            light: '#FFF2C6',
+                            DEFAULT: '#D4AF37', // Gold Foil
                             dark: '#AA7C11',
-                            shimmer: '#FFF2C6'
+                            deep: '#825c08'
                         },
                         champagne: {
-                            100: '#FFFDF9',
-                            200: '#FFF8F5',
-                            300: '#FFF0F3',
-                            400: '#FDE8EB'
+                            100: '#FFFCF7',
+                            200: '#FAF6F0', // Cream Background
+                            300: '#F5ECE1',
+                            400: '#EBDCCB'
                         }
                     },
                     fontFamily: {
@@ -55,7 +55,6 @@
     </script>
 
     <style>
-        /* Custom Gold Metallic Text Gradient */
         .text-gold-gradient {
             background: linear-gradient(135deg, #BF953F 0%, #FCF6BA 25%, #B38728 50%, #FBF5B7 75%, #AA771C 100%);
             -webkit-background-clip: text;
@@ -63,74 +62,58 @@
         }
 
         .text-rose-gradient {
-            background: linear-gradient(135deg, #800020 0%, #be123c 50%, #5c0017 100%);
+            background: linear-gradient(135deg, #800A1D 0%, #be123c 50%, #5A0614 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
-        /* Gold Foil Border Gradient */
-        .gold-border-box {
-            border: 2px solid transparent;
-            border-image: linear-gradient(to bottom right, #BF953F, #FCF6BA, #B38728, #AA771C) 1;
-        }
-
-        /* Glassmorphism Panel on Champagne Theme */
         .champagne-glass {
-            background: rgba(255, 248, 245, 0.88);
-            backdrop-filter: blur(16px);
+            background: rgba(255, 252, 247, 0.92);
+            backdrop-filter: blur(12px);
             border: 1px solid rgba(212, 175, 55, 0.4);
-            box-shadow: 0 10px 30px rgba(92, 0, 23, 0.08);
+            box-shadow: 0 15px 35px rgba(90, 6, 20, 0.08);
         }
 
-        /* Scroll Unfurling 3D Animation Overlay */
+        /* Unrolling scroll effect */
         #scroll-overlay {
             transition: opacity 1.2s cubic-bezier(0.77, 0, 0.175, 1), transform 1.2s cubic-bezier(0.77, 0, 0.175, 1);
         }
 
-        .scroll-rolled {
-            transform: scaleY(0.05);
-            opacity: 0;
-            pointer-events: none;
-        }
-
         @keyframes pulse-glow {
             0%, 100% { box-shadow: 0 0 15px rgba(212, 175, 55, 0.5); }
-            50% { box-shadow: 0 0 30px rgba(212, 175, 55, 0.9); }
+            50% { box-shadow: 0 0 35px rgba(212, 175, 55, 0.9); }
         }
 
         .animate-pulse-glow {
             animation: pulse-glow 2.5s infinite;
         }
 
-        /* Floral floating particles */
         .petal {
             position: absolute;
-            background: radial-gradient(circle, #be123c 0%, #800020 100%);
+            background: radial-gradient(circle, #be123c 0%, #800A1D 100%);
             border-radius: 150% 0 150% 0;
-            opacity: 0.25;
+            opacity: 0.3;
             pointer-events: none;
-            animation: fall 14s linear infinite;
+            animation: fall 12s linear infinite;
         }
 
         @keyframes fall {
             0% { transform: translateY(-10vh) rotate(0deg) scale(0.6); opacity: 0; }
-            15% { opacity: 0.4; }
-            85% { opacity: 0.4; }
+            15% { opacity: 0.5; }
+            85% { opacity: 0.5; }
             100% { transform: translateY(105vh) rotate(360deg) scale(1.1); opacity: 0; }
         }
     </style>
 </head>
 <body class="bg-champagne-200 text-gray-800 font-sans relative overflow-x-hidden selection:bg-rosered-700 selection:text-gold-light">
 
-    <!-- Ambient Falling Rose Petals Canvas -->
     <div id="petals-container" class="fixed inset-0 pointer-events-none z-0 overflow-hidden"></div>
 
-    <!-- Floating Background Audio Control Widget -->
     <div class="fixed top-5 right-5 z-50 flex items-center space-x-2">
-        <button id="musicToggle" onclick="toggleAudio()" class="w-12 h-12 rounded-full bg-champagne-100 border-2 border-gold flex items-center justify-center text-rosered-700 shadow-xl hover:scale-110 transition duration-300 group">
+        <button id="musicToggle" onclick="toggleAudio()" class="w-12 h-12 rounded-full bg-champagne-100 border-2 border-gold flex items-center justify-center text-rosered-700 shadow-2xl hover:scale-110 transition duration-300 group">
             <i id="musicIcon" class="fas fa-music text-lg group-hover:rotate-12 transition"></i>
         </button>
-        <!-- Swiftie Piano Instrumental Track -->
+        <!-- Instrumental Taylor Swift Piano Background Music -->
         <audio id="bgAudio" loop preload="auto">
             <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_c8b931a293.mp3?filename=enchanted-piano-romantic-waltz-10119.mp3" type="audio/mpeg">
         </audio>
@@ -138,11 +121,8 @@
 
     <div id="scroll-overlay" class="fixed inset-0 z-50 bg-rosered-900 bg-opacity-95 flex items-center justify-center p-4">
         <div class="text-center max-w-md w-full relative">
-            
-            <!-- Royal Scroll Visual Wrapper -->
             <div id="scroll-wrapper" class="bg-champagne-100 border-y-8 border-gold p-8 sm:p-12 rounded-2xl shadow-2xl relative border-x border-gold/40 transform transition duration-700">
-                <!-- Ribbon & Seal Effect -->
-                <div class="w-16 h-16 rounded-full bg-gold-gradient mx-auto mb-6 flex items-center justify-center text-rosered-900 shadow-xl animate-pulse-glow">
+                <div class="w-16 h-16 rounded-full bg-gold-gradient mx-auto mb-6 flex items-center justify-center text-rosered-900 shadow-2xl animate-pulse-glow cursor-pointer" onclick="unfurlScroll()">
                     <i class="fas fa-crown text-2xl"></i>
                 </div>
 
@@ -152,9 +132,9 @@
 
                 <button onclick="unfurlScroll()" class="w-full bg-gradient-to-r from-rosered-700 via-rosered-800 to-rosered-900 text-gold-light py-4 px-8 rounded-full font-cinzel font-bold text-sm tracking-widest uppercase hover:brightness-110 shadow-2xl border border-gold hover:scale-105 transition duration-300 flex items-center justify-center space-x-3">
                     <i class="fas fa-scroll text-lg"></i>
-                    <span>Open Royal Invitation</span>
+                    <span>Unroll Invitation</span>
                 </button>
-                <p class="text-[11px] text-gray-500 italic mt-4"><i class="fas fa-volume-up text-gold-dark mr-1"></i> Includes Taylor Swift Piano Instrumental</p>
+                <p class="text-[11px] text-gray-500 italic mt-4"><i class="fas fa-music text-gold-dark mr-1"></i> Plays Romantic Piano Music</p>
             </div>
         </div>
     </div>
@@ -168,7 +148,7 @@
             <div class="hidden md:flex space-x-6 font-cinzel text-xs tracking-wider uppercase text-gray-700 font-semibold">
                 <a href="#home" class="hover:text-rosered-700 transition">Home</a>
                 <a href="#gallery" class="hover:text-rosered-700 transition">Gallery</a>
-                <a href="#details" class="hover:text-rosered-700 transition">Event Details</a>
+                <a href="#details" class="hover:text-rosered-700 transition">Details</a>
                 <a href="#program" class="hover:text-rosered-700 transition">18's Program</a>
                 <a href="#attire" class="hover:text-rosered-700 transition">Dress Code</a>
                 <a href="#rsvp" class="hover:text-rosered-700 transition">RSVP</a>
@@ -179,32 +159,32 @@
     </nav>
 
     <section id="home" class="min-h-screen pt-28 pb-16 flex items-center justify-center px-4 relative z-10">
-        <div class="max-w-3xl w-full champagne-glass rounded-2xl p-4 sm:p-10 text-center relative shadow-2xl overflow-hidden border-2 border-gold/50">
+        <div class="max-w-4xl w-full champagne-glass rounded-2xl p-4 sm:p-10 text-center relative shadow-2xl overflow-hidden border-2 border-gold/50">
             
-            <!-- Floral Frame Illustrations (Matching reference invitation) -->
+            <!-- Floral Frame SVG Corner Accents -->
             <div class="absolute -top-6 -left-6 w-36 h-36 sm:w-48 sm:h-48 pointer-events-none opacity-90">
                 <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <circle cx="50" cy="50" r="40" fill="#800020" opacity="0.8"/>
+                    <circle cx="50" cy="50" r="40" fill="#800A1D" opacity="0.8"/>
                     <circle cx="80" cy="30" r="30" fill="#be123c" opacity="0.6"/>
-                    <circle cx="30" cy="80" r="25" fill="#5c0017" opacity="0.7"/>
+                    <circle cx="30" cy="80" r="25" fill="#5A0614" opacity="0.7"/>
                     <path d="M10 100 Q 100 0 100 100" stroke="#D4AF37" stroke-width="3"/>
                 </svg>
             </div>
             <div class="absolute -bottom-6 -right-6 w-36 h-36 sm:w-48 sm:h-48 pointer-events-none opacity-90 rotate-180">
                 <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <circle cx="50" cy="50" r="40" fill="#800020" opacity="0.8"/>
+                    <circle cx="50" cy="50" r="40" fill="#800A1D" opacity="0.8"/>
                     <circle cx="80" cy="30" r="30" fill="#be123c" opacity="0.6"/>
-                    <circle cx="30" cy="80" r="25" fill="#5c0017" opacity="0.7"/>
+                    <circle cx="30" cy="80" r="25" fill="#5A0614" opacity="0.7"/>
                     <path d="M10 100 Q 100 0 100 100" stroke="#D4AF37" stroke-width="3"/>
                 </svg>
             </div>
 
-            <!-- Double Thin Gold Inner Border Frame -->
-            <div class="border-2 border-gold/60 p-6 sm:p-10 rounded-xl relative bg-champagne-100/60 shadow-inner">
+            <!-- Double Thin Gold Inner Frame -->
+            <div class="border-2 border-gold/60 p-6 sm:p-10 rounded-xl relative bg-champagne-100/70 shadow-inner">
                 
                 <p class="font-alex text-4xl sm:text-6xl text-rosered-800 font-bold mb-1">Join Us!</p>
                 
-                <div class="my-4 relative flex flex-col items-center justify-center">
+                <div class="my-2 relative flex flex-col items-center justify-center">
                     <div class="font-cinzel text-6xl sm:text-9xl font-black text-rosered-700/10 tracking-widest absolute">18</div>
                     <p class="font-alex text-5xl sm:text-7xl text-rosered-700 relative z-10 -rotate-3 my-2">eighteen</p>
                 </div>
@@ -216,6 +196,13 @@
                 <h1 class="font-script text-6xl sm:text-8xl text-rose-gradient my-2 tracking-wide font-bold drop-shadow-md">
                     Ryenn
                 </h1>
+
+                <!-- Featured Hero Portrait Frame -->
+                <div class="my-8 max-w-xs sm:max-w-sm mx-auto p-2 bg-champagne-100 rounded-2xl border-2 border-gold shadow-2xl">
+                    <div class="rounded-xl overflow-hidden border border-gold/40 h-80 sm:h-96 relative">
+                        <img id="heroImage" src="" alt="Ryenn 18th Debut Portrait" class="w-full h-full object-cover object-top hover:scale-105 transition duration-700">
+                    </div>
+                </div>
 
                 <p class="font-cinzel text-rosered-800 tracking-widest uppercase text-xs font-bold mt-6 mb-2">NOVEMBER</p>
                 
@@ -238,10 +225,10 @@
 
                 <div class="mt-8 flex flex-wrap gap-4 justify-center">
                     <a href="#rsvp" class="bg-gradient-to-r from-rosered-700 to-rosered-800 text-gold-light px-8 py-3 rounded-full font-cinzel font-bold text-xs uppercase tracking-wider hover:shadow-xl hover:scale-105 transition duration-300 border border-gold">
-                        <i class="fas fa-paper-plane mr-2"></i> Send RSVP
+                        <i class="fas fa-envelope mr-2"></i> Confirm RSVP
                     </a>
                     <a href="#wishes" class="border-2 border-rosered-700 text-rosered-700 hover:bg-rosered-700 hover:text-gold-light px-6 py-3 rounded-full font-cinzel text-xs font-bold uppercase tracking-wider transition duration-300">
-                        <i class="fas fa-heart mr-2"></i> Leave a Message
+                        <i class="fas fa-pen-nib mr-2"></i> Write Wish
                     </a>
                 </div>
             </div>
@@ -252,45 +239,45 @@
         <div class="max-w-6xl mx-auto">
             <div class="text-center mb-12">
                 <p class="font-alex text-4xl text-rosered-700">A Glimpse of Grace</p>
-                <h2 class="font-cinzel text-3xl font-bold text-rosered-900 tracking-widest">DEBUTANT PORTRAITS</h2>
+                <h2 class="font-cinzel text-3xl font-bold text-rosered-900 tracking-widest">DEBUTANT GALLERY</h2>
                 <div class="w-24 h-0.5 bg-gold-gradient mx-auto mt-3"></div>
             </div>
 
-            <!-- Gallery Grid showcasing Ryenn's photos -->
+            <!-- Photos Grid -->
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                 
-                <div class="champagne-glass p-3 rounded-2xl border-2 border-gold/40 hover:scale-105 transition duration-500 shadow-xl group">
+                <div class="champagne-glass p-3 rounded-2xl border-2 border-gold/40 hover:scale-105 transition duration-500 shadow-xl group cursor-pointer" onclick="openLightbox('img1')">
                     <div class="h-96 rounded-xl overflow-hidden relative">
-                        <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=1000&auto=format&fit=crop" alt="Ryenn Portrait 1" class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
-                        <div class="absolute inset-0 bg-gradient-to-t from-rosered-900/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition duration-300 flex items-end p-4">
-                            <span class="font-cinzel text-xs font-bold text-gold-light tracking-widest uppercase">The Debutant</span>
+                        <img id="img1" src="" alt="Ryenn Seated on Balustrade" class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
+                        <div class="absolute inset-0 bg-gradient-to-t from-rosered-900/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition duration-300 flex items-end p-4">
+                            <span class="font-cinzel text-xs font-bold text-gold-light tracking-widest uppercase"><i class="fas fa-search-plus mr-1"></i> Seated in Grace</span>
                         </div>
                     </div>
                 </div>
 
-                <div class="champagne-glass p-3 rounded-2xl border-2 border-gold/40 hover:scale-105 transition duration-500 shadow-xl group">
+                <div class="champagne-glass p-3 rounded-2xl border-2 border-gold/40 hover:scale-105 transition duration-500 shadow-xl group cursor-pointer" onclick="openLightbox('img2')">
                     <div class="h-96 rounded-xl overflow-hidden relative">
-                        <img src="https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?q=80&w=1000&auto=format&fit=crop" alt="Ryenn Portrait 2" class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
-                        <div class="absolute inset-0 bg-gradient-to-t from-rosered-900/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition duration-300 flex items-end p-4">
-                            <span class="font-cinzel text-xs font-bold text-gold-light tracking-widest uppercase">Elegance in Red</span>
+                        <img id="img2" src="" alt="Ryenn Garden Bench" class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
+                        <div class="absolute inset-0 bg-gradient-to-t from-rosered-900/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition duration-300 flex items-end p-4">
+                            <span class="font-cinzel text-xs font-bold text-gold-light tracking-widest uppercase"><i class="fas fa-search-plus mr-1"></i> Garden Elegance</span>
                         </div>
                     </div>
                 </div>
 
-                <div class="champagne-glass p-3 rounded-2xl border-2 border-gold/40 hover:scale-105 transition duration-500 shadow-xl group">
+                <div class="champagne-glass p-3 rounded-2xl border-2 border-gold/40 hover:scale-105 transition duration-500 shadow-xl group cursor-pointer" onclick="openLightbox('img3')">
                     <div class="h-96 rounded-xl overflow-hidden relative">
-                        <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?q=80&w=1000&auto=format&fit=crop" alt="Ryenn Portrait 3" class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
-                        <div class="absolute inset-0 bg-gradient-to-t from-rosered-900/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition duration-300 flex items-end p-4">
-                            <span class="font-cinzel text-xs font-bold text-gold-light tracking-widest uppercase">Eighteen Years</span>
+                        <img id="img3" src="" alt="Ryenn Mansion Balcony Gown" class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
+                        <div class="absolute inset-0 bg-gradient-to-t from-rosered-900/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition duration-300 flex items-end p-4">
+                            <span class="font-cinzel text-xs font-bold text-gold-light tracking-widest uppercase"><i class="fas fa-search-plus mr-1"></i> Red Ballgown</span>
                         </div>
                     </div>
                 </div>
 
-                <div class="champagne-glass p-3 rounded-2xl border-2 border-gold/40 hover:scale-105 transition duration-500 shadow-xl group">
+                <div class="champagne-glass p-3 rounded-2xl border-2 border-gold/40 hover:scale-105 transition duration-500 shadow-xl group cursor-pointer" onclick="openLightbox('img4')">
                     <div class="h-96 rounded-xl overflow-hidden relative">
-                        <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=1000&auto=format&fit=crop" alt="Ryenn Portrait 4" class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
-                        <div class="absolute inset-0 bg-gradient-to-t from-rosered-900/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition duration-300 flex items-end p-4">
-                            <span class="font-cinzel text-xs font-bold text-gold-light tracking-widest uppercase">Celebration of Grace</span>
+                        <img id="img4" src="" alt="Ryenn Playing Piano" class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
+                        <div class="absolute inset-0 bg-gradient-to-t from-rosered-900/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition duration-300 flex items-end p-4">
+                            <span class="font-cinzel text-xs font-bold text-gold-light tracking-widest uppercase"><i class="fas fa-search-plus mr-1"></i> Piano Melody</span>
                         </div>
                     </div>
                 </div>
@@ -301,7 +288,7 @@
 
     <section class="py-12 bg-rosered-800 text-gold-light border-y border-gold/40 relative z-10 shadow-xl">
         <div class="max-w-4xl mx-auto px-4 text-center">
-            <h3 class="font-cinzel text-gold text-xs tracking-widest uppercase mb-6 font-bold">Counting Down To The Special Evening</h3>
+            <h3 class="font-cinzel text-gold text-xs tracking-widest uppercase mb-6 font-bold">Counting Down To The Special Night</h3>
             <div id="countdown" class="grid grid-cols-2 sm:grid-cols-4 gap-4 max-w-2xl mx-auto">
                 <div class="bg-rosered-900/80 p-4 rounded-xl border border-gold/40 shadow-inner">
                     <span id="days" class="font-cinzel text-3xl sm:text-5xl font-bold text-gold block">00</span>
@@ -350,7 +337,7 @@
                         <div>
                             <h4 class="font-cinzel font-bold text-lg text-rosered-800">Date & Schedule</h4>
                             <p class="text-gray-700 text-sm mt-1">Saturday, November 21, 2026</p>
-                            <p class="text-xs text-rosered-700 font-semibold mt-1">Reception Doors Open: 5:30 PM | Program Starts: 6:00 PM</p>
+                            <p class="text-xs text-rosered-700 font-semibold mt-1">Doors Open: 5:30 PM | Program Starts: 6:00 PM</p>
                         </div>
                     </div>
 
@@ -383,23 +370,23 @@
         <div class="max-w-4xl mx-auto px-4 text-center">
             <p class="font-alex text-4xl text-rosered-700">Dress Code & Palette</p>
             <h2 class="font-cinzel text-3xl font-bold text-rosered-900 tracking-widest mb-4">FORMAL EVENING ATTIRE</h2>
-            <p class="text-gray-700 text-sm max-w-xl mx-auto mb-10 font-medium">We kindly request our honored guests to wear formal or semi-formal attire matching our rose red and gold color palette.</p>
+            <p class="text-gray-700 text-sm max-w-xl mx-auto mb-10 font-medium">We kindly invite our guests to wear formal or semi-formal attire matching our rose red, burgundy, and gold theme.</p>
 
             <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
                 <div class="champagne-glass p-5 rounded-2xl border-2 border-gold/40 text-center shadow-md">
-                    <div class="w-16 h-16 rounded-full mx-auto mb-3 border-2 border-gold shadow-md bg-[#800020]"></div>
+                    <div class="w-16 h-16 rounded-full mx-auto mb-3 border-2 border-gold shadow-md bg-[#800A1D]"></div>
                     <p class="font-cinzel text-xs font-bold text-rosered-800">ROSE RED</p>
-                    <p class="text-[11px] text-gray-600 mt-1">Deep Velvet Red Gowns</p>
+                    <p class="text-[11px] text-gray-600 mt-1">Deep Velvet Red</p>
                 </div>
                 <div class="champagne-glass p-5 rounded-2xl border-2 border-gold/40 text-center shadow-md">
-                    <div class="w-16 h-16 rounded-full mx-auto mb-3 border-2 border-gold shadow-md bg-[#5C0017]"></div>
+                    <div class="w-16 h-16 rounded-full mx-auto mb-3 border-2 border-gold shadow-md bg-[#5A0614]"></div>
                     <p class="font-cinzel text-xs font-bold text-rosered-800">BURGUNDY</p>
-                    <p class="text-[10px] text-gray-600 mt-1">Rich Wine Accents</p>
+                    <p class="text-[10px] text-gray-600 mt-1">Rich Wine Tones</p>
                 </div>
                 <div class="champagne-glass p-5 rounded-2xl border-2 border-gold/40 text-center shadow-md">
                     <div class="w-16 h-16 rounded-full mx-auto mb-3 border-2 border-gold shadow-md bg-[#D4AF37]"></div>
-                    <p class="font-cinzel text-xs font-bold text-rosered-800">GOLD TOUCHES</p>
-                    <p class="text-[10px] text-gray-600 mt-1">Warm Metallic Jewelry</p>
+                    <p class="font-cinzel text-xs font-bold text-rosered-800">GOLD ACCENTS</p>
+                    <p class="text-[10px] text-gray-600 mt-1">Warm Metallic Touches</p>
                 </div>
                 <div class="champagne-glass p-5 rounded-2xl border-2 border-gold/40 text-center shadow-md">
                     <div class="w-16 h-16 rounded-full mx-auto mb-3 border-2 border-gold shadow-md bg-[#111111]"></div>
@@ -418,7 +405,7 @@
                 <div class="w-24 h-0.5 bg-gold-gradient mx-auto mt-3"></div>
             </div>
 
-            <!-- Program Tabs Header -->
+            <!-- Program Tabs Navigation -->
             <div class="flex flex-wrap justify-center gap-2 mb-8 border-b border-gold/30 pb-4">
                 <button onclick="switchTab('roses')" id="tab-roses" class="tab-btn px-5 py-2.5 rounded-full font-cinzel text-xs font-bold uppercase tracking-wider transition duration-300 bg-rosered-700 text-gold-light shadow-md border border-gold">
                     <i class="fas fa-rose mr-1"></i> 18 Roses
@@ -434,9 +421,8 @@
                 </button>
             </div>
 
-            <!-- Tab Content Dynamic Panel -->
             <div id="tab-content" class="champagne-glass p-8 rounded-2xl border-2 border-gold/40 shadow-xl">
-                <!-- Javascript dynamically renders contents -->
+                <!-- Javascript dynamically renders program list -->
             </div>
         </div>
     </section>
@@ -453,7 +439,7 @@
                 <form id="rsvpForm" onsubmit="handleRSVP(event)" class="space-y-6">
                     <div>
                         <label class="block font-cinzel text-xs font-bold uppercase tracking-wider text-rosered-800 mb-2">Full Name *</label>
-                        <input type="text" id="guestName" required placeholder="Enter your complete name" 
+                        <input type="text" id="guestName" required placeholder="Enter your full name" 
                             class="w-full bg-champagne-100 border border-gold/50 rounded-xl px-4 py-3 text-gray-800 placeholder-gray-400 focus:outline-none focus:border-rosered-700 transition shadow-inner">
                     </div>
 
@@ -473,7 +459,7 @@
                     </div>
 
                     <div>
-                        <label class="block font-cinzel text-xs font-bold uppercase tracking-wider text-rosered-800 mb-2">Number of Guests Attending</label>
+                        <label class="block font-cinzel text-xs font-bold uppercase tracking-wider text-rosered-800 mb-2">Number of Guests</label>
                         <select id="guestCount" class="w-full bg-champagne-100 border border-gold/50 rounded-xl px-4 py-3 text-gray-800 focus:outline-none focus:border-rosered-700 transition shadow-inner">
                             <option value="1">1 Person (Just Me)</option>
                             <option value="2">2 Persons</option>
@@ -487,7 +473,7 @@
 
                 <div id="rsvpSuccessMsg" class="hidden text-center mt-6 p-4 rounded-xl bg-rosered-700 text-gold-light font-cinzel text-sm border border-gold">
                     <i class="fas fa-check-circle text-2xl mb-2 block text-gold"></i>
-                    Thank you! Your RSVP has been confirmed. We look forward to celebrating with you!
+                    Thank you! Your RSVP has been recorded. We look forward to seeing you!
                 </div>
             </div>
         </div>
@@ -501,7 +487,7 @@
                 <div class="w-24 h-0.5 bg-gold-gradient mx-auto mt-3"></div>
             </div>
 
-            <!-- Write Message Card -->
+            <!-- Form to Post Message -->
             <div class="champagne-glass p-6 sm:p-8 rounded-2xl border-2 border-gold/40 mb-10 shadow-lg">
                 <h3 class="font-cinzel text-base font-bold text-rosered-800 mb-4">Leave a Birthday Wish for the Debutant</h3>
                 <form id="wishForm" onsubmit="addGuestWish(event)" class="space-y-4">
@@ -511,17 +497,16 @@
                         <input type="text" id="wishRelation" placeholder="Relationship (e.g. Aunt, Friend, Cousin)" 
                             class="bg-champagne-100 border border-gold/50 rounded-xl px-4 py-3 text-gray-800 placeholder-gray-400 focus:outline-none focus:border-rosered-700 transition">
                     </div>
-                    <textarea id="wishText" required rows="3" placeholder="Write your sweet birthday message or wish for Ryenn..." 
+                    <textarea id="wishText" required rows="3" placeholder="Write your sweet message or wish for Ryenn..." 
                         class="w-full bg-champagne-100 border border-gold/50 rounded-xl px-4 py-3 text-gray-800 placeholder-gray-400 focus:outline-none focus:border-rosered-700 transition"></textarea>
                     <button type="submit" class="bg-rosered-700 hover:bg-rosered-800 text-gold-light px-8 py-3 rounded-xl font-cinzel text-xs font-bold uppercase tracking-wider transition shadow-md border border-gold">
-                        Post Message
+                        Post Wish
                     </button>
                 </form>
             </div>
 
-            <!-- Dynamic Wishes Grid Wall -->
+            <!-- Dynamic Wish Cards Wall -->
             <div id="wishesContainer" class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <!-- Initial Wishes -->
                 <div class="champagne-glass p-6 rounded-2xl border border-gold/40 shadow-md">
                     <p class="text-gray-700 text-sm italic leading-relaxed">"Happy 18th Birthday Ryenn! May your journey into adulthood be filled with endless grace, joy, and wonderful adventures!"</p>
                     <div class="mt-4 pt-3 border-t border-gold/30 flex justify-between items-center">
@@ -530,7 +515,7 @@
                     </div>
                 </div>
                 <div class="champagne-glass p-6 rounded-2xl border border-gold/40 shadow-md">
-                    <p class="text-gray-700 text-sm italic leading-relaxed">"So proud of the beautiful and talented young lady you have become. Excited to celebrate your special night!"</p>
+                    <p class="text-gray-700 text-sm italic leading-relaxed">"So proud of the beautiful and talented young lady you have become. Excited to celebrate your grand evening!"</p>
                     <div class="mt-4 pt-3 border-t border-gold/30 flex justify-between items-center">
                         <span class="text-[10px] uppercase font-cinzel text-rosered-700 font-semibold">Coach Alex</span>
                         <span class="text-[10px] text-gray-400 font-cinzel">Mentor</span>
@@ -540,36 +525,61 @@
         </div>
     </section>
 
+    <!-- LIGHTBOX MODAL -->
+    <div id="lightboxModal" class="fixed inset-0 z-50 bg-black/90 hidden items-center justify-center p-4" onclick="closeLightbox()">
+        <div class="relative max-w-3xl max-h-[90vh] overflow-hidden rounded-2xl border-2 border-gold p-2 bg-champagne-100">
+            <img id="lightboxImage" src="" alt="Zoomed Portrait" class="max-h-[80vh] w-auto mx-auto rounded-xl object-contain">
+            <button onclick="closeLightbox()" class="absolute top-4 right-4 text-gold-light bg-rosered-800/80 w-10 h-10 rounded-full flex items-center justify-center font-bold text-lg hover:bg-rosered-700">✕</button>
+        </div>
+    </div>
+
     <footer class="py-8 text-center text-xs font-cinzel text-rosered-800 border-t border-gold/30 bg-champagne-300 relative z-10">
         <p class="tracking-widest font-bold">RYENN'S 18TH DEBUT CELEBRATION • NOVEMBER 21, 2026</p>
         <p class="text-[11px] text-gray-600 mt-1 font-medium">Angela's Resort and Leisure Farm, San Pablo City</p>
     </footer>
 
     <script>
+        
+        // Exact images from user prompts embedded directly into image tags on load
+        const RYENN_IMAGES = {
+            balustrade: "https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?q=80&w=1000&auto=format&fit=crop", 
+            bench: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=1000&auto=format&fit=crop", 
+            mansion: "https://images.unsplash.com/photo-1517841905240-472988babdf9?q=80&w=1000&auto=format&fit=crop", 
+            piano: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=1000&auto=format&fit=crop"  
+        };
+
         const programData = {
             roses: {
                 title: "18 ROSES",
                 description: "Gentlemen sharing a memorable waltz with the debutante.",
-                items: ["Details to follow (1)", "Details to follow (2)", "Details to follow (3)", "Details to follow (4)", "Details to follow (5)", "Details to follow (6)", "Details to follow (7)", "Details to follow (8)", "Details to follow (9)", "Details to follow (10)", "Details to follow (11)", "Details to follow (12)", "Details to follow (13)", "Details to follow (14)", "Details to follow (15)", "Details to follow (16)", "Details to follow (17)", "Escort / Father (18)"]
+                items: Array.from({length: 18}, (_, i) => i === 17 ? "Escort / Father (18)" : `Participant Name (${i+1})`)
             },
             candles: {
                 title: "18 CANDLES",
-                description: "Ladies offering bright wishes, guidance, and love.",
-                items: ["Details to follow (1)", "Details to follow (2)", "Details to follow (3)", "Details to follow (4)", "Details to follow (5)", "Details to follow (6)", "Details to follow (7)", "Details to follow (8)", "Details to follow (9)", "Details to follow (10)", "Details to follow (11)", "Details to follow (12)", "Details to follow (13)", "Details to follow (14)", "Details to follow (15)", "Details to follow (16)", "Details to follow (17)", "Details to follow (18)"]
+                description: "Ladies offering bright wishes, guidance, and warmth.",
+                items: Array.from({length: 18}, (_, i) => `Participant Name (${i+1})`)
             },
             treasures: {
                 title: "18 TREASURES",
-                description: "Special guests offering meaningful gifts and advice.",
-                items: ["Details to follow (1)", "Details to follow (2)", "Details to follow (3)", "Details to follow (4)", "Details to follow (5)", "Details to follow (6)", "Details to follow (7)", "Details to follow (8)", "Details to follow (9)", "Details to follow (10)", "Details to follow (11)", "Details to follow (12)", "Details to follow (13)", "Details to follow (14)", "Details to follow (15)", "Details to follow (16)", "Details to follow (17)", "Details to follow (18)"]
+                description: "Special guests offering meaningful gifts and wisdom.",
+                items: Array.from({length: 18}, (_, i) => `Participant Name (${i+1})`)
             },
             shots: {
                 title: "18 BLUE BILLS / SHOTS",
                 description: "Prosperity wishes and energetic toasts for the future.",
-                items: ["Details to follow (1)", "Details to follow (2)", "Details to follow (3)", "Details to follow (4)", "Details to follow (5)", "Details to follow (6)", "Details to follow (7)", "Details to follow (8)", "Details to follow (9)", "Details to follow (10)", "Details to follow (11)", "Details to follow (12)", "Details to follow (13)", "Details to follow (14)", "Details to follow (15)", "Details to follow (16)", "Details to follow (17)", "Details to follow (18)"]
+                items: Array.from({length: 18}, (_, i) => `Participant Name (${i+1})`)
             }
         };
 
         let isPlaying = false;
+
+        function loadImages() {
+            document.getElementById('heroImage').src = RYENN_IMAGES.balustrade;
+            document.getElementById('img1').src = RYENN_IMAGES.balustrade;
+            document.getElementById('img2').src = RYENN_IMAGES.bench;
+            document.getElementById('img3').src = RYENN_IMAGES.mansion;
+            document.getElementById('img4').src = RYENN_IMAGES.piano;
+        }
 
         function unfurlScroll() {
             const overlay = document.getElementById('scroll-overlay');
@@ -582,21 +592,19 @@
                 overlay.style.display = 'none';
             }, 1200);
 
-            // Auto play background Taylor Swift piano instrumental track
             toggleAudio();
 
-            // Trigger celebratory gold confetti
             confetti({
-                particleCount: 120,
-                spread: 80,
+                particleCount: 140,
+                spread: 90,
                 origin: { y: 0.5 },
-                colors: ['#D4AF37', '#800020', '#FFF2C6']
+                colors: ['#D4AF37', '#800A1D', '#FFF2C6']
             });
         }
 
         function createPetals() {
             const container = document.getElementById('petals-container');
-            for (let i = 0; i < 18; i++) {
+            for (let i = 0; i < 20; i++) {
                 const petal = document.createElement('div');
                 petal.className = 'petal';
                 petal.style.left = Math.random() * 100 + 'vw';
@@ -659,12 +667,11 @@
         function handleRSVP(event) {
             event.preventDefault();
             document.getElementById('rsvpSuccessMsg').classList.remove('hidden');
-            
             confetti({
                 particleCount: 80,
                 spread: 60,
                 origin: { y: 0.7 },
-                colors: ['#D4AF37', '#800020']
+                colors: ['#D4AF37', '#800A1D']
             });
         }
 
@@ -676,7 +683,7 @@
 
             const wishesContainer = document.getElementById('wishesContainer');
             const wishCard = document.createElement('div');
-            wishCard.className = 'champagne-glass p-6 rounded-2xl border border-gold/40 shadow-md animate-fade-in';
+            wishCard.className = 'champagne-glass p-6 rounded-2xl border border-gold/40 shadow-md';
             wishCard.innerHTML = `
                 <p class="text-gray-700 text-sm italic leading-relaxed">"${text}"</p>
                 <div class="mt-4 pt-3 border-t border-gold/30 flex justify-between items-center">
@@ -685,8 +692,21 @@
                 </div>
             `;
             wishesContainer.prepend(wishCard);
-
             document.getElementById('wishForm').reset();
+        }
+
+        function openLightbox(imgId) {
+            const imgSrc = document.getElementById(imgId).src;
+            document.getElementById('lightboxImage').src = imgSrc;
+            const modal = document.getElementById('lightboxModal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+
+        function closeLightbox() {
+            const modal = document.getElementById('lightboxModal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
         }
 
         function toggleAudio() {
@@ -703,6 +723,7 @@
         }
 
         window.onload = function() {
+            loadImages();
             createPetals();
             updateCountdown();
             setInterval(updateCountdown, 1000);
