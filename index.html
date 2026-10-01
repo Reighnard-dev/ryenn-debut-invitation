@@ -114,19 +114,23 @@
         .scroll-rod {
             background: linear-gradient(90deg, #52040e 0%, #A37E1C 20%, #D4AF37 50%, #A37E1C 80%, #52040e 100%);
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.7);
-            transition: transform 1.2s cubic-bezier(0.25, 1, 0.5, 1);
         }
 
-        /* Initial Closed Scroll Body State */
+        /* Closed (rolled up) scroll: paper has no height, rods sit together */
         #scroll-body-wrapper {
-            max-height: 100px;
+            height: 0;
             overflow: hidden;
-            transition: max-height 1.2s cubic-bezier(0.25, 1, 0.5, 1);
+            transition: height 2.4s cubic-bezier(0.45, 0.05, 0.25, 1);
         }
 
-        /* Unrolled State Triggered by JS */
-        #scroll-body-wrapper.unrolled {
-            max-height: 600px;
+        /* Paper text fades in while the scroll unrolls */
+        #scroll-content {
+            opacity: 0;
+            transition: opacity 1.2s ease 1s;
+        }
+
+        #scroll-body-wrapper.unrolled #scroll-content {
+            opacity: 1;
         }
 
         /* Smooth Tab Transitions */
@@ -166,6 +170,9 @@
 </head>
 <body class="min-h-screen flex flex-col justify-between relative bg-cover bg-center bg-fixed" style="background-image: radial-gradient(circle at center, rgba(82, 4, 14, 0.9) 0%, rgba(30, 0, 5, 0.98) 100%);">
 
+    <!-- BACKGROUND MUSIC (file must be named bg-music.mp3 and sit next to index.html) -->
+    <audio id="bg-music" src="bg-music.mp3" loop preload="auto"></audio>
+
     <!-- REALISTIC SCROLL INVITATION OVERLAY -->
     <div id="scroll-overlay" class="fixed inset-0 z-50 flex items-center justify-center bg-black/95 p-4">
         <div class="text-center max-w-lg w-full relative flex flex-col items-center">
@@ -177,9 +184,9 @@
                 <div class="w-4 h-4 rounded-full bg-gold-shimmer border border-burgundy-900 shadow"></div>
             </div>
 
-            <!-- Scroll Paper Body Container -->
+            <!-- Scroll Paper Body Container (starts rolled up, unrolls downward) -->
             <div id="scroll-body-wrapper" class="w-[92%] bg-cream border-x-2 border-gold text-center relative shadow-2xl my-[-2px]">
-                <div class="p-6">
+                <div id="scroll-content" class="p-6">
                     <div class="floral-bg-tl"></div>
                     <div class="floral-bg-br"></div>
                     
@@ -197,14 +204,6 @@
                     <p class="font-serif text-xs italic text-burgundy-900 my-4 px-4 leading-relaxed">
                         "As we celebrate a new chapter of grace and womanhood"
                     </p>
-
-                    <!-- Eye-Catching Glowing Unroll Seal Button -->
-                    <div class="my-6">
-                        <button id="unroll-btn" onclick="openScrollInvitation()" class="btn-glowing px-8 py-3.5 bg-gradient-to-r from-burgundy-800 via-burgundy-700 to-burgundy-900 text-gold-light font-serif text-xs font-bold tracking-widest uppercase rounded-full border-2 border-gold shadow-2xl hover:scale-110 transition-transform duration-300">
-                            <i class="fa-solid fa-envelope-open-text text-gold mr-2 text-sm"></i>
-                            <span>Unroll Invitation</span>
-                        </button>
-                    </div>
                 </div>
             </div>
 
@@ -212,6 +211,14 @@
             <div id="bottom-rod" class="scroll-rod w-full h-8 rounded-full border border-gold flex items-center justify-between px-3 z-20">
                 <div class="w-4 h-4 rounded-full bg-gold-shimmer border border-burgundy-900 shadow"></div>
                 <div class="w-4 h-4 rounded-full bg-gold-shimmer border border-burgundy-900 shadow"></div>
+            </div>
+
+            <!-- Eye-Catching Glowing Unroll Button (sits below the closed scroll) -->
+            <div id="unroll-wrap" class="my-8 transition-opacity duration-500">
+                <button id="unroll-btn" onclick="openScrollInvitation()" class="btn-glowing px-8 py-3.5 bg-gradient-to-r from-burgundy-800 via-burgundy-700 to-burgundy-900 text-gold-light font-serif text-xs font-bold tracking-widest uppercase rounded-full border-2 border-gold shadow-2xl hover:scale-110 transition-transform duration-300">
+                    <i class="fa-solid fa-envelope-open-text text-gold mr-2 text-sm"></i>
+                    <span>Unroll Invitation</span>
+                </button>
             </div>
 
         </div>
@@ -465,68 +472,68 @@
 
     <!-- INTERACTIVE JAVASCRIPT LOGIC -->
     <script>
-        let audioPlayer = null;
+        const audioPlayer = document.getElementById('bg-music');
+        const musicText = document.getElementById('music-text');
+        audioPlayer.volume = 0.8;
 
-        // 1. SCROLL UNROLL ANIMATION & DYNAMIC AUDIO TRIGGER
+        // Keep the Play/Pause button label in sync with the real audio state
+        audioPlayer.addEventListener('play', () => { musicText.innerText = "Pause Music"; });
+        audioPlayer.addEventListener('pause', () => { musicText.innerText = "Play Music"; });
+        audioPlayer.addEventListener('error', () => {
+            console.warn("Could not load bg-music.mp3. Check that the file is in the same folder as index.html and the name is exactly bg-music.mp3 (lowercase).");
+            musicText.innerText = "Music Unavailable";
+        });
+
+        // 1. SCROLL UNROLL ANIMATION & AUDIO TRIGGER
         function openScrollInvitation() {
+            const btn = document.getElementById('unroll-btn');
+            if (btn.dataset.opened) return;
+            btn.dataset.opened = '1';
+
             const overlay = document.getElementById('scroll-overlay');
             const wrapper = document.getElementById('scroll-body-wrapper');
-            const topRod = document.getElementById('top-rod');
-            const bottomRod = document.getElementById('bottom-rod');
+            const btnWrap = document.getElementById('unroll-wrap');
 
-            // 1. Physically unroll scroll handles and expand body
-            wrapper.classList.add('unrolled');
-            topRod.style.transform = 'translateY(-20px)';
-            bottomRod.style.transform = 'translateY(20px)';
-
-            // 2. Play Background Music on direct user gesture
-            try {
-                if (!audioPlayer) {
-                    audioPlayer = new Audio('bg-music.mp3');
-                    audioPlayer.loop = true;
-                    audioPlayer.volume = 0.8;
-                }
-                audioPlayer.play().then(() => {
-                    document.getElementById('music-text').innerText = "Pause Music";
-                }).catch(err => {
-                    console.log("Audio play deferred:", err);
-                });
-            } catch (e) {
-                console.log("Audio init error:", e);
-            }
-
-            // 3. Trigger Confetti
-            confetti({
-                particleCount: 80,
-                spread: 70,
-                origin: { y: 0.6 }
+            // 1. Start music immediately inside the click (required by browsers)
+            audioPlayer.play().catch(err => {
+                console.log("Audio play blocked or failed:", err);
             });
 
-            // 4. Fade out scroll overlay smoothly after unrolling completes
+            // 2. Fade out the button
+            btnWrap.style.opacity = '0';
+            btnWrap.style.pointerEvents = 'none';
+
+            // 3. Unroll the paper downward (bottom rod is pushed down as it opens)
+            const fullHeight = wrapper.scrollHeight;
+            const maxHeight = window.innerHeight - 190;
+            wrapper.style.height = Math.min(fullHeight, maxHeight) + 'px';
+            wrapper.classList.add('unrolled');
+
+            // 4. Confetti once the scroll is fully open
+            setTimeout(() => {
+                confetti({
+                    particleCount: 80,
+                    spread: 70,
+                    origin: { y: 0.6 }
+                });
+            }, 2400);
+
+            // 5. Fade out the overlay after the scroll has been open for a moment
             setTimeout(() => {
                 overlay.style.opacity = '0';
+                overlay.style.pointerEvents = 'none';
                 setTimeout(() => {
                     overlay.style.visibility = 'hidden';
                 }, 800);
-            }, 1200);
+            }, 4200);
         }
 
         // 2. AUDIO PLAY/PAUSE TOGGLE
         function toggleAudio() {
-            const musicText = document.getElementById('music-text');
-            if (!audioPlayer) {
-                audioPlayer = new Audio('bg-music.mp3');
-                audioPlayer.loop = true;
-                audioPlayer.volume = 0.8;
-            }
-
             if (audioPlayer.paused) {
-                audioPlayer.play().then(() => {
-                    musicText.innerText = "Pause Music";
-                }).catch(err => console.log(err));
+                audioPlayer.play().catch(err => console.log(err));
             } else {
                 audioPlayer.pause();
-                musicText.innerText = "Play Music";
             }
         }
 
