@@ -116,16 +116,6 @@
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.7);
         }
 
-        .scroll-unroll-container {
-            max-height: 80px;
-            transition: max-height 1.4s cubic-bezier(0.25, 1, 0.5, 1);
-            overflow: hidden;
-        }
-
-        .scroll-unroll-container.unrolled {
-            max-height: 650px;
-        }
-
         /* Smooth Tab Transitions */
         .tab-content {
             display: none;
@@ -181,13 +171,13 @@
             </div>
 
             <!-- Scroll Paper Body -->
-            <div id="scroll-body" class="scroll-unroll-container w-[92%] bg-cream border-x-2 border-gold p-6 text-center relative shadow-2xl my-[-2px]">
+            <div id="scroll-body" class="w-[92%] bg-cream border-x-2 border-gold p-6 text-center relative shadow-2xl my-[-2px] transition-all duration-700">
                 <div class="floral-bg-tl"></div>
                 <div class="floral-bg-br"></div>
                 
                 <!-- Floral Header Graphic -->
                 <div class="text-burgundy-700 text-3xl mb-1">
-                    <i class="fa-solid fa-fan"></i>
+                    <i class="fa-solid fa-rose"></i>
                 </div>
 
                 <p class="font-serif text-xs uppercase tracking-[0.3em] text-burgundy-700 font-semibold mb-1">You Are Cordially Invited To</p>
@@ -469,11 +459,7 @@
         // 1. SCROLL UNROLL ANIMATION & AUDIO TRIGGER
         function openScrollInvitation() {
             const overlay = document.getElementById('scroll-overlay');
-            const scrollBody = document.getElementById('scroll-body');
             const music = document.getElementById('bg-music');
-            
-            // Unroll Scroll animation
-            scrollBody.classList.add('unrolled');
 
             // Trigger Confetti
             confetti({
@@ -491,12 +477,10 @@
             }
 
             // Smooth fade out after scroll unrolls
+            overlay.style.opacity = '0';
             setTimeout(() => {
-                overlay.style.opacity = '0';
-                setTimeout(() => {
-                    overlay.style.visibility = 'hidden';
-                }, 1000);
-            }, 1200);
+                overlay.style.visibility = 'hidden';
+            }, 800);
         }
 
         // 2. AUDIO PLAY/PAUSE TOGGLE
