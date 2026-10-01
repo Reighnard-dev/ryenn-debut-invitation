@@ -131,8 +131,8 @@
 </head>
 <body class="min-h-screen flex flex-col justify-between relative bg-cover bg-center bg-fixed" style="background-image: radial-gradient(circle at center, rgba(30, 2, 9, 0.85) 0%, rgba(10, 0, 3, 0.98) 100%);">
 
-    <!-- Background Audio (Taylor Swift - All Too Well Piano Instrumental) -->
-    <audio id="bg-music" loop preload="auto" src="Taylor Swift - All Too Well (Taylor's Version) - Piano Karaoke Instrumental Cover with Lyrics [_yqKq13f4N8].mp3"></audio>
+    <!-- Background Audio (Renamed to bg-music.mp3) -->
+    <audio id="bg-music" loop preload="auto" src="bg-music.mp3"></audio>
 
     <!-- UNROLLING SCROLL INVITATION OVERLAY -->
     <div id="scroll-overlay" class="fixed inset-0 z-50 flex items-center justify-center bg-black/95 p-4">
@@ -466,7 +466,7 @@
             // Play Music
             music.play().then(() => {
                 document.getElementById('music-text').innerText = "Pause Music";
-            }).catch(e => console.log("Audio autoplay prevented"));
+            }).catch(e => console.log("Audio autoplay prevented", e));
 
             // Fade out overlay
             overlay.style.opacity = '0';
