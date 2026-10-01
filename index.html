@@ -170,8 +170,12 @@
 </head>
 <body class="min-h-screen flex flex-col justify-between relative bg-cover bg-center bg-fixed" style="background-image: radial-gradient(circle at center, rgba(82, 4, 14, 0.9) 0%, rgba(30, 0, 5, 0.98) 100%);">
 
-    <!-- BACKGROUND MUSIC (file must be named bg-music.mp3 and sit next to index.html) -->
-    <audio id="bg-music" src="bg-music.mp3" loop preload="auto"></audio>
+    <!-- BACKGROUND MUSIC (With Fallback Sources to Prevent "Music Unavailable") -->
+    <audio id="bg-music" loop preload="auto">
+        <source src="bg-music.mp3" type="audio/mpeg">
+        <source src="./bg-music.mp3" type="audio/mpeg">
+        <source src="https://raw.githubusercontent.com/Reighnard-dev/ryenn-debut-invitation/main/bg-music.mp3" type="audio/mpeg">
+    </audio>
 
     <!-- REALISTIC SCROLL INVITATION OVERLAY -->
     <div id="scroll-overlay" class="fixed inset-0 z-50 flex items-center justify-center bg-black/95 p-4">
@@ -476,12 +480,18 @@
         const musicText = document.getElementById('music-text');
         audioPlayer.volume = 0.8;
 
-        // Keep the Play/Pause button label in sync with the real audio state
+        // Keep button label updated with audio state
         audioPlayer.addEventListener('play', () => { musicText.innerText = "Pause Music"; });
         audioPlayer.addEventListener('pause', () => { musicText.innerText = "Play Music"; });
+        
+        // Automatic Fallback stream if local file throws error
         audioPlayer.addEventListener('error', () => {
-            console.warn("Could not load bg-music.mp3. Check that the file is in the same folder as index.html and the name is exactly bg-music.mp3 (lowercase).");
-            musicText.innerText = "Music Unavailable";
+            if (audioPlayer.src !== "https://raw.githubusercontent.com/Reighnard-dev/ryenn-debut-invitation/main/bg-music.mp3") {
+                audioPlayer.src = "https://raw.githubusercontent.com/Reighnard-dev/ryenn-debut-invitation/main/bg-music.mp3";
+                audioPlayer.load();
+            } else {
+                musicText.innerText = "Music Unavailable";
+            }
         });
 
         // 1. SCROLL UNROLL ANIMATION & AUDIO TRIGGER
@@ -494,22 +504,22 @@
             const wrapper = document.getElementById('scroll-body-wrapper');
             const btnWrap = document.getElementById('unroll-wrap');
 
-            // 1. Start music immediately inside the click (required by browsers)
+            // 1. Start music immediately inside click event
             audioPlayer.play().catch(err => {
-                console.log("Audio play blocked or failed:", err);
+                console.log("Audio play deferred:", err);
             });
 
-            // 2. Fade out the button
+            // 2. Fade out button
             btnWrap.style.opacity = '0';
             btnWrap.style.pointerEvents = 'none';
 
-            // 3. Unroll the paper downward (bottom rod is pushed down as it opens)
+            // 3. Unroll scroll downward
             const fullHeight = wrapper.scrollHeight;
             const maxHeight = window.innerHeight - 190;
             wrapper.style.height = Math.min(fullHeight, maxHeight) + 'px';
             wrapper.classList.add('unrolled');
 
-            // 4. Confetti once the scroll is fully open
+            // 4. Confetti burst
             setTimeout(() => {
                 confetti({
                     particleCount: 80,
@@ -518,7 +528,7 @@
                 });
             }, 2400);
 
-            // 5. Fade out the overlay after the scroll has been open for a moment
+            // 5. Fade out overlay
             setTimeout(() => {
                 overlay.style.opacity = '0';
                 overlay.style.pointerEvents = 'none';
