@@ -207,23 +207,23 @@
             }
         }
 
-        /* SIDE VINES STYLING - CLEAN TRUE TRANSPARENT PNG */
+        /* SIDE VINES STYLING - PROPORTIONAL & TALLER */
         .side-vine-img {
             position: fixed;
             top: 50%;
             transform: translateY(-50%);
-            width: 140px;
-            height: auto;
-            max-height: 85vh;
+            width: 190px;
+            height: 90vh;
+            object-fit: contain;
             pointer-events: none;
             z-index: 10;
             filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.6));
         }
 
-        .side-vine-img.left { left: 10px; }
-        .side-vine-img.right { right: 10px; transform: translateY(-50%) scaleX(-1); }
+        .side-vine-img.left { left: 0px; }
+        .side-vine-img.right { right: 0px; transform: translateY(-50%) scaleX(-1); }
 
-        @media (max-width: 1024px) {
+        @media (max-width: 1280px) {
             .side-vine-img { display: none; }
         }
     </style>
@@ -255,15 +255,15 @@
                 <div class="w-4 h-4 rounded-full bg-gold-shimmer border border-burgundy-900 shadow"></div>
             </div>
 
-            <!-- Scroll Paper Body Container (starts rolled up, unrolls downward) -->
+            <!-- Scroll Paper Body Container -->
             <div id="scroll-body-wrapper" class="w-[92%] bg-cream border-x-2 border-gold text-center relative shadow-2xl my-[-2px]">
                 <div id="scroll-content" class="p-6">
                     <div class="floral-bg-tl"></div>
                     <div class="floral-bg-br"></div>
                     
                     <!-- Floral Header Graphic -->
-                    <div class="text-burgundy-700 text-3xl mb-1">
-                        <i class="fa-solid fa-rose"></i>
+                    <div class="flex justify-center mb-1">
+                        <img src="rose.png" alt="Rose" class="w-8 h-8 object-contain">
                     </div>
 
                     <p class="font-serif text-xs uppercase tracking-[0.3em] text-burgundy-700 font-semibold mb-1">You Are Cordially Invited To</p>
@@ -298,6 +298,7 @@
     <!-- MAIN APP HEADER -->
     <header class="w-full py-3 px-6 bg-cream border-b-2 border-gold sticky top-0 z-40 flex items-center justify-between shadow-md">
         <div class="flex items-center gap-2">
+            <img src="rose.png" alt="Rose Accent" class="w-7 h-7 object-contain">
             <span class="font-script text-3xl text-burgundy-700 font-bold">Ryenn @ 18</span>
         </div>
 
@@ -343,9 +344,9 @@
                 <div class="floral-bg-tl"></div>
                 <div class="floral-bg-br"></div>
 
-                <!-- Floral Top Graphic -->
-                <div class="text-burgundy-700 text-3xl mb-1">
-                    <i class="fa-solid fa-rose"></i>
+                <!-- Rose Top Graphic -->
+                <div class="flex justify-center mb-1">
+                    <img src="rose.png" alt="Rose Decor" class="w-10 h-10 object-contain drop-shadow-sm">
                 </div>
 
                 <p class="font-script text-3xl md:text-4xl text-burgundy-700 my-1">Join Us!</p>
@@ -363,20 +364,24 @@
                 <!-- Celebrant Name -->
                 <h1 class="font-script text-6xl md:text-7xl text-burgundy-700 font-bold my-1">Ryenn</h1>
 
-                <!-- Portrait Frame -->
+                <!-- Portrait Frame with Corner Rose Accents -->
                 <div class="my-6 inline-block relative">
+                    <img src="rose.png" alt="Rose Corner" class="absolute -top-3 -left-3 w-8 h-8 z-10 transform -rotate-12">
+                    <img src="rose.png" alt="Rose Corner" class="absolute -bottom-3 -right-3 w-8 h-8 z-10 transform rotate-180">
                     <div class="w-44 h-60 md:w-52 md:h-68 rounded-xl overflow-hidden border-2 border-gold p-1 bg-cream shadow-xl">
                         <img src="Nikki1.png" alt="Ryenn" class="w-full h-full object-cover rounded-lg">
                     </div>
                 </div>
 
                 <!-- Date Breakdown Block -->
-                <div class="my-6 border-y-2 border-gold py-4 max-w-md mx-auto flex items-center justify-center gap-6">
+                <div class="my-6 border-y-2 border-gold py-4 max-w-md mx-auto flex items-center justify-center gap-4 md:gap-6 relative">
                     <p class="font-serif text-xs md:text-sm uppercase tracking-widest text-burgundy-800 font-bold">NOVEMBER</p>
-                    <div class="px-4 border-x-2 border-burgundy-700">
-                        <p class="font-serif text-xs uppercase tracking-wider text-burgundy-700">SATURDAY</p>
-                        <p class="font-serif text-4xl font-extrabold text-burgundy-700">21</p>
-                        <p class="font-serif text-xs uppercase tracking-wider text-burgundy-700">2026</p>
+                    <div class="px-4 border-x-2 border-burgundy-700 flex items-center gap-2">
+                        <div>
+                            <p class="font-serif text-xs uppercase tracking-wider text-burgundy-700">SATURDAY</p>
+                            <p class="font-serif text-4xl font-extrabold text-burgundy-700">21</p>
+                            <p class="font-serif text-xs uppercase tracking-wider text-burgundy-700">2026</p>
+                        </div>
                     </div>
                     <p class="font-serif text-xs md:text-sm uppercase tracking-widest text-burgundy-800 font-bold">AT 06:00 PM</p>
                 </div>
@@ -394,8 +399,9 @@
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <!-- Schedule -->
                 <div class="gold-framed-box rounded-xl p-6">
-                    <h2 class="font-serif text-base text-burgundy-700 font-bold uppercase tracking-wider border-b border-gold pb-2 mb-4">
-                        <i class="fa-solid fa-clock text-gold mr-2"></i> Event Schedule
+                    <h2 class="font-serif text-base text-burgundy-700 font-bold uppercase tracking-wider border-b border-gold pb-2 mb-4 flex items-center justify-between">
+                        <span><i class="fa-solid fa-clock text-gold mr-2"></i> Event Schedule</span>
+                        <img src="rose.png" alt="Rose Accent" class="w-5 h-5">
                     </h2>
                     <ul class="space-y-3 text-xs text-burgundy-900">
                         <li><strong class="text-burgundy-700">5:30 PM:</strong> Guest Arrival & Registration</li>
@@ -407,8 +413,9 @@
 
                 <!-- Dress Code -->
                 <div class="gold-framed-box rounded-xl p-6">
-                    <h2 class="font-serif text-base text-burgundy-700 font-bold uppercase tracking-wider border-b border-gold pb-2 mb-4">
-                        <i class="fa-solid fa-user-tie text-gold mr-2"></i> Dress Code
+                    <h2 class="font-serif text-base text-burgundy-700 font-bold uppercase tracking-wider border-b border-gold pb-2 mb-4 flex items-center justify-between">
+                        <span><i class="fa-solid fa-user-tie text-gold mr-2"></i> Dress Code</span>
+                        <img src="rose.png" alt="Rose Accent" class="w-5 h-5">
                     </h2>
                     <p class="text-xs text-burgundy-900 mb-3"><strong>Formal / Modern Elegance:</strong></p>
                     <div class="flex items-center gap-3 text-xs bg-burgundy-50 p-2.5 rounded-lg border border-burgundy-200 mb-2">
@@ -447,13 +454,19 @@
 
         <!-- 3. PROGRAM & 18s TAB -->
         <section id="tab-program" class="tab-content">
-            <div class="gold-framed-box rounded-xl p-6 text-center">
+            <div class="gold-framed-box rounded-xl p-6 text-center relative">
+                <div class="flex justify-center mb-1">
+                    <img src="rose.png" alt="Rose Header" class="w-9 h-9 object-contain">
+                </div>
                 <h2 class="font-script text-5xl text-burgundy-700 font-bold mb-1">The 18s Ceremony</h2>
                 <p class="font-serif text-xs uppercase tracking-widest text-burgundy-900 font-semibold mb-6">Honored Guests & Participants</p>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-left">
                     <div class="bg-burgundy-50 p-4 rounded-lg border border-gold">
-                        <h3 class="font-serif text-sm text-burgundy-700 font-bold uppercase border-b border-burgundy-200 pb-2 mb-3">18 Roses</h3>
+                        <h3 class="font-serif text-sm text-burgundy-700 font-bold uppercase border-b border-burgundy-200 pb-2 mb-3 flex items-center justify-between">
+                            <span>18 Roses</span>
+                            <img src="rose.png" alt="Rose" class="w-4 h-4">
+                        </h3>
                         <ol class="space-y-1.5 text-xs text-burgundy-900 list-decimal list-inside">
                             <li>Participant Name 1</li>
                             <li>Participant Name 2</li>
@@ -463,7 +476,10 @@
                     </div>
 
                     <div class="bg-burgundy-50 p-4 rounded-lg border border-gold">
-                        <h3 class="font-serif text-sm text-burgundy-700 font-bold uppercase border-b border-burgundy-200 pb-2 mb-3">18 Treasures</h3>
+                        <h3 class="font-serif text-sm text-burgundy-700 font-bold uppercase border-b border-burgundy-200 pb-2 mb-3 flex items-center justify-between">
+                            <span>18 Treasures</span>
+                            <img src="rose.png" alt="Rose" class="w-4 h-4">
+                        </h3>
                         <ol class="space-y-1.5 text-xs text-burgundy-900 list-decimal list-inside">
                             <li>Participant Name 1</li>
                             <li>Participant Name 2</li>
@@ -478,6 +494,9 @@
         <!-- 4. GALLERY TAB -->
         <section id="tab-gallery" class="tab-content">
             <div class="gold-framed-box rounded-xl p-6 text-center">
+                <div class="flex justify-center mb-1">
+                    <img src="rose.png" alt="Rose Header" class="w-9 h-9 object-contain">
+                </div>
                 <h2 class="font-script text-5xl text-burgundy-700 font-bold mb-1">Debut Gallery</h2>
                 <p class="font-serif text-xs uppercase tracking-widest text-burgundy-900 font-semibold mb-6">Portraits of Ryenn</p>
 
@@ -503,7 +522,10 @@
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <!-- Wish Form -->
                 <div class="gold-framed-box rounded-xl p-6">
-                    <h2 class="font-serif text-base text-burgundy-700 font-bold uppercase tracking-wider mb-2">Leave a Wish</h2>
+                    <h2 class="font-serif text-base text-burgundy-700 font-bold uppercase tracking-wider mb-2 flex items-center justify-between">
+                        <span>Leave a Wish</span>
+                        <img src="rose.png" alt="Rose Accent" class="w-5 h-5">
+                    </h2>
                     <p class="text-xs text-burgundy-900 mb-4">Share your birthday message for Ryenn!</p>
 
                     <form id="guestbook-form" onsubmit="submitMessage(event)" class="space-y-3">
@@ -523,7 +545,10 @@
 
                 <!-- Wish Wall -->
                 <div class="gold-framed-box rounded-xl p-6 flex flex-col">
-                    <h2 class="font-serif text-base text-burgundy-700 font-bold uppercase tracking-wider mb-2">Wishes Wall</h2>
+                    <h2 class="font-serif text-base text-burgundy-700 font-bold uppercase tracking-wider mb-2 flex items-center justify-between">
+                        <span>Wishes Wall</span>
+                        <img src="rose.png" alt="Rose Accent" class="w-5 h-5">
+                    </h2>
                     <div id="wishes-list" class="space-y-2 overflow-y-auto max-h-[260px] pr-1 flex-grow">
                         <!-- Messages dynamically load here live from Firebase -->
                     </div>
@@ -534,8 +559,10 @@
     </main>
 
     <!-- FOOTER -->
-    <footer class="w-full text-center py-4 bg-cream border-t border-gold/40 text-xs text-burgundy-800 font-serif">
+    <footer class="w-full text-center py-4 bg-cream border-t border-gold/40 text-xs text-burgundy-800 font-serif flex items-center justify-center gap-2">
+        <img src="rose.png" alt="Rose" class="w-4 h-4">
         <p>Ryenn's 18th Birthday Debut &copy; 2026 | Designed with Love</p>
+        <img src="rose.png" alt="Rose" class="w-4 h-4">
     </footer>
 
     <!-- FIREBASE LIBRARIES -->
