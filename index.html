@@ -217,7 +217,7 @@
             max-height: 85vh;
             pointer-events: none;
             z-index: 10;
-            mix-blend-mode: multiply; /* Blends away the white/grey checkerboard background */
+            mix-blend-mode: multiply;
         }
 
         .side-vine-img.left { left: 10px; }
@@ -515,7 +515,7 @@
                             <label class="block font-serif text-xs text-burgundy-700 uppercase font-bold mb-1">Message</label>
                             <textarea id="guest-message" rows="3" required placeholder="Write something sweet for Ryenn..." class="w-full px-3 py-2 bg-white border border-burgundy-300 rounded text-xs text-burgundy-900 focus:outline-none focus:border-burgundy-700"></textarea>
                         </div>
-                        <button type="submit" class="w-full py-2 bg-burgundy-700 text-gold-light font-serif text-xs uppercase font-bold rounded hover:bg-burgundy-800 transition">
+                        <button type="submit" id="submit-btn" class="w-full py-2 bg-burgundy-700 text-gold-light font-serif text-xs uppercase font-bold rounded hover:bg-burgundy-800 transition">
                             Post Birthday Wish
                         </button>
                     </form>
@@ -525,10 +525,7 @@
                 <div class="gold-framed-box rounded-xl p-6 flex flex-col">
                     <h2 class="font-serif text-base text-burgundy-700 font-bold uppercase tracking-wider mb-2">Wishes Wall</h2>
                     <div id="wishes-list" class="space-y-2 overflow-y-auto max-h-[260px] pr-1 flex-grow">
-                        <div class="bg-burgundy-50 p-2.5 rounded border border-burgundy-200">
-                            <p class="text-xs font-serif text-burgundy-700 font-bold">Glorioso Family</p>
-                            <p class="text-xs text-burgundy-900 mt-0.5">"Happy 18th Birthday Ryenn! Wishing you endless happiness, wisdom, and love as you step into womanhood."</p>
-                        </div>
+                        <!-- Messages dynamically load here live from Firebase -->
                     </div>
                 </div>
             </div>
@@ -541,17 +538,37 @@
         <p>Ryenn's 18th Birthday Debut &copy; 2026 | Designed with Love</p>
     </footer>
 
+    <!-- FIREBASE LIBRARIES (Realtime Database Integration) -->
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+
     <!-- INTERACTIVE JAVASCRIPT LOGIC -->
     <script>
+        // FIREBASE CONFIGURATION
+        const firebaseConfig = {
+            apiKey: "AIzaSyAiN6dS7XFu5rowirA_rDvc-day-Zu9-Ls",
+            authDomain: "ryenn-debut.firebaseapp.com",
+            databaseURL: "https://ryenn-debut-default-rtdb.firebaseio.com",
+            projectId: "ryenn-debut",
+            storageBucket: "ryenn-debut.appspot.com",
+            messagingSenderId: "127498559024",
+            appId: "1:127498559024:web:9b7f5299d0d5ed874057f5",
+            measurementId: "G-6HPDVWSE19"
+        };
+
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        const database = firebase.database();
+        const wishesRef = database.ref('wishes');
+
+        // AUDIO CONTROL LOGIC
         const audioPlayer = document.getElementById('bg-music');
         const musicText = document.getElementById('music-text');
         audioPlayer.volume = 0.8;
 
-        // Keep button label updated with audio state
         audioPlayer.addEventListener('play', () => { musicText.innerText = "Pause Music"; });
         audioPlayer.addEventListener('pause', () => { musicText.innerText = "Play Music"; });
         
-        // Automatic Fallback stream if local file throws error
         audioPlayer.addEventListener('error', () => {
             if (audioPlayer.src !== "https://raw.githubusercontent.com/Reighnard-dev/ryenn-debut-invitation/main/bg-music.mp3") {
                 audioPlayer.src = "https://raw.githubusercontent.com/Reighnard-dev/ryenn-debut-invitation/main/bg-music.mp3";
@@ -571,22 +588,18 @@
             const wrapper = document.getElementById('scroll-body-wrapper');
             const btnWrap = document.getElementById('unroll-wrap');
 
-            // 1. Start music immediately inside click event
             audioPlayer.play().catch(err => {
                 console.log("Audio play deferred:", err);
             });
 
-            // 2. Fade out button
             btnWrap.style.opacity = '0';
             btnWrap.style.pointerEvents = 'none';
 
-            // 3. Unroll scroll downward
             const fullHeight = wrapper.scrollHeight;
             const maxHeight = window.innerHeight - 190;
             wrapper.style.height = Math.min(fullHeight, maxHeight) + 'px';
             wrapper.classList.add('unrolled');
 
-            // 4. Confetti burst
             setTimeout(() => {
                 confetti({
                     particleCount: 80,
@@ -595,7 +608,6 @@
                 });
             }, 2400);
 
-            // 5. Fade out overlay
             setTimeout(() => {
                 overlay.style.opacity = '0';
                 overlay.style.pointerEvents = 'none';
@@ -633,29 +645,71 @@
             }
         }
 
-        // 4. GUESTBOOK MESSAGE SUBMISSION
+        // 4. FIREBASE REALTIME GUESTBOOK SUBMISSION & STREAMING
         function submitMessage(event) {
             event.preventDefault();
-            const name = document.getElementById('guest-name').value;
-            const message = document.getElementById('guest-message').value;
-            const list = document.getElementById('wishes-list');
+            const name = document.getElementById('guest-name').value.trim();
+            const message = document.getElementById('guest-message').value.trim();
+            const submitBtn = document.getElementById('submit-btn');
 
-            const wishCard = document.createElement('div');
-            wishCard.className = 'bg-burgundy-50 p-2.5 rounded border border-burgundy-200';
-            wishCard.innerHTML = `
-                <p class="text-xs font-serif text-burgundy-700 font-bold">${escapeHtml(name)}</p>
-                <p class="text-xs text-burgundy-900 mt-0.5">"${escapeHtml(message)}"</p>
-            `;
+            if (!name || !message) return;
 
-            list.prepend(wishCard);
-            document.getElementById('guestbook-form').reset();
+            submitBtn.disabled = true;
+            submitBtn.innerText = "Posting...";
 
-            confetti({
-                particleCount: 30,
-                spread: 50,
-                origin: { y: 0.8 }
+            // Push new wish into Firebase Cloud Database
+            wishesRef.push({
+                name: name,
+                message: message,
+                timestamp: firebase.database.ServerValue.TIMESTAMP
+            }).then(() => {
+                document.getElementById('guestbook-form').reset();
+                submitBtn.disabled = false;
+                submitBtn.innerText = "Post Birthday Wish";
+
+                confetti({
+                    particleCount: 35,
+                    spread: 50,
+                    origin: { y: 0.8 }
+                });
+            }).catch((error) => {
+                console.error("Error posting wish:", error);
+                alert("Failed to post wish. Please try again!");
+                submitBtn.disabled = false;
+                submitBtn.innerText = "Post Birthday Wish";
             });
         }
+
+        // Realtime Listener: Automatically loads and listens for new messages globally
+        wishesRef.orderByChild('timestamp').on('value', (snapshot) => {
+            const list = document.getElementById('wishes-list');
+            list.innerHTML = '';
+
+            if (!snapshot.exists()) {
+                list.innerHTML = `
+                    <div class="bg-burgundy-50 p-2.5 rounded border border-burgundy-200 text-center">
+                        <p class="text-xs text-burgundy-900 italic">Be the first to leave a wish for Ryenn!</p>
+                    </div>
+                `;
+                return;
+            }
+
+            const wishes = [];
+            snapshot.forEach((childSnapshot) => {
+                wishes.push(childSnapshot.val());
+            });
+
+            // Reverse array so newest messages appear at top
+            wishes.reverse().forEach((data) => {
+                const wishCard = document.createElement('div');
+                wishCard.className = 'bg-burgundy-50 p-2.5 rounded border border-burgundy-200';
+                wishCard.innerHTML = `
+                    <p class="text-xs font-serif text-burgundy-700 font-bold">${escapeHtml(data.name)}</p>
+                    <p class="text-xs text-burgundy-900 mt-0.5">"${escapeHtml(data.message)}"</p>
+                `;
+                list.appendChild(wishCard);
+            });
+        });
 
         function escapeHtml(str) {
             return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
