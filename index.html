@@ -232,10 +232,8 @@
     <img src="vines.png" class="side-vine-img right" alt="Rose Vine Decoration Right">
 
     <!-- BACKGROUND MUSIC -->
-    <audio id="bg-music" loop preload="auto">
+    <audio id="bg-music" loop preload="auto" playsinline>
         <source src="bg-music.mp3" type="audio/mpeg">
-        <source src="./bg-music.mp3" type="audio/mpeg">
-        <source src="https://raw.githubusercontent.com/Reighnard-dev/ryenn-debut-invitation/main/bg-music.mp3" type="audio/mpeg">
     </audio>
 
     <!-- REALISTIC SCROLL INVITATION OVERLAY -->
@@ -636,40 +634,35 @@
         const musicText = document.getElementById('music-text');
         const musicIcon = document.getElementById('music-icon');
 
-        audioPlayer.volume = 0.8;
+        if (audioPlayer) {
+            audioPlayer.volume = 0.8;
 
-        audioPlayer.addEventListener('play', () => { 
-            if (musicText) musicText.innerText = "Pause Music"; 
-            if (musicIcon) musicIcon.className = "fa-solid fa-pause text-gold";
-        });
+            audioPlayer.addEventListener('play', () => { 
+                if (musicText) musicText.innerText = "Pause Music"; 
+                if (musicIcon) musicIcon.className = "fa-solid fa-pause text-gold";
+            });
 
-        audioPlayer.addEventListener('pause', () => { 
-            if (musicText) musicText.innerText = "Play Music"; 
-            if (musicIcon) musicIcon.className = "fa-solid fa-music text-gold";
-        });
-
-        audioPlayer.addEventListener('error', () => {
-            console.warn("Local audio failed, trying fallback CDN...");
-            const fallbackUrl = "https://raw.githubusercontent.com/Reighnard-dev/ryenn-debut-invitation/main/bg-music.mp3";
-            if (audioPlayer.src !== fallbackUrl) {
-                audioPlayer.src = fallbackUrl;
-                audioPlayer.load();
-                audioPlayer.play().catch(e => console.log("Fallback blocked:", e));
-            }
-        });
+            audioPlayer.addEventListener('pause', () => { 
+                if (musicText) musicText.innerText = "Play Music"; 
+                if (musicIcon) musicIcon.className = "fa-solid fa-music text-gold";
+            });
+        }
 
         function startMusic() {
             if (!audioPlayer) return;
-            audioPlayer.muted = false;
-            const playPromise = audioPlayer.play();
             
+            if (!audioPlayer.src || audioPlayer.src === "") {
+                audioPlayer.src = "bg-music.mp3";
+            }
+            
+            audioPlayer.muted = false;
+            
+            const playPromise = audioPlayer.play();
             if (playPromise !== undefined) {
-                playPromise.then(() => {
-                    console.log("Audio playing successfully!");
-                }).catch(error => {
-                    console.log("Autoplay blocked:", error);
+                playPromise.catch(error => {
+                    console.log("Play failed, reloading audio source...", error);
                     audioPlayer.load();
-                    audioPlayer.play().catch(err => console.log("Retry failed:", err));
+                    audioPlayer.play().catch(e => console.log("Final play attempt failed:", e));
                 });
             }
         }
@@ -680,7 +673,7 @@
             if (btn.dataset.opened) return;
             btn.dataset.opened = '1';
 
-            // Start audio playing directly inside click handler
+            // Direct audio trigger on unroll
             startMusic();
 
             const overlay = document.getElementById('scroll-overlay');
@@ -704,8 +697,9 @@
             }, 3200);
         }
 
-        // 2. AUDIO PLAY/PAUSE TOGGLE
+        // 2. AUDIO PLAY / PAUSE TOGGLE BUTTON
         function toggleAudio() {
+            if (!audioPlayer) return;
             if (audioPlayer.paused) {
                 startMusic();
             } else {
