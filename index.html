@@ -536,7 +536,7 @@
                         </select>
                     </div>
 
-                    <!-- Guest Count Dropdown (Shows if 'Family' is selected) -->
+                    <!-- Guest Count Dropdown -->
                     <div id="guest-count-wrap" class="hidden">
                         <label class="block font-serif text-xs text-burgundy-700 uppercase font-bold mb-1">Number of Guests Attending</label>
                         <select id="rsvp-count" onchange="handleCountChange(this.value)" class="w-full px-3 py-2 bg-white border border-burgundy-300 rounded text-xs text-burgundy-900 focus:outline-none focus:border-burgundy-700">
@@ -548,7 +548,7 @@
                         </select>
                     </div>
 
-                    <!-- Custom Member Count Input (Shows if '5 or more' is selected) -->
+                    <!-- Custom Member Count Input -->
                     <div id="custom-count-wrap" class="hidden">
                         <label class="block font-serif text-xs text-burgundy-700 uppercase font-bold mb-1">Please specify the count of members</label>
                         <input type="number" id="rsvp-custom-count" min="5" placeholder="e.g. 6" class="w-full px-3 py-2 bg-white border border-burgundy-300 rounded text-xs text-burgundy-900 focus:outline-none focus:border-burgundy-700">
@@ -631,22 +631,48 @@
         const wishesRef = database.ref('wishes');
         const rsvpsRef = database.ref('rsvps');
 
-        // AUDIO CONTROL LOGIC
+        // ROBUST AUDIO CONTROL LOGIC
         const audioPlayer = document.getElementById('bg-music');
         const musicText = document.getElementById('music-text');
+        const musicIcon = document.getElementById('music-icon');
+
         audioPlayer.volume = 0.8;
 
-        audioPlayer.addEventListener('play', () => { musicText.innerText = "Pause Music"; });
-        audioPlayer.addEventListener('pause', () => { musicText.innerText = "Play Music"; });
-        
+        audioPlayer.addEventListener('play', () => { 
+            if (musicText) musicText.innerText = "Pause Music"; 
+            if (musicIcon) musicIcon.className = "fa-solid fa-pause text-gold";
+        });
+
+        audioPlayer.addEventListener('pause', () => { 
+            if (musicText) musicText.innerText = "Play Music"; 
+            if (musicIcon) musicIcon.className = "fa-solid fa-music text-gold";
+        });
+
         audioPlayer.addEventListener('error', () => {
-            if (audioPlayer.src !== "https://raw.githubusercontent.com/Reighnard-dev/ryenn-debut-invitation/main/bg-music.mp3") {
-                audioPlayer.src = "https://raw.githubusercontent.com/Reighnard-dev/ryenn-debut-invitation/main/bg-music.mp3";
+            console.warn("Local audio failed, trying fallback CDN...");
+            const fallbackUrl = "https://raw.githubusercontent.com/Reighnard-dev/ryenn-debut-invitation/main/bg-music.mp3";
+            if (audioPlayer.src !== fallbackUrl) {
+                audioPlayer.src = fallbackUrl;
                 audioPlayer.load();
-            } else {
-                musicText.innerText = "Music Unavailable";
+                audioPlayer.play().catch(e => console.log("Fallback blocked:", e));
             }
         });
+
+        function startMusic() {
+            if (!audioPlayer) return;
+            audioPlayer.muted = false;
+            const playPromise = audioPlayer.play();
+            
+            if (playPromise !== undefined) {
+                playPromise.then(() => {
+                    console.log("Audio playing successfully!");
+                }).catch(error => {
+                    console.log("Autoplay blocked:", error);
+                    audioPlayer.load();
+                    audioPlayer.play().catch(err => console.log("Retry failed:", err));
+                });
+            }
+        }
 
         // 1. SCROLL UNROLL ANIMATION & AUDIO TRIGGER
         function openScrollInvitation() {
@@ -654,13 +680,12 @@
             if (btn.dataset.opened) return;
             btn.dataset.opened = '1';
 
+            // Start audio playing directly inside click handler
+            startMusic();
+
             const overlay = document.getElementById('scroll-overlay');
             const wrapper = document.getElementById('scroll-body-wrapper');
             const btnWrap = document.getElementById('unroll-wrap');
-
-            audioPlayer.play().catch(err => {
-                console.log("Audio play deferred:", err);
-            });
 
             btnWrap.style.opacity = '0';
             btnWrap.style.pointerEvents = 'none';
@@ -682,7 +707,7 @@
         // 2. AUDIO PLAY/PAUSE TOGGLE
         function toggleAudio() {
             if (audioPlayer.paused) {
-                audioPlayer.play().catch(err => console.log(err));
+                startMusic();
             } else {
                 audioPlayer.pause();
             }
@@ -769,7 +794,7 @@
                     const selectedCount = document.getElementById('rsvp-count').value;
                     if (selectedCount === '5 or more') {
                         const customVal = document.getElementById('rsvp-custom-count').value.trim();
-                        count = customVal ? customVal + ' (specified)' : '5+';
+                        count = customVal ? customVal + ' members' : '5+ members';
                     } else {
                         count = selectedCount;
                     }
