@@ -116,14 +116,13 @@
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.7);
         }
 
-        /* Closed (rolled up) scroll: paper has no height, rods sit together */
+        /* Closed scroll */
         #scroll-body-wrapper {
             height: 0;
             overflow: hidden;
             transition: height 2.4s cubic-bezier(0.45, 0.05, 0.25, 1);
         }
 
-        /* Paper text fades in while the scroll unrolls */
         #scroll-content {
             opacity: 0;
             transition: opacity 1.2s ease 1s;
@@ -207,21 +206,21 @@
             }
         }
 
-        /* SIDE VINES STYLING - PROPORTIONAL & TALLER */
+        /* SIDE VINES STYLING */
         .side-vine-img {
             position: fixed;
             top: 50%;
-            transform: translateY(-50%);
-            width: 190px;
-            height: 90vh;
-            object-fit: contain;
+            transform: translateY(-50%) scaleY(1.35);
+            width: 210px;
+            height: 85vh;
+            object-fit: fill;
             pointer-events: none;
             z-index: 10;
             filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.6));
         }
 
-        .side-vine-img.left { left: 0px; }
-        .side-vine-img.right { right: 0px; transform: translateY(-50%) scaleX(-1); }
+        .side-vine-img.left { left: -15px; }
+        .side-vine-img.right { right: -15px; transform: translateY(-50%) scaleX(-1) scaleY(1.35); }
 
         @media (max-width: 1280px) {
             .side-vine-img { display: none; }
@@ -418,13 +417,17 @@
                         <img src="rose.png" alt="Rose Accent" class="w-5 h-5">
                     </h2>
                     <p class="text-xs text-burgundy-900 mb-3"><strong>Formal / Modern Elegance:</strong></p>
-                    <div class="flex items-center gap-3 text-xs bg-burgundy-50 p-2.5 rounded-lg border border-burgundy-200 mb-2">
-                        <div class="w-4 h-4 rounded-full bg-burgundy-700"></div>
-                        <span><strong>Ladies:</strong> Long Gowns / Elegant Dresses (Rose Red / Burgundy accent)</span>
+                    
+                    <!-- UPDATED: Ladies Card Background -->
+                    <div class="flex items-center gap-3 text-xs bg-burgundy-800 text-cream p-2.5 rounded-lg border border-gold mb-2 shadow">
+                        <div class="w-4 h-4 rounded-full bg-burgundy-500 border border-gold"></div>
+                        <span><strong class="text-gold-light">Ladies:</strong> Long Gowns / Elegant Dresses (Rose Red / Burgundy accent)</span>
                     </div>
-                    <div class="flex items-center gap-3 text-xs bg-burgundy-50 p-2.5 rounded-lg border border-burgundy-200">
-                        <div class="w-4 h-4 rounded-full bg-black"></div>
-                        <span><strong>Gentlemen:</strong> Suits or Dark Formal Attire</span>
+
+                    <!-- UPDATED: Gentlemen Card Background -->
+                    <div class="flex items-center gap-3 text-xs bg-burgundy-800 text-cream p-2.5 rounded-lg border border-gold shadow">
+                        <div class="w-4 h-4 rounded-full bg-black border border-gold"></div>
+                        <span><strong class="text-gold-light">Gentlemen:</strong> Suits or Dark Formal Attire</span>
                     </div>
                 </div>
 
@@ -462,29 +465,31 @@
                 <p class="font-serif text-xs uppercase tracking-widest text-burgundy-900 font-semibold mb-6">Honored Guests & Participants</p>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-left">
-                    <div class="bg-burgundy-50 p-4 rounded-lg border border-gold">
-                        <h3 class="font-serif text-sm text-burgundy-700 font-bold uppercase border-b border-burgundy-200 pb-2 mb-3 flex items-center justify-between">
+                    <!-- UPDATED: 18 Roses Container -->
+                    <div class="bg-burgundy-800 text-cream p-4 rounded-lg border border-gold shadow">
+                        <h3 class="font-serif text-sm text-gold-light font-bold uppercase border-b border-gold/40 pb-2 mb-3 flex items-center justify-between">
                             <span>18 Roses</span>
                             <img src="rose.png" alt="Rose" class="w-4 h-4">
                         </h3>
-                        <ol class="space-y-1.5 text-xs text-burgundy-900 list-decimal list-inside">
+                        <ol class="space-y-1.5 text-xs text-cream/90 list-decimal list-inside">
                             <li>Participant Name 1</li>
                             <li>Participant Name 2</li>
                             <li>Participant Name 3</li>
-                            <li class="italic text-gray-500">More names to be updated...</li>
+                            <li class="italic text-gold-light/70">More names to be updated...</li>
                         </ol>
                     </div>
 
-                    <div class="bg-burgundy-50 p-4 rounded-lg border border-gold">
-                        <h3 class="font-serif text-sm text-burgundy-700 font-bold uppercase border-b border-burgundy-200 pb-2 mb-3 flex items-center justify-between">
+                    <!-- UPDATED: 18 Treasures Container -->
+                    <div class="bg-burgundy-800 text-cream p-4 rounded-lg border border-gold shadow">
+                        <h3 class="font-serif text-sm text-gold-light font-bold uppercase border-b border-gold/40 pb-2 mb-3 flex items-center justify-between">
                             <span>18 Treasures</span>
                             <img src="rose.png" alt="Rose" class="w-4 h-4">
                         </h3>
-                        <ol class="space-y-1.5 text-xs text-burgundy-900 list-decimal list-inside">
+                        <ol class="space-y-1.5 text-xs text-cream/90 list-decimal list-inside">
                             <li>Participant Name 1</li>
                             <li>Participant Name 2</li>
                             <li>Participant Name 3</li>
-                            <li class="italic text-gray-500">More names to be updated...</li>
+                            <li class="italic text-gold-light/70">More names to be updated...</li>
                         </ol>
                     </div>
                 </div>
@@ -706,15 +711,15 @@
             });
         }
 
-        // Realtime Listener
+        // Realtime Listener (UPDATED: Wish Cards styled with Burgundy background & Gold border)
         wishesRef.orderByChild('timestamp').on('value', (snapshot) => {
             const list = document.getElementById('wishes-list');
             list.innerHTML = '';
 
             if (!snapshot.exists()) {
                 list.innerHTML = `
-                    <div class="bg-burgundy-50 p-2.5 rounded border border-burgundy-200 text-center">
-                        <p class="text-xs text-burgundy-900 italic">Be the first to leave a wish for Ryenn!</p>
+                    <div class="bg-burgundy-800 text-gold-light p-2.5 rounded border border-gold text-center shadow">
+                        <p class="text-xs italic">Be the first to leave a wish for Ryenn!</p>
                     </div>
                 `;
                 return;
@@ -727,10 +732,10 @@
 
             wishes.reverse().forEach((data) => {
                 const wishCard = document.createElement('div');
-                wishCard.className = 'bg-burgundy-50 p-2.5 rounded border border-burgundy-200';
+                wishCard.className = 'bg-burgundy-800 text-cream p-2.5 rounded border border-gold shadow';
                 wishCard.innerHTML = `
-                    <p class="text-xs font-serif text-burgundy-700 font-bold">${escapeHtml(data.name)}</p>
-                    <p class="text-xs text-burgundy-900 mt-0.5">"${escapeHtml(data.message)}"</p>
+                    <p class="text-xs font-serif text-gold-light font-bold">${escapeHtml(data.name)}</p>
+                    <p class="text-xs text-cream/90 mt-0.5">"${escapeHtml(data.message)}"</p>
                 `;
                 list.appendChild(wishCard);
             });
