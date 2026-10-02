@@ -519,23 +519,39 @@
 
                     <div>
                         <label class="block font-serif text-xs text-burgundy-700 uppercase font-bold mb-1">Will you be attending?</label>
-                        <select id="rsvp-status" onchange="toggleGuestCount(this.value)" required class="w-full px-3 py-2 bg-white border border-burgundy-300 rounded text-xs text-burgundy-900 focus:outline-none focus:border-burgundy-700">
+                        <select id="rsvp-status" onchange="handleStatusChange(this.value)" required class="w-full px-3 py-2 bg-white border border-burgundy-300 rounded text-xs text-burgundy-900 focus:outline-none focus:border-burgundy-700">
                             <option value="" disabled selected>Select your response...</option>
                             <option value="Attending">We will be attending</option>
                             <option value="Declined">Sorry, we won't be able to attend</option>
                         </select>
                     </div>
 
-                    <!-- Guest count dropdown (Hidden until 'Attending' is selected) -->
+                    <!-- Solo or Family Option Dropdown -->
+                    <div id="type-wrap" class="hidden">
+                        <label class="block font-serif text-xs text-burgundy-700 uppercase font-bold mb-1">Are you going with family or going solo?</label>
+                        <select id="rsvp-type" onchange="handleTypeChange(this.value)" class="w-full px-3 py-2 bg-white border border-burgundy-300 rounded text-xs text-burgundy-900 focus:outline-none focus:border-burgundy-700">
+                            <option value="" disabled selected>Select option...</option>
+                            <option value="Solo">Solo</option>
+                            <option value="Family">Family</option>
+                        </select>
+                    </div>
+
+                    <!-- Guest Count Dropdown (Shows if 'Family' is selected) -->
                     <div id="guest-count-wrap" class="hidden">
                         <label class="block font-serif text-xs text-burgundy-700 uppercase font-bold mb-1">Number of Guests Attending</label>
-                        <select id="rsvp-count" class="w-full px-3 py-2 bg-white border border-burgundy-300 rounded text-xs text-burgundy-900 focus:outline-none focus:border-burgundy-700">
-                            <option value="1">1 Person</option>
-                            <option value="2">2 Persons</option>
-                            <option value="3">3 Persons</option>
-                            <option value="4">4 Persons</option>
-                            <option value="5+">5 or more Persons</option>
+                        <select id="rsvp-count" onchange="handleCountChange(this.value)" class="w-full px-3 py-2 bg-white border border-burgundy-300 rounded text-xs text-burgundy-900 focus:outline-none focus:border-burgundy-700">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5 or more">5 or more</option>
                         </select>
+                    </div>
+
+                    <!-- Custom Member Count Input (Shows if '5 or more' is selected) -->
+                    <div id="custom-count-wrap" class="hidden">
+                        <label class="block font-serif text-xs text-burgundy-700 uppercase font-bold mb-1">Please specify the count of members</label>
+                        <input type="number" id="rsvp-custom-count" min="5" placeholder="e.g. 6" class="w-full px-3 py-2 bg-white border border-burgundy-300 rounded text-xs text-burgundy-900 focus:outline-none focus:border-burgundy-700">
                     </div>
 
                     <button type="submit" id="rsvp-btn" class="w-full py-2.5 bg-burgundy-700 text-gold-light font-serif text-xs uppercase font-bold rounded hover:bg-burgundy-800 transition">
@@ -655,20 +671,12 @@
             wrapper.classList.add('unrolled');
 
             setTimeout(() => {
-                confetti({
-                    particleCount: 80,
-                    spread: 70,
-                    origin: { y: 0.6 }
-                });
-            }, 2400);
-
-            setTimeout(() => {
                 overlay.style.opacity = '0';
                 overlay.style.pointerEvents = 'none';
                 setTimeout(() => {
                     overlay.style.visibility = 'hidden';
                 }, 800);
-            }, 4200);
+            }, 3200);
         }
 
         // 2. AUDIO PLAY/PAUSE TOGGLE
@@ -700,12 +708,49 @@
         }
 
         // 4. RSVP SUBMISSION LOGIC
-        function toggleGuestCount(status) {
-            const wrap = document.getElementById('guest-count-wrap');
+        function handleStatusChange(status) {
+            const typeWrap = document.getElementById('type-wrap');
+            const countWrap = document.getElementById('guest-count-wrap');
+            const customWrap = document.getElementById('custom-count-wrap');
+            const typeSelect = document.getElementById('rsvp-type');
+
             if (status === 'Attending') {
-                wrap.classList.remove('hidden');
+                typeWrap.classList.remove('hidden');
+                typeSelect.required = true;
             } else {
-                wrap.classList.add('hidden');
+                typeWrap.classList.add('hidden');
+                countWrap.classList.add('hidden');
+                customWrap.classList.add('hidden');
+                typeSelect.required = false;
+                typeSelect.value = '';
+            }
+        }
+
+        function handleTypeChange(type) {
+            const countWrap = document.getElementById('guest-count-wrap');
+            const customWrap = document.getElementById('custom-count-wrap');
+            const countSelect = document.getElementById('rsvp-count');
+
+            if (type === 'Family') {
+                countWrap.classList.remove('hidden');
+                handleCountChange(countSelect.value);
+            } else {
+                countWrap.classList.add('hidden');
+                customWrap.classList.add('hidden');
+            }
+        }
+
+        function handleCountChange(val) {
+            const customWrap = document.getElementById('custom-count-wrap');
+            const customInput = document.getElementById('rsvp-custom-count');
+
+            if (val === '5 or more') {
+                customWrap.classList.remove('hidden');
+                customInput.required = true;
+            } else {
+                customWrap.classList.add('hidden');
+                customInput.required = false;
+                customInput.value = '';
             }
         }
 
@@ -713,7 +758,24 @@
             event.preventDefault();
             const name = document.getElementById('rsvp-name').value.trim();
             const status = document.getElementById('rsvp-status').value;
-            const count = status === 'Attending' ? document.getElementById('rsvp-count').value : '0';
+            const typeSelect = document.getElementById('rsvp-type');
+            const attendanceType = status === 'Attending' ? typeSelect.value : 'N/A';
+            
+            let count = '0';
+            if (status === 'Attending') {
+                if (attendanceType === 'Solo') {
+                    count = '1';
+                } else {
+                    const selectedCount = document.getElementById('rsvp-count').value;
+                    if (selectedCount === '5 or more') {
+                        const customVal = document.getElementById('rsvp-custom-count').value.trim();
+                        count = customVal ? customVal + ' (specified)' : '5+';
+                    } else {
+                        count = selectedCount;
+                    }
+                }
+            }
+
             const btn = document.getElementById('rsvp-btn');
 
             if (!name || !status) return;
@@ -724,12 +786,15 @@
             rsvpsRef.push({
                 name: name,
                 status: status,
+                attendanceType: attendanceType,
                 guestCount: count,
                 timestamp: firebase.database.ServerValue.TIMESTAMP
             }).then(() => {
                 alert("Thank you! Your RSVP response has been received.");
                 document.getElementById('rsvp-form').reset();
+                document.getElementById('type-wrap').classList.add('hidden');
                 document.getElementById('guest-count-wrap').classList.add('hidden');
+                document.getElementById('custom-count-wrap').classList.add('hidden');
                 btn.disabled = false;
                 btn.innerText = "Submit Response";
 
