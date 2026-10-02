@@ -167,9 +167,7 @@
             border-radius: 3px;
         }
 
-        /* ------------------------------------------------------------- */
-        /* ADDED: FLOATING ROSE PETALS & SIDE FLORAL DECORATION STYLES    */
-        /* ------------------------------------------------------------- */
+        /* FLOATING ROSE PETALS STYLES */
         .petals-container {
             position: fixed;
             top: 0;
@@ -209,47 +207,35 @@
             }
         }
 
-        .side-floral {
+        /* SIDE VINES STYLING */
+        .side-vine-img {
             position: fixed;
             top: 50%;
             transform: translateY(-50%);
-            width: 160px;
-            height: 480px;
+            width: 140px;
+            height: auto;
+            max-height: 85vh;
             pointer-events: none;
             z-index: 10;
+            filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.4));
         }
 
-        .side-floral.left { left: 10px; }
-        .side-floral.right { right: 10px; transform: translateY(-50%) scaleX(-1); }
+        .side-vine-img.left { left: 10px; }
+        .side-vine-img.right { right: 10px; transform: translateY(-50%) scaleX(-1); }
 
         @media (max-width: 1024px) {
-            .side-floral { display: none; }
+            .side-vine-img { display: none; }
         }
     </style>
 </head>
 <body class="min-h-screen flex flex-col justify-between relative bg-cover bg-center bg-fixed" style="background-image: radial-gradient(circle at center, rgba(82, 4, 14, 0.9) 0%, rgba(30, 0, 5, 0.98) 100%);">
 
-    <!-- ADDED: ANIMATED PETALS CONTAINER -->
+    <!-- ANIMATED PETALS CONTAINER -->
     <div class="petals-container" id="petalsContainer"></div>
 
-    <!-- ADDED: LEFT & RIGHT SIDE FLORAL OVERLAYS -->
-    <svg class="side-floral left" viewBox="0 0 100 300" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M10,20 Q40,80 10,150 T10,280" stroke="#D4AF37" stroke-width="2" fill="none"/>
-        <circle cx="30" cy="60" r="14" fill="#720917" stroke="#D4AF37" stroke-width="1"/>
-        <circle cx="25" cy="140" r="16" fill="#720917" stroke="#D4AF37" stroke-width="1"/>
-        <circle cx="35" cy="220" r="13" fill="#720917" stroke="#D4AF37" stroke-width="1"/>
-        <path d="M30,60 Q50,40 60,65 Q40,75 30,60 Z" fill="#2E5A27" opacity="0.8"/>
-        <path d="M25,140 Q55,120 65,145 Q45,155 25,140 Z" fill="#2E5A27" opacity="0.8"/>
-    </svg>
-
-    <svg class="side-floral right" viewBox="0 0 100 300" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M10,20 Q40,80 10,150 T10,280" stroke="#D4AF37" stroke-width="2" fill="none"/>
-        <circle cx="30" cy="60" r="14" fill="#720917" stroke="#D4AF37" stroke-width="1"/>
-        <circle cx="25" cy="140" r="16" fill="#720917" stroke="#D4AF37" stroke-width="1"/>
-        <circle cx="35" cy="220" r="13" fill="#720917" stroke="#D4AF37" stroke-width="1"/>
-        <path d="M30,60 Q50,40 60,65 Q40,75 30,60 Z" fill="#2E5A27" opacity="0.8"/>
-        <path d="M25,140 Q55,120 65,145 Q45,155 25,140 Z" fill="#2E5A27" opacity="0.8"/>
-    </svg>
+    <!-- LEFT & RIGHT SIDE FLORAL IMAGE DECORATIONS -->
+    <img src="vines.jpg" class="side-vine-img left" alt="Rose Vine Decoration Left">
+    <img src="vines.jpg" class="side-vine-img right" alt="Rose Vine Decoration Right">
 
     <!-- BACKGROUND MUSIC (With Fallback Sources to Prevent "Music Unavailable") -->
     <audio id="bg-music" loop preload="auto">
@@ -675,7 +661,7 @@
             return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
         }
 
-        // ADDED: DYNAMIC FALLING ROSE PETALS GENERATOR
+        // DYNAMIC FALLING ROSE PETALS GENERATOR
         function createPetals() {
             const container = document.getElementById('petalsContainer');
             const petalCount = 18;
