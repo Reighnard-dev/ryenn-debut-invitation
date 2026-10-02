@@ -207,7 +207,7 @@
             }
         }
 
-        /* SIDE VINES STYLING WITH MULTIPLY BLEND MODE TO REMOVE CHECKERBOARD */
+        /* SIDE VINES STYLING - CLEAN TRUE TRANSPARENT PNG */
         .side-vine-img {
             position: fixed;
             top: 50%;
@@ -217,7 +217,7 @@
             max-height: 85vh;
             pointer-events: none;
             z-index: 10;
-            mix-blend-mode: multiply;
+            filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.6));
         }
 
         .side-vine-img.left { left: 10px; }
@@ -237,7 +237,7 @@
     <img src="vines.png" class="side-vine-img left" alt="Rose Vine Decoration Left">
     <img src="vines.png" class="side-vine-img right" alt="Rose Vine Decoration Right">
 
-    <!-- BACKGROUND MUSIC (With Fallback Sources to Prevent "Music Unavailable") -->
+    <!-- BACKGROUND MUSIC -->
     <audio id="bg-music" loop preload="auto">
         <source src="bg-music.mp3" type="audio/mpeg">
         <source src="./bg-music.mp3" type="audio/mpeg">
@@ -284,7 +284,7 @@
                 <div class="w-4 h-4 rounded-full bg-gold-shimmer border border-burgundy-900 shadow"></div>
             </div>
 
-            <!-- Eye-Catching Glowing Unroll Button (sits below the closed scroll) -->
+            <!-- Eye-Catching Glowing Unroll Button -->
             <div id="unroll-wrap" class="my-8 transition-opacity duration-500">
                 <button id="unroll-btn" onclick="openScrollInvitation()" class="btn-glowing px-8 py-3.5 bg-gradient-to-r from-burgundy-800 via-burgundy-700 to-burgundy-900 text-gold-light font-serif text-xs font-bold tracking-widest uppercase rounded-full border-2 border-gold shadow-2xl hover:scale-110 transition-transform duration-300">
                     <i class="fa-solid fa-envelope-open-text text-gold mr-2 text-sm"></i>
@@ -308,7 +308,7 @@
         </button>
     </header>
 
-    <!-- TOP TABBED NAVIGATION MENU (NO SCROLLING) -->
+    <!-- TOP TABBED NAVIGATION MENU -->
     <nav class="w-full bg-cream border-b border-gold/40 sticky top-[57px] z-30 shadow-sm">
         <div class="max-w-4xl mx-auto flex items-center justify-around overflow-x-auto py-1.5 px-2 text-xs font-serif uppercase tracking-wider text-burgundy-800">
             <button onclick="switchTab('tab-invitation', this)" class="nav-btn active-tab px-4 py-2 rounded-md transition flex items-center gap-2 whitespace-nowrap">
@@ -538,7 +538,7 @@
         <p>Ryenn's 18th Birthday Debut &copy; 2026 | Designed with Love</p>
     </footer>
 
-    <!-- FIREBASE LIBRARIES (Realtime Database Integration) -->
+    <!-- FIREBASE LIBRARIES -->
     <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
 
@@ -657,7 +657,6 @@
             submitBtn.disabled = true;
             submitBtn.innerText = "Posting...";
 
-            // Push new wish into Firebase Cloud Database
             wishesRef.push({
                 name: name,
                 message: message,
@@ -680,7 +679,7 @@
             });
         }
 
-        // Realtime Listener: Automatically loads and listens for new messages globally
+        // Realtime Listener
         wishesRef.orderByChild('timestamp').on('value', (snapshot) => {
             const list = document.getElementById('wishes-list');
             list.innerHTML = '';
@@ -699,7 +698,6 @@
                 wishes.push(childSnapshot.val());
             });
 
-            // Reverse array so newest messages appear at top
             wishes.reverse().forEach((data) => {
                 const wishCard = document.createElement('div');
                 wishCard.className = 'bg-burgundy-50 p-2.5 rounded border border-burgundy-200';
