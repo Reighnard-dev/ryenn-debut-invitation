@@ -207,7 +207,7 @@
             }
         }
 
-        /* SIDE VINES STYLING */
+        /* SIDE VINES STYLING WITH MULTIPLY BLEND MODE TO REMOVE CHECKERBOARD */
         .side-vine-img {
             position: fixed;
             top: 50%;
@@ -217,7 +217,7 @@
             max-height: 85vh;
             pointer-events: none;
             z-index: 10;
-            filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.4));
+            mix-blend-mode: multiply; /* Blends away the white/grey checkerboard background */
         }
 
         .side-vine-img.left { left: 10px; }
@@ -233,7 +233,7 @@
     <!-- ANIMATED PETALS CONTAINER -->
     <div class="petals-container" id="petalsContainer"></div>
 
-    <!-- LEFT & RIGHT SIDE FLORAL PNG DECORATIONS -->
+    <!-- LEFT & RIGHT SIDE FLORAL DECORATIONS -->
     <img src="vines.png" class="side-vine-img left" alt="Rose Vine Decoration Left">
     <img src="vines.png" class="side-vine-img right" alt="Rose Vine Decoration Right">
 
@@ -334,7 +334,7 @@
         </div>
     </nav>
 
-    <!-- MAIN CARD CONTAINER (MATCHING SAMPLE INVITATION DESIGN) -->
+    <!-- MAIN CARD CONTAINER -->
     <main class="max-w-3xl mx-auto w-full px-4 py-8 flex-grow">
 
         <!-- 1. INVITATION CARD TAB -->
@@ -370,7 +370,7 @@
                     </div>
                 </div>
 
-                <!-- Date Breakdown Block (Matching Sample) -->
+                <!-- Date Breakdown Block -->
                 <div class="my-6 border-y-2 border-gold py-4 max-w-md mx-auto flex items-center justify-center gap-6">
                     <p class="font-serif text-xs md:text-sm uppercase tracking-widest text-burgundy-800 font-bold">NOVEMBER</p>
                     <div class="px-4 border-x-2 border-burgundy-700">
