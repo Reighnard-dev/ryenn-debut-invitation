@@ -116,7 +116,6 @@
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.7);
         }
 
-        /* Closed scroll */
         #scroll-body-wrapper {
             height: 0;
             overflow: hidden;
@@ -193,12 +192,8 @@
                 top: -10%;
                 transform: translateX(0) rotate(0deg);
             }
-            10% {
-                opacity: 0.85;
-            }
-            90% {
-                opacity: 0.85;
-            }
+            10% { opacity: 0.85; }
+            90% { opacity: 0.85; }
             100% {
                 opacity: 0;
                 top: 110%;
@@ -247,20 +242,17 @@
     <div id="scroll-overlay" class="fixed inset-0 z-50 flex items-center justify-center bg-black/95 p-4">
         <div class="text-center max-w-lg w-full relative flex flex-col items-center">
             
-            <!-- Top Wooden/Gold Scroll Rod -->
             <div id="top-rod" class="scroll-rod w-full h-8 rounded-full border border-gold flex items-center justify-between px-3 z-20">
                 <div class="w-4 h-4 rounded-full bg-gold-shimmer border border-burgundy-900 shadow"></div>
                 <span class="text-[10px] font-serif uppercase tracking-[0.3em] text-burgundy-900 font-bold">Royal Invitation</span>
                 <div class="w-4 h-4 rounded-full bg-gold-shimmer border border-burgundy-900 shadow"></div>
             </div>
 
-            <!-- Scroll Paper Body Container -->
             <div id="scroll-body-wrapper" class="w-[92%] bg-cream border-x-2 border-gold text-center relative shadow-2xl my-[-2px]">
                 <div id="scroll-content" class="p-6">
                     <div class="floral-bg-tl"></div>
                     <div class="floral-bg-br"></div>
                     
-                    <!-- Floral Header Graphic -->
                     <div class="flex justify-center mb-1">
                         <img src="rose.png" alt="Rose" class="w-8 h-8 object-contain">
                     </div>
@@ -277,13 +269,11 @@
                 </div>
             </div>
 
-            <!-- Bottom Wooden/Gold Scroll Rod -->
             <div id="bottom-rod" class="scroll-rod w-full h-8 rounded-full border border-gold flex items-center justify-between px-3 z-20">
                 <div class="w-4 h-4 rounded-full bg-gold-shimmer border border-burgundy-900 shadow"></div>
                 <div class="w-4 h-4 rounded-full bg-gold-shimmer border border-burgundy-900 shadow"></div>
             </div>
 
-            <!-- Eye-Catching Glowing Unroll Button -->
             <div id="unroll-wrap" class="my-8 transition-opacity duration-500">
                 <button id="unroll-btn" onclick="openScrollInvitation()" class="btn-glowing px-8 py-3.5 bg-gradient-to-r from-burgundy-800 via-burgundy-700 to-burgundy-900 text-gold-light font-serif text-xs font-bold tracking-widest uppercase rounded-full border-2 border-gold shadow-2xl hover:scale-110 transition-transform duration-300">
                     <i class="fa-solid fa-envelope-open-text text-gold mr-2 text-sm"></i>
@@ -301,7 +291,6 @@
             <span class="font-script text-3xl text-burgundy-700 font-bold">Ryenn @ 18</span>
         </div>
 
-        <!-- Audio Toggle Control -->
         <button id="music-toggle" onclick="toggleAudio()" class="flex items-center gap-2 px-4 py-1.5 rounded-full bg-burgundy-700 border border-gold text-gold-light text-xs font-serif font-bold hover:bg-burgundy-800 transition">
             <i id="music-icon" class="fa-solid fa-music text-gold"></i>
             <span id="music-text">Play Music</span>
@@ -327,6 +316,10 @@
                 <i class="fa-solid fa-images text-burgundy-700"></i>
                 <span>Gallery</span>
             </button>
+            <button onclick="switchTab('tab-rsvp', this)" class="nav-btn px-4 py-2 rounded-md transition flex items-center gap-2 whitespace-nowrap">
+                <i class="fa-solid fa-envelope-open text-burgundy-700"></i>
+                <span>RSVP</span>
+            </button>
             <button onclick="switchTab('tab-guestbook', this)" class="nav-btn px-4 py-2 rounded-md transition flex items-center gap-2 whitespace-nowrap">
                 <i class="fa-solid fa-heart text-burgundy-700"></i>
                 <span>Guestbook</span>
@@ -343,14 +336,12 @@
                 <div class="floral-bg-tl"></div>
                 <div class="floral-bg-br"></div>
 
-                <!-- Rose Top Graphic -->
                 <div class="flex justify-center mb-1">
                     <img src="rose.png" alt="Rose Decor" class="w-10 h-10 object-contain drop-shadow-sm">
                 </div>
 
                 <p class="font-script text-3xl md:text-4xl text-burgundy-700 my-1">Join Us!</p>
 
-                <!-- Big 18 Graphic -->
                 <div class="my-2 relative flex items-center justify-center">
                     <span class="font-serif text-8xl md:text-9xl font-extrabold text-transparent bg-clip-text bg-gradient-to-b from-burgundy-700 to-burgundy-900 opacity-20">18</span>
                     <span class="absolute font-script text-5xl md:text-6xl text-burgundy-700 font-bold tracking-widest">eighteen</span>
@@ -360,10 +351,8 @@
                     As we celebrate a new chapter of grace and womanhood with
                 </p>
 
-                <!-- Celebrant Name -->
                 <h1 class="font-script text-6xl md:text-7xl text-burgundy-700 font-bold my-1">Ryenn</h1>
 
-                <!-- Portrait Frame with Corner Rose Accents -->
                 <div class="my-6 inline-block relative">
                     <img src="rose.png" alt="Rose Corner" class="absolute -top-3 -left-3 w-8 h-8 z-10 transform -rotate-12">
                     <img src="rose.png" alt="Rose Corner" class="absolute -bottom-3 -right-3 w-8 h-8 z-10 transform rotate-180">
@@ -372,7 +361,6 @@
                     </div>
                 </div>
 
-                <!-- Date Breakdown Block -->
                 <div class="my-6 border-y-2 border-gold py-4 max-w-md mx-auto flex items-center justify-center gap-4 md:gap-6 relative">
                     <p class="font-serif text-xs md:text-sm uppercase tracking-widest text-burgundy-800 font-bold">NOVEMBER</p>
                     <div class="px-4 border-x-2 border-burgundy-700 flex items-center gap-2">
@@ -385,7 +373,6 @@
                     <p class="font-serif text-xs md:text-sm uppercase tracking-widest text-burgundy-800 font-bold">AT 06:00 PM</p>
                 </div>
 
-                <!-- Venue Info -->
                 <div class="mt-4 text-burgundy-900">
                     <p class="font-serif font-bold text-base md:text-lg uppercase tracking-wider text-burgundy-700">ANGELA'S RESORT AND LEISURE FARM</p>
                     <p class="font-sans text-xs text-gray-700 mt-1">Putol, Brgy. San Lucas 2, San Pablo City, Philippines, 4000</p>
@@ -396,7 +383,6 @@
         <!-- 2. DETAILS & MAP TAB -->
         <section id="tab-details" class="tab-content">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <!-- Schedule -->
                 <div class="gold-framed-box rounded-xl p-6">
                     <h2 class="font-serif text-base text-burgundy-700 font-bold uppercase tracking-wider border-b border-gold pb-2 mb-4 flex items-center justify-between">
                         <span><i class="fa-solid fa-clock text-gold mr-2"></i> Event Schedule</span>
@@ -410,7 +396,6 @@
                     </ul>
                 </div>
 
-                <!-- Dress Code -->
                 <div class="gold-framed-box rounded-xl p-6">
                     <h2 class="font-serif text-base text-burgundy-700 font-bold uppercase tracking-wider border-b border-gold pb-2 mb-4 flex items-center justify-between">
                         <span><i class="fa-solid fa-user-tie text-gold mr-2"></i> Dress Code</span>
@@ -418,20 +403,17 @@
                     </h2>
                     <p class="text-xs text-burgundy-900 mb-3"><strong>Formal / Modern Elegance:</strong></p>
                     
-                    <!-- UPDATED: Ladies Card Background -->
                     <div class="flex items-center gap-3 text-xs bg-burgundy-800 text-cream p-2.5 rounded-lg border border-gold mb-2 shadow">
                         <div class="w-4 h-4 rounded-full bg-burgundy-500 border border-gold"></div>
                         <span><strong class="text-gold-light">Ladies:</strong> Long Gowns / Elegant Dresses (Rose Red / Burgundy accent)</span>
                     </div>
 
-                    <!-- UPDATED: Gentlemen Card Background -->
                     <div class="flex items-center gap-3 text-xs bg-burgundy-800 text-cream p-2.5 rounded-lg border border-gold shadow">
                         <div class="w-4 h-4 rounded-full bg-black border border-gold"></div>
                         <span><strong class="text-gold-light">Gentlemen:</strong> Suits or Dark Formal Attire</span>
                     </div>
                 </div>
 
-                <!-- Google Map Card -->
                 <div class="gold-framed-box rounded-xl p-6 md:col-span-2">
                     <div class="flex items-center justify-between mb-3">
                         <h2 class="font-serif text-base text-burgundy-700 font-bold uppercase tracking-wider">
@@ -465,7 +447,6 @@
                 <p class="font-serif text-xs uppercase tracking-widest text-burgundy-900 font-semibold mb-6">Honored Guests & Participants</p>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-left">
-                    <!-- UPDATED: 18 Roses Container -->
                     <div class="bg-burgundy-800 text-cream p-4 rounded-lg border border-gold shadow">
                         <h3 class="font-serif text-sm text-gold-light font-bold uppercase border-b border-gold/40 pb-2 mb-3 flex items-center justify-between">
                             <span>18 Roses</span>
@@ -479,7 +460,6 @@
                         </ol>
                     </div>
 
-                    <!-- UPDATED: 18 Treasures Container -->
                     <div class="bg-burgundy-800 text-cream p-4 rounded-lg border border-gold shadow">
                         <h3 class="font-serif text-sm text-gold-light font-bold uppercase border-b border-gold/40 pb-2 mb-3 flex items-center justify-between">
                             <span>18 Treasures</span>
@@ -522,10 +502,52 @@
             </div>
         </section>
 
-        <!-- 5. GUESTBOOK TAB -->
+        <!-- 5. RSVP TAB -->
+        <section id="tab-rsvp" class="tab-content">
+            <div class="gold-framed-box rounded-xl p-6 max-w-lg mx-auto relative">
+                <div class="flex justify-center mb-1">
+                    <img src="rose.png" alt="Rose" class="w-8 h-8 object-contain">
+                </div>
+                <h2 class="font-script text-5xl text-burgundy-700 font-bold text-center mb-1">RSVP</h2>
+                <p class="font-serif text-xs uppercase tracking-widest text-burgundy-900 font-semibold text-center mb-6">Confirm Your Attendance</p>
+
+                <form id="rsvp-form" onsubmit="submitRSVP(event)" class="space-y-4">
+                    <div>
+                        <label class="block font-serif text-xs text-burgundy-700 uppercase font-bold mb-1">Your Name / Family Name</label>
+                        <input type="text" id="rsvp-name" required placeholder="e.g. John Smith & Family" class="w-full px-3 py-2 bg-white border border-burgundy-300 rounded text-xs text-burgundy-900 focus:outline-none focus:border-burgundy-700">
+                    </div>
+
+                    <div>
+                        <label class="block font-serif text-xs text-burgundy-700 uppercase font-bold mb-1">Will you be attending?</label>
+                        <select id="rsvp-status" onchange="toggleGuestCount(this.value)" required class="w-full px-3 py-2 bg-white border border-burgundy-300 rounded text-xs text-burgundy-900 focus:outline-none focus:border-burgundy-700">
+                            <option value="" disabled selected>Select your response...</option>
+                            <option value="Attending">We will be attending</option>
+                            <option value="Declined">Sorry, we won't be able to attend</option>
+                        </select>
+                    </div>
+
+                    <!-- Guest count dropdown (Hidden until 'Attending' is selected) -->
+                    <div id="guest-count-wrap" class="hidden">
+                        <label class="block font-serif text-xs text-burgundy-700 uppercase font-bold mb-1">Number of Guests Attending</label>
+                        <select id="rsvp-count" class="w-full px-3 py-2 bg-white border border-burgundy-300 rounded text-xs text-burgundy-900 focus:outline-none focus:border-burgundy-700">
+                            <option value="1">1 Person</option>
+                            <option value="2">2 Persons</option>
+                            <option value="3">3 Persons</option>
+                            <option value="4">4 Persons</option>
+                            <option value="5+">5 or more Persons</option>
+                        </select>
+                    </div>
+
+                    <button type="submit" id="rsvp-btn" class="w-full py-2.5 bg-burgundy-700 text-gold-light font-serif text-xs uppercase font-bold rounded hover:bg-burgundy-800 transition">
+                        Submit Response
+                    </button>
+                </form>
+            </div>
+        </section>
+
+        <!-- 6. GUESTBOOK TAB -->
         <section id="tab-guestbook" class="tab-content">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <!-- Wish Form -->
                 <div class="gold-framed-box rounded-xl p-6">
                     <h2 class="font-serif text-base text-burgundy-700 font-bold uppercase tracking-wider mb-2 flex items-center justify-between">
                         <span>Leave a Wish</span>
@@ -548,14 +570,13 @@
                     </form>
                 </div>
 
-                <!-- Wish Wall -->
                 <div class="gold-framed-box rounded-xl p-6 flex flex-col">
                     <h2 class="font-serif text-base text-burgundy-700 font-bold uppercase tracking-wider mb-2 flex items-center justify-between">
                         <span>Wishes Wall</span>
                         <img src="rose.png" alt="Rose Accent" class="w-5 h-5">
                     </h2>
                     <div id="wishes-list" class="space-y-2 overflow-y-auto max-h-[260px] pr-1 flex-grow">
-                        <!-- Messages dynamically load here live from Firebase -->
+                        <!-- Messages load here live from Firebase -->
                     </div>
                 </div>
             </div>
@@ -592,6 +613,7 @@
         firebase.initializeApp(firebaseConfig);
         const database = firebase.database();
         const wishesRef = database.ref('wishes');
+        const rsvpsRef = database.ref('rsvps');
 
         // AUDIO CONTROL LOGIC
         const audioPlayer = document.getElementById('bg-music');
@@ -677,7 +699,56 @@
             }
         }
 
-        // 4. FIREBASE REALTIME GUESTBOOK SUBMISSION & STREAMING
+        // 4. RSVP SUBMISSION LOGIC
+        function toggleGuestCount(status) {
+            const wrap = document.getElementById('guest-count-wrap');
+            if (status === 'Attending') {
+                wrap.classList.remove('hidden');
+            } else {
+                wrap.classList.add('hidden');
+            }
+        }
+
+        function submitRSVP(event) {
+            event.preventDefault();
+            const name = document.getElementById('rsvp-name').value.trim();
+            const status = document.getElementById('rsvp-status').value;
+            const count = status === 'Attending' ? document.getElementById('rsvp-count').value : '0';
+            const btn = document.getElementById('rsvp-btn');
+
+            if (!name || !status) return;
+
+            btn.disabled = true;
+            btn.innerText = "Submitting Response...";
+
+            rsvpsRef.push({
+                name: name,
+                status: status,
+                guestCount: count,
+                timestamp: firebase.database.ServerValue.TIMESTAMP
+            }).then(() => {
+                alert("Thank you! Your RSVP response has been received.");
+                document.getElementById('rsvp-form').reset();
+                document.getElementById('guest-count-wrap').classList.add('hidden');
+                btn.disabled = false;
+                btn.innerText = "Submit Response";
+
+                if (status === 'Attending') {
+                    confetti({
+                        particleCount: 50,
+                        spread: 60,
+                        origin: { y: 0.7 }
+                    });
+                }
+            }).catch((err) => {
+                console.error("Error submitting RSVP:", err);
+                alert("Failed to submit response. Please try again!");
+                btn.disabled = false;
+                btn.innerText = "Submit Response";
+            });
+        }
+
+        // 5. FIREBASE REALTIME GUESTBOOK SUBMISSION & STREAMING
         function submitMessage(event) {
             event.preventDefault();
             const name = document.getElementById('guest-name').value.trim();
@@ -711,7 +782,7 @@
             });
         }
 
-        // Realtime Listener (UPDATED: Wish Cards styled with Burgundy background & Gold border)
+        // Realtime Listener
         wishesRef.orderByChild('timestamp').on('value', (snapshot) => {
             const list = document.getElementById('wishes-list');
             list.innerHTML = '';
