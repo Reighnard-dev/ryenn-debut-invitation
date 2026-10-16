@@ -424,12 +424,24 @@
                     <p class="text-xs text-gray-700 mb-3">
                         <strong>Angela's Resort and Leisure Farm</strong> — Putol, Brgy. San Lucas 2, San Pablo City, 4000 Laguna
                     </p>
-                    <div class="w-full h-44 rounded-lg overflow-hidden border border-gold bg-burgundy-900 flex flex-col items-center justify-center text-center p-4">
-                        <i class="fa-solid fa-compass text-4xl text-gold mb-2"></i>
-                        <p class="font-serif text-xs text-cream">San Pablo City, Laguna</p>
-                        <a href="https://maps.google.com/?q=Angela's+Resort+and+Leisure+Farm+San+Pablo+City" target="_blank" class="mt-3 px-5 py-1.5 bg-gold text-burgundy-900 text-xs font-serif font-bold rounded-full hover:bg-gold-light transition">
-                            Get Directions
-                        </a>
+                    
+                    <div class="w-full h-80 rounded-lg overflow-hidden border border-gold shadow-md relative group">
+                        <!-- Live Embedded Interactive Google Map -->
+                        <iframe 
+                            class="w-full h-full border-0"
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3869.313888365922!2d121.320500!3d14.070800!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x33bd5cc5f917208d%3A0xb3e648c6f1f2129!2sAngela&#39;s%20Resort%20and%20Leisure%20Farm!5e0!3m2!1sen!2sph!4v1700000000000!5m2!1sen!2sph" 
+                            allowfullscreen="" 
+                            loading="lazy" 
+                            referrerpolicy="no-referrer-when-downgrade">
+                        </iframe>
+
+                        <!-- Quick Direction Button Banner Overlay -->
+                        <div class="absolute bottom-3 right-3 z-10">
+                            <a href="https://maps.google.com/?q=Angela's+Resort+and+Leisure+Farm+San+Pablo+City" target="_blank" class="px-4 py-2 bg-burgundy-800 text-gold-light text-xs font-serif font-bold rounded-full border border-gold shadow-lg hover:scale-105 hover:bg-burgundy-700 transition flex items-center gap-2">
+                                <i class="fa-solid fa-directions text-gold"></i>
+                                <span>Get Directions</span>
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
