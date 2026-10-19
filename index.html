@@ -232,9 +232,7 @@
     <img src="vines.png" class="side-vine-img right" alt="Rose Vine Decoration Right">
 
     <!-- BACKGROUND MUSIC -->
-    <audio id="bg-music" loop preload="auto" playsinline>
-        <source src="bg-music.mp3" type="audio/mpeg">
-    </audio>
+    <audio id="bg-music" src="bg-music.mp3" loop preload="auto" playsinline></audio>
 
     <!-- REALISTIC SCROLL INVITATION OVERLAY -->
     <div id="scroll-overlay" class="fixed inset-0 z-50 flex items-center justify-center bg-black/95 p-4">
@@ -786,6 +784,9 @@
         const musicText = document.getElementById('music-text');
         const musicIcon = document.getElementById('music-icon');
 
+        // Tracks whether the guest deliberately paused the music
+        let userPausedMusic = false;
+
         if (audioPlayer) {
             audioPlayer.volume = 0.8;
 
@@ -798,26 +799,65 @@
                 if (musicText) musicText.innerText = "Play Music"; 
                 if (musicIcon) musicIcon.className = "fa-solid fa-music text-gold";
             });
+
+            audioPlayer.addEventListener('error', () => {
+                console.error(
+                    "bg-music.mp3 could not be loaded. Make sure the file is in the same folder as this HTML file, " +
+                    "the name is exactly 'bg-music.mp3' (lowercase), and that it isn't 'bg-music.mp3.mp3'.",
+                    audioPlayer.error
+                );
+            });
         }
 
         function startMusic() {
             if (!audioPlayer) return;
-            
-            if (!audioPlayer.src || audioPlayer.src === "") {
-                audioPlayer.src = "bg-music.mp3";
-            }
-            
+
             audioPlayer.muted = false;
-            
-            const playPromise = audioPlayer.play();
-            if (playPromise !== undefined) {
-                playPromise.catch(error => {
-                    console.log("Play failed, reloading audio source...", error);
-                    audioPlayer.load();
-                    audioPlayer.play().catch(e => console.log("Final play attempt failed:", e));
+            audioPlayer.volume = 0.8;
+
+            const attemptPlay = () => {
+                const playPromise = audioPlayer.play();
+                if (playPromise !== undefined) {
+                    playPromise.catch(error => {
+                        console.log("Play was blocked or not ready yet:", error);
+                    });
+                }
+            };
+
+            // If the file hasn't buffered enough yet, wait for it, then play
+            if (audioPlayer.readyState < 2) {
+                audioPlayer.addEventListener('canplay', function onCanPlay() {
+                    audioPlayer.removeEventListener('canplay', onCanPlay);
+                    if (!userPausedMusic) attemptPlay();
                 });
+                // Kick off loading if the browser hasn't started yet
+                if (audioPlayer.networkState === HTMLMediaElement.NETWORK_EMPTY ||
+                    audioPlayer.networkState === HTMLMediaElement.NETWORK_NO_SOURCE) {
+                    audioPlayer.load();
+                }
             }
+
+            // Call play() right away too, so it stays inside the user's click/tap
+            attemptPlay();
         }
+
+        // Fallback: if the first attempt was blocked, the next tap/click/keypress starts the music
+        function setupMusicUnlock() {
+            const events = ['pointerdown', 'touchend', 'click', 'keydown'];
+            const unlock = () => {
+                if (audioPlayer && audioPlayer.paused && !userPausedMusic) {
+                    startMusic();
+                }
+            };
+            events.forEach(evt => document.addEventListener(evt, unlock, { passive: true }));
+
+            // Stop listening once music is actually playing
+            audioPlayer.addEventListener('playing', () => {
+                events.forEach(evt => document.removeEventListener(evt, unlock));
+            }, { once: true });
+        }
+
+        if (audioPlayer) setupMusicUnlock();
 
         // 1. SCROLL UNROLL ANIMATION & AUDIO TRIGGER
         function openScrollInvitation() {
@@ -826,6 +866,7 @@
             btn.dataset.opened = '1';
 
             // Direct audio trigger on unroll
+            userPausedMusic = false;
             startMusic();
 
             const overlay = document.getElementById('scroll-overlay');
@@ -853,8 +894,10 @@
         function toggleAudio() {
             if (!audioPlayer) return;
             if (audioPlayer.paused) {
+                userPausedMusic = false;
                 startMusic();
             } else {
+                userPausedMusic = true;
                 audioPlayer.pause();
             }
         }
