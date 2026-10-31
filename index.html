@@ -232,7 +232,9 @@
     <img src="vines.png" class="side-vine-img right" alt="Rose Vine Decoration Right">
 
     <!-- BACKGROUND MUSIC -->
-    <audio id="bg-music" src="bg-music.mp3" loop preload="auto" playsinline></audio>
+    <audio id="bg-music" loop preload="auto" playsinline>
+        <source src="bg-music.mp3" type="audio/mpeg">
+    </audio>
 
     <!-- REALISTIC SCROLL INVITATION OVERLAY -->
     <div id="scroll-overlay" class="fixed inset-0 z-50 flex items-center justify-center bg-black/95 p-4">
@@ -510,23 +512,23 @@
                             <img src="rose.png" alt="Rose" class="w-4 h-4">
                         </h3>
                         <ol class="space-y-1 text-xs text-cream/90 list-decimal list-inside font-medium">
-                            <li>Orion</li>
-                            <li>Aidan</li>
-                            <li>Gian</li>
-                            <li>Carrens</li>
-                            <li>Elijah</li>
-                            <li>Marcial</li>
-                            <li>Asser</li>
-                            <li>Arth</li>
-                            <li>Kiev</li>
-                            <li>Norman</li>
-                            <li>Von</li>
-                            <li>Ken</li>
-                            <li>Gab</li>
-                            <li>Brennan</li>
-                            <li>Kuya impoy</li>
-                            <li>Kuya adoy</li>
-                            <li>Kuya Reighnard</li>
+                            <li>Orion Pillai</li>
+                            <li>Aidan Dimaisip</li>
+                            <li>Gian Ramos</li>
+                            <li>Carrens Lucido</li>
+                            <li>Elijah Arrogancia</li>
+                            <li>Marcial Capiña</li>
+                            <li>Arth Bejer</li>
+                            <li>Asser Gapunuan</li>
+                            <li>Kiev Subijano</li>
+                            <li>Norman Perez</li>
+                            <li>Von Supeña</li>
+                            <li>Keane Banayo</li>
+                            <li>Gab Sumido</li>
+                            <li>Brennan Perez</li>
+                            <li>Kuya Kim Grajo</li>
+                            <li>Kuya Aldwin Aramil</li>
+                            <li>Kuya Reighn</li>
                             <li>Daddy Rowell</li>
                         </ol>
                     </div>
@@ -538,24 +540,24 @@
                             <img src="rose.png" alt="Rose" class="w-4 h-4">
                         </h3>
                         <ol class="space-y-1 text-xs text-cream/90 list-decimal list-inside font-medium">
-                            <li>Amiela</li>
-                            <li>Phoebe</li>
-                            <li>Reana</li>
-                            <li>Eugene</li>
-                            <li>Marga</li>
-                            <li>Yesha</li>
-                            <li>Jehan</li>
-                            <li>Atasha</li>
-                            <li>Mahdi</li>
-                            <li>Aeyianna</li>
-                            <li>Nia</li>
-                            <li>Ginang Yen</li>
-                            <li>Mami Ida</li>
-                            <li>Mami Lita</li>
-                            <li>Yenna</li>
-                            <li>Ate KC</li>
-                            <li>Ate Erica</li>
-                            <li>Ate Ianne</li>
+                            <li>Amiela Magpantay</li>
+                            <li>Phoebe Peteros</li>
+                            <li>Reana Cedre</li>
+                            <li>Eugene Ignacio</li>
+                            <li>Marga Maranan</li>
+                            <li>Yesha Alinea</li>
+                            <li>Jehan Catimbang</li>
+                            <li>Atasha Morpe</li>
+                            <li>Mahdi Rivera</li>
+                            <li>Aeyianna Sumague</li>
+                            <li>Nia Gamilla</li>
+                            <li>Ginang Yen Dimaano</li>
+                            <li>Mami Ida Salvosa</li>
+                            <li>Mami Lita Glorioso</li>
+                            <li>Yenna Salvosa</li>
+                            <li>Ate KC De Villa</li>
+                            <li>Ate Erica Perez</li>
+                            <li>Ate Ianne Glorioso</li>
                         </ol>
                     </div>
 
@@ -784,9 +786,6 @@
         const musicText = document.getElementById('music-text');
         const musicIcon = document.getElementById('music-icon');
 
-        // Tracks whether the guest deliberately paused the music
-        let userPausedMusic = false;
-
         if (audioPlayer) {
             audioPlayer.volume = 0.8;
 
@@ -799,65 +798,26 @@
                 if (musicText) musicText.innerText = "Play Music"; 
                 if (musicIcon) musicIcon.className = "fa-solid fa-music text-gold";
             });
-
-            audioPlayer.addEventListener('error', () => {
-                console.error(
-                    "bg-music.mp3 could not be loaded. Make sure the file is in the same folder as this HTML file, " +
-                    "the name is exactly 'bg-music.mp3' (lowercase), and that it isn't 'bg-music.mp3.mp3'.",
-                    audioPlayer.error
-                );
-            });
         }
 
         function startMusic() {
             if (!audioPlayer) return;
-
-            audioPlayer.muted = false;
-            audioPlayer.volume = 0.8;
-
-            const attemptPlay = () => {
-                const playPromise = audioPlayer.play();
-                if (playPromise !== undefined) {
-                    playPromise.catch(error => {
-                        console.log("Play was blocked or not ready yet:", error);
-                    });
-                }
-            };
-
-            // If the file hasn't buffered enough yet, wait for it, then play
-            if (audioPlayer.readyState < 2) {
-                audioPlayer.addEventListener('canplay', function onCanPlay() {
-                    audioPlayer.removeEventListener('canplay', onCanPlay);
-                    if (!userPausedMusic) attemptPlay();
-                });
-                // Kick off loading if the browser hasn't started yet
-                if (audioPlayer.networkState === HTMLMediaElement.NETWORK_EMPTY ||
-                    audioPlayer.networkState === HTMLMediaElement.NETWORK_NO_SOURCE) {
-                    audioPlayer.load();
-                }
+            
+            if (!audioPlayer.src || audioPlayer.src === "") {
+                audioPlayer.src = "bg-music.mp3";
             }
-
-            // Call play() right away too, so it stays inside the user's click/tap
-            attemptPlay();
+            
+            audioPlayer.muted = false;
+            
+            const playPromise = audioPlayer.play();
+            if (playPromise !== undefined) {
+                playPromise.catch(error => {
+                    console.log("Play failed, reloading audio source...", error);
+                    audioPlayer.load();
+                    audioPlayer.play().catch(e => console.log("Final play attempt failed:", e));
+                });
+            }
         }
-
-        // Fallback: if the first attempt was blocked, the next tap/click/keypress starts the music
-        function setupMusicUnlock() {
-            const events = ['pointerdown', 'touchend', 'click', 'keydown'];
-            const unlock = () => {
-                if (audioPlayer && audioPlayer.paused && !userPausedMusic) {
-                    startMusic();
-                }
-            };
-            events.forEach(evt => document.addEventListener(evt, unlock, { passive: true }));
-
-            // Stop listening once music is actually playing
-            audioPlayer.addEventListener('playing', () => {
-                events.forEach(evt => document.removeEventListener(evt, unlock));
-            }, { once: true });
-        }
-
-        if (audioPlayer) setupMusicUnlock();
 
         // 1. SCROLL UNROLL ANIMATION & AUDIO TRIGGER
         function openScrollInvitation() {
@@ -866,7 +826,6 @@
             btn.dataset.opened = '1';
 
             // Direct audio trigger on unroll
-            userPausedMusic = false;
             startMusic();
 
             const overlay = document.getElementById('scroll-overlay');
@@ -894,10 +853,8 @@
         function toggleAudio() {
             if (!audioPlayer) return;
             if (audioPlayer.paused) {
-                userPausedMusic = false;
                 startMusic();
             } else {
-                userPausedMusic = true;
                 audioPlayer.pause();
             }
         }
